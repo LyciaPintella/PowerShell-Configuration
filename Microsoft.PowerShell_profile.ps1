@@ -391,3 +391,13 @@ Write-Host "  odsize           - Get OneDrive cache size" -ForegroundColor Gray
 Write-Host "  gdsize           - Get Google Drive size" -ForegroundColor Gray
 Write-Host "  gdtemp           - Get Google Drive temp size" -ForegroundColor Gray
 Write-Host "  gdcache          - Get Google Drive streaming cache size" -ForegroundColor Gray
+
+Write-Host "PowerShell Profile (PS Version 7.5.4) Loaded" -ForegroundColor Green
+Write-Host "Available Commands:" -ForegroundColor Cyan
+Write-Host "  EmptyRecycleBin  - Clear stuck recycle bin items" -ForegroundColor Gray
+Write-Host "  OneDriveSecurity - Remove OneDrive deny-delete permissions" -ForegroundColor Gray
+Write-Host "  SymLinks         - Find symbolic links recursively" -ForegroundColor Gray
+Write-Host "  odsize           - Get OneDrive cache size" -ForegroundColor Gray
+Write-Host "  gdsize           - Get Google Drive size" -ForegroundColor Gray
+Write-Host "  gdtemp           - Get Google Drive temp size" -ForegroundColor Gray
+Write-Host "  gdcache          - Get Google Drive streaming cache size" -ForegroundColor Gray
