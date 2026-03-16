@@ -3,7 +3,6 @@ if (-not (Test-Path -Path $PROFILE)) {
 	New-Item -ItemType File -Path $PROFILE -Force | Out-Null
 }
 
-
 # ! Clear Stuck Recycle Bin Items
 function Clear-StuckRecycleBin {
 	[CmdletBinding()]
@@ -22,7 +21,7 @@ function Clear-StuckRecycleBin {
 			Clear-RecycleBin -Confirm:$false -Force
 		}
 	}
- else {
+	else {
 		Write-Host "Clear-RecycleBin not available in this session; skipping to force removal." -ForegroundColor Yellow
 	}
 
@@ -152,13 +151,14 @@ if (-not (Get-Alias -Name OneDriveSecurity -ErrorAction SilentlyContinue)) {
 <# ! Recursively Find Symbolic Links Under The Current Directory.
 			Run as:
 		     Get-Symlinks
-	     Get-Symlinks -OnlySymbolic #>
+			#$Get-Symlinks -Symbolic#>
 
 function Get-Symlinks {
 	[CmdletBinding()]
 	param(
 		[string]$Path = '.',
-		[switch]$OnlySymbolic
+		[switch]$Symbolic,
+		[switch]$Directory
 	)
 	$gciParams = @{
 		Path        = $Path
@@ -173,8 +173,16 @@ function Get-Symlinks {
 
 	$items = Get-ChildItem @gciParams
 
-	if ($OnlySymbolic) {
-		$items = $items | Where-Object LinkType -eq 'SymbolicLink'
+	if ($Symbolic) {
+		$items = $items | Where-Object { $_.LinkType -eq 'SymbolicLink' }
+	}
+	else {
+		if ($Directory) {
+			$items = $items | Where-Object { $_.LinkType -eq 'Directory' }
+		}
+		else {
+			$items = $items | Where-Object { $_.LinkType -in 'SymbolicLink', 'Directory' }
+		}
 	}
 
 	$items | Select-Object FullName, LinkType, Target
@@ -182,6 +190,123 @@ function Get-Symlinks {
 # Create a short alias.
 if (-not (Get-Alias -Name SymLinks -ErrorAction SilentlyContinue)) {
 	Set-Alias SymLinks Get-Symlinks
+}
+
+# ! Get Google Drive Total File Size
+function Get-ODriveSize {
+	[CmdletBinding()]
+	param(
+		[string]
+		$CachePath = "e:\od"
+	)
+
+	if (-not (Test-Path $CachePath)) {
+		Write-Error "Cache path '$CachePath' does not exist."
+		return
+	}
+
+	# Sum all file lengths under the cache directory
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
+	| Where-Object { -not $_.PSIsContainer } `
+	| Measure-Object -Property Length -Sum `
+	| Select-Object -ExpandProperty Sum
+
+	if ($null -eq $totalBytes) {
+		Write-Output "No files found under '$CachePath'."
+		return
+	}
+
+	# Convert to human-readable units
+	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
+
+	[PSCustomObject]@{
+		CachePath = $CachePath
+		Bytes     = $totalBytes
+		MB        = "$sizeMB MB"
+		GB        = "$sizeGB GB"
+	}
+}
+if (-not (Get-Alias -Name odsize -ErrorAction SilentlyContinue)) {
+	Set-Alias -Name odsize -Value Get-ODriveSize
+}
+
+# ! Get Google Drive Total File Size
+function Get-GDriveSize {
+	[CmdletBinding()]
+	param(
+		[string]
+		$CachePath = "F:\Google Drive"
+	)
+
+	if (-not (Test-Path $CachePath)) {
+		Write-Error "Cache path '$CachePath' does not exist."
+		return
+	}
+
+	# Sum all file lengths under the cache directory
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
+	| Where-Object { -not $_.PSIsContainer } `
+	| Measure-Object -Property Length -Sum `
+	| Select-Object -ExpandProperty Sum
+
+	if ($null -eq $totalBytes) {
+		Write-Output "No files found under '$CachePath'."
+		return
+	}
+
+	# Convert to human-readable units
+	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
+
+	[PSCustomObject]@{
+		CachePath = $CachePath
+		Bytes     = $totalBytes
+		MB        = "$sizeMB MB"
+		GB        = "$sizeGB GB"
+	}
+}
+if (-not (Get-Alias -Name gdsize -ErrorAction SilentlyContinue)) {
+	Set-Alias -Name gdsize -Value Get-GDriveSize
+}
+
+# ! Get Google Drive Temporary File Size
+function Get-GDriveTempSize {
+	[CmdletBinding()]
+	param(
+		[string]
+		$CachePath = "D:\Temp\GoogleDriveFS"
+	)
+
+	if (-not (Test-Path $CachePath)) {
+		Write-Error "Cache path '$CachePath' does not exist."
+		return
+	}
+
+	# Sum all file lengths under the cache directory
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
+	| Where-Object { -not $_.PSIsContainer } `
+	| Measure-Object -Property Length -Sum `
+	| Select-Object -ExpandProperty Sum
+
+	if ($null -eq $totalBytes) {
+		Write-Output "No files found under '$CachePath'."
+		return
+	}
+
+	# Convert to human-readable units
+	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
+
+	[PSCustomObject]@{
+		CachePath = $CachePath
+		Bytes     = $totalBytes
+		MB        = "$sizeMB MB"
+		GB        = "$sizeGB GB"
+	}
+}
+if (-not (Get-Alias -Name gdtemp -ErrorAction SilentlyContinue)) {
+	Set-Alias -Name gdtemp -Value Get-GDriveTempSize
 }
 
 # ! Get Google Drive Streaming Cache Size
@@ -221,4 +346,4 @@ function Get-GDriveCacheSize {
 }
 if (-not (Get-Alias -Name gdcache -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name gdcache -Value Get-GDriveCacheSize
-   }
+}

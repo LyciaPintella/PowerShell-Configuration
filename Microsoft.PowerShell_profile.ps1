@@ -181,7 +181,7 @@ function Get-Symlinks {
 			$items = $items | Where-Object { $_.LinkType -eq 'Directory' }
 		}
 		else {
-			$items = $items | Where-Object { $_.LinkType -eq 'SymbolicLink', 'Directory' }
+			$items = $items | Where-Object { $_.LinkType -in 'SymbolicLink', 'Directory' }
 		}
 	}
 

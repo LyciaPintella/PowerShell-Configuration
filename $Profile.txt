@@ -174,14 +174,14 @@ function Get-Symlinks {
 	$items = Get-ChildItem @gciParams
 
 	if ($Symbolic) {
-		$items = $items | Where-Object $_.LinkType -eq 'SymbolicLink'
+		$items = $items | Where-Object { $_.LinkType -eq 'SymbolicLink' }
 	}
 	else {
 		if ($Directory) {
 			$items = $items | Where-Object { $_.LinkType -eq 'Directory' }
 		}
 		else {
-			$items = $items | Where-Object { $_.LinkType -eq 'SymbolicLink', 'Directory' }
+			$items = $items | Where-Object { $_.LinkType -in 'SymbolicLink', 'Directory' }
 		}
 	}
 
