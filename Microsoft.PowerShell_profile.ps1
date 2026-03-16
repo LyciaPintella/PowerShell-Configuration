@@ -1,9 +1,18 @@
+# ============================================================
+# PowerShell Profile - Compatible with Windows PowerShell 5.1
+# ============================================================
+# This profile works in both PowerShell 5.1 and PowerShell 7+
+# Save to: $HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+
 # Ensure profile exists
 if (-not (Test-Path -Path $PROFILE)) {
 	New-Item -ItemType File -Path $PROFILE -Force | Out-Null
 }
 
-# ! Clear Stuck Recycle Bin Items
+# ============================================================
+# FUNCTION: Clear-StuckRecycleBin
+# ============================================================
+# Clear Stuck Recycle Bin Items
 function Clear-StuckRecycleBin {
 	[CmdletBinding()]
 	param(
@@ -13,7 +22,7 @@ function Clear-StuckRecycleBin {
 	# Try the supported cmdlet first
 	if (Get-Command -Name Clear-RecycleBin -ErrorAction SilentlyContinue) {
 		if ($WhatIf) {
-			Write-Host "Preview: Clear-RecycleBin -Confirm:$false -WhatIf" -ForegroundColor Cyan
+			Write-Host "Preview: Clear-RecycleBin -Confirm:`$false -WhatIf" -ForegroundColor Cyan
 			Clear-RecycleBin -Confirm:$false -WhatIf
 		}
 		else {
@@ -26,7 +35,7 @@ function Clear-StuckRecycleBin {
 	}
 
 	# If user asked for force removal or if items remain, enumerate drives and remove $Recycle.Bin contents
-	Write-Host "Enumerating drives for $Recycle.Bin folders..." -ForegroundColor Yellow
+	Write-Host "Enumerating drives for `$Recycle.Bin folders..." -ForegroundColor Yellow
 	$drives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Root
 
 	foreach ($root in $drives) {
@@ -53,16 +62,19 @@ function Clear-StuckRecycleBin {
 	Write-Host "Done. If some items remain, try running PowerShell as Administrator and re-run this command." -ForegroundColor Cyan
 }
 
-# Create a short alias.
+# Create alias for Clear-StuckRecycleBin
 if (-not (Get-Alias -Name EmptyRecycleBin -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name EmptyRecycleBin -Value Clear-StuckRecycleBin
 }
 
-<# ! Remove DENY DELETE permissions from the selected folders #>
+# ============================================================
+# FUNCTION: Remove-OD-Denies
+# ============================================================
+# Remove DENY DELETE permissions from the selected folders
 function Remove-OD-Denies {
 	<#
     .SYNOPSIS
-    Removes “Deny – Delete subfolders and files” ACL entries for Everyone
+    Removes "Deny - Delete subfolders and files" ACL entries for Everyone
     under specified OneDrive folders.
 
     .DESCRIPTION
@@ -90,23 +102,22 @@ function Remove-OD-Denies {
 		Write-Host "Processing folder: $path"
 
 		if (-not (Test-Path $path)) {
-			Write-Warning "  → Path not found. Skipping."
+			Write-Warning "  -> Path not found. Skipping."
 			continue
 		}
 
 		$acl = Get-Acl -Path $path
-		$denyRules = $acl.Access |
-		Where-Object {
+		$denyRules = $acl.Access | Where-Object {
 			$_.IdentityReference -eq 'Everyone' -and
 			$_.FileSystemRights -match 'DeleteSubdirectoriesAndFiles' -and
 			$_.AccessControlType -eq 'Deny'
 		}
 
 		if ($denyRules.Count -eq 0) {
-			Write-Host "  → No Deny-Delete rules found."
+			Write-Host "  -> No Deny-Delete rules found."
 		}
 		else {
-			Write-Host "  → Found $($denyRules.Count) Deny-Delete rule(s). Attempting removal..."
+			Write-Host "  -> Found $($denyRules.Count) Deny-Delete rule(s). Attempting removal..."
 
 			foreach ($rule in $denyRules) {
 				$acl.RemoveAccessRule($rule)
@@ -120,39 +131,39 @@ function Remove-OD-Denies {
 
 				# Verify
 				$newAcl = Get-Acl -Path $path
-				$stillDenied = $newAcl.Access |
-				Where-Object {
+				$stillDenied = $newAcl.Access | Where-Object {
 					$_.IdentityReference -eq 'Everyone' -and
 					$_.FileSystemRights -match 'DeleteSubdirectoriesAndFiles' -and
 					$_.AccessControlType -eq 'Deny'
 				}
 
 				if ($stillDenied.Count -eq 0) {
-					Write-Host "  → ✔ Successfully removed all Deny-Delete rules."
+					Write-Host "  -> Successfully removed all Deny-Delete rules." -ForegroundColor Green
 				}
 				else {
-					Write-Warning "  → ✖ Removal attempted, but $($stillDenied.Count) rule(s) still present."
+					Write-Warning "  -> Removal attempted, but $($stillDenied.Count) rule(s) still present."
 				}
 			}
 			catch {
-				Write-Error "  → Error applying ACL: $_"
+				Write-Error "  -> Error applying ACL: $_"
 			}
 		}
 
 		Write-Host ""  # Blank line for readability
 	}
 }
-# Create a short alias.
+
+# Create alias for Remove-OD-Denies
 if (-not (Get-Alias -Name OneDriveSecurity -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name OneDriveSecurity -Value Remove-OD-Denies
 }
 
-
-<# ! Recursively Find Symbolic Links Under The Current Directory.
-			Run as:
-		     Get-Symlinks
-			#$Get-Symlinks -Symbolic#>
-
+# ============================================================
+# FUNCTION: Get-Symlinks
+# ============================================================
+# Recursively Find Symbolic Links Under The Current Directory
+# Usage: Get-Symlinks
+#        Get-Symlinks -Symbolic
 function Get-Symlinks {
 	[CmdletBinding()]
 	param(
@@ -160,6 +171,7 @@ function Get-Symlinks {
 		[switch]$Symbolic,
 		[switch]$Directory
 	)
+    
 	$gciParams = @{
 		Path        = $Path
 		Recurse     = $true
@@ -167,6 +179,8 @@ function Get-Symlinks {
 		Attributes  = 'ReparsePoint'
 		ErrorAction = 'SilentlyContinue'
 	}
+    
+	# Only add FollowSymlink parameter in PowerShell 7+
 	if ($PSVersionTable.PSVersion.Major -ge 7) {
 		$gciParams['FollowSymlink'] = $false
 	}
@@ -187,17 +201,20 @@ function Get-Symlinks {
 
 	$items | Select-Object FullName, LinkType, Target
 }
-# Create a short alias.
+
+# Create alias for Get-Symlinks
 if (-not (Get-Alias -Name SymLinks -ErrorAction SilentlyContinue)) {
 	Set-Alias SymLinks Get-Symlinks
 }
 
-# ! Get Google Drive Total File Size
+# ============================================================
+# FUNCTION: Get-ODriveSize
+# ============================================================
+# Get OneDrive Total File Size
 function Get-ODriveSize {
 	[CmdletBinding()]
 	param(
-		[string]
-		$CachePath = "e:\od"
+		[string]$CachePath = "e:\od"
 	)
 
 	if (-not (Test-Path $CachePath)) {
@@ -206,10 +223,10 @@ function Get-ODriveSize {
 	}
 
 	# Sum all file lengths under the cache directory
-	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
-	| Where-Object { -not $_.PSIsContainer } `
-	| Measure-Object -Property Length -Sum `
-	| Select-Object -ExpandProperty Sum
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force |
+	Where-Object { -not $_.PSIsContainer } |
+	Measure-Object -Property Length -Sum |
+	Select-Object -ExpandProperty Sum
 
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$CachePath'."
@@ -227,16 +244,20 @@ function Get-ODriveSize {
 		GB        = "$sizeGB GB"
 	}
 }
+
+# Create alias for Get-ODriveSize
 if (-not (Get-Alias -Name odsize -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name odsize -Value Get-ODriveSize
 }
 
-# ! Get Google Drive Total File Size
+# ============================================================
+# FUNCTION: Get-GDriveSize
+# ============================================================
+# Get Google Drive Total File Size
 function Get-GDriveSize {
 	[CmdletBinding()]
 	param(
-		[string]
-		$CachePath = "F:\Google Drive"
+		[string]$CachePath = "F:\Google Drive"
 	)
 
 	if (-not (Test-Path $CachePath)) {
@@ -245,10 +266,10 @@ function Get-GDriveSize {
 	}
 
 	# Sum all file lengths under the cache directory
-	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
-	| Where-Object { -not $_.PSIsContainer } `
-	| Measure-Object -Property Length -Sum `
-	| Select-Object -ExpandProperty Sum
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force |
+	Where-Object { -not $_.PSIsContainer } |
+	Measure-Object -Property Length -Sum |
+	Select-Object -ExpandProperty Sum
 
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$CachePath'."
@@ -266,16 +287,20 @@ function Get-GDriveSize {
 		GB        = "$sizeGB GB"
 	}
 }
+
+# Create alias for Get-GDriveSize
 if (-not (Get-Alias -Name gdsize -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name gdsize -Value Get-GDriveSize
 }
 
-# ! Get Google Drive Temporary File Size
+# ============================================================
+# FUNCTION: Get-GDriveTempSize
+# ============================================================
+# Get Google Drive Temporary File Size
 function Get-GDriveTempSize {
 	[CmdletBinding()]
 	param(
-		[string]
-		$CachePath = "D:\Temp\GoogleDriveFS"
+		[string]$CachePath = "D:\Temp\GoogleDriveFS"
 	)
 
 	if (-not (Test-Path $CachePath)) {
@@ -284,10 +309,10 @@ function Get-GDriveTempSize {
 	}
 
 	# Sum all file lengths under the cache directory
-	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
-	| Where-Object { -not $_.PSIsContainer } `
-	| Measure-Object -Property Length -Sum `
-	| Select-Object -ExpandProperty Sum
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force |
+	Where-Object { -not $_.PSIsContainer } |
+	Measure-Object -Property Length -Sum |
+	Select-Object -ExpandProperty Sum
 
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$CachePath'."
@@ -305,16 +330,20 @@ function Get-GDriveTempSize {
 		GB        = "$sizeGB GB"
 	}
 }
+
+# Create alias for Get-GDriveTempSize
 if (-not (Get-Alias -Name gdtemp -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name gdtemp -Value Get-GDriveTempSize
 }
 
-# ! Get Google Drive Streaming Cache Size
+# ============================================================
+# FUNCTION: Get-GDriveCacheSize
+# ============================================================
+# Get Google Drive Streaming Cache Size
 function Get-GDriveCacheSize {
 	[CmdletBinding()]
 	param(
-		[string]
-		$CachePath = "D:\Google Drive Streaming Cache\DriveFS"
+		[string]$CachePath = "D:\Google Drive Streaming Cache\DriveFS"
 	)
 
 	if (-not (Test-Path $CachePath)) {
@@ -323,10 +352,10 @@ function Get-GDriveCacheSize {
 	}
 
 	# Sum all file lengths under the cache directory
-	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force `
-	| Where-Object { -not $_.PSIsContainer } `
-	| Measure-Object -Property Length -Sum `
-	| Select-Object -ExpandProperty Sum
+	$totalBytes = Get-ChildItem -Path $CachePath -Recurse -Force |
+	Where-Object { -not $_.PSIsContainer } |
+	Measure-Object -Property Length -Sum |
+	Select-Object -ExpandProperty Sum
 
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$CachePath'."
@@ -344,6 +373,21 @@ function Get-GDriveCacheSize {
 		GB        = "$sizeGB GB"
 	}
 }
+
+# Create alias for Get-GDriveCacheSize
 if (-not (Get-Alias -Name gdcache -ErrorAction SilentlyContinue)) {
 	Set-Alias -Name gdcache -Value Get-GDriveCacheSize
 }
+
+# ============================================================
+# Profile Loaded Successfully
+# ============================================================
+Write-Host "PowerShell Profile (v5.1 & 7 Compatible) Loaded" -ForegroundColor Green
+Write-Host "Available Commands:" -ForegroundColor Cyan
+Write-Host "  EmptyRecycleBin  - Clear stuck recycle bin items" -ForegroundColor Gray
+Write-Host "  OneDriveSecurity - Remove OneDrive deny-delete permissions" -ForegroundColor Gray
+Write-Host "  SymLinks         - Find symbolic links recursively" -ForegroundColor Gray
+Write-Host "  odsize           - Get OneDrive cache size" -ForegroundColor Gray
+Write-Host "  gdsize           - Get Google Drive size" -ForegroundColor Gray
+Write-Host "  gdtemp           - Get Google Drive temp size" -ForegroundColor Gray
+Write-Host "  gdcache          - Get Google Drive streaming cache size" -ForegroundColor Gray

@@ -1,4 +1,12 @@
 {
+	"files.exclude": {
+		"**/.gitignore": false,
+		"**/.git/**": true,
+		"**/desktop.ini": true,
+		"**/README.md": false,
+		"**/*sync.ffs_*": true,
+		"**/*-Jessica-PC*/**": true
+	},	
 	"workbench.colorCustomizations": {
 		"[Just Black + Comments]": {},
 		"activityBar.background": "#092D5A",
