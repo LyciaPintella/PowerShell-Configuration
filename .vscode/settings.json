@@ -1,16 +1,10 @@
 {
-	"workbench.colorCustomizations": {
-		"[Just Black + Comments]": {},
-		"activityBar.background": "#092D5A",
-		"titleBar.activeBackground": "#0D3F7E",
-		"titleBar.activeForeground": "#F7FAFE",
-		"titleBar.inactiveBackground": "#092D5A",
-		"titleBar.inactiveForeground": "#F7FAFE",
-		"statusBar.background": "#092D5A",
-		"statusBar.foreground": "#F7FAFE",
-		"statusBar.debuggingBackground": "#092D5A",
-		"statusBar.debuggingForeground": "#F7FAFE",
-		"statusBar.noFolderBackground": "#092D5A",
-		"statusBar.noFolderForeground": "#F7FAFE"
-	}
+	"files.exclude": {
+		"**/.gitignore": false,
+		"**/.git": true,
+		"**/desktop.ini": true,
+		"**/README.md": false,
+		"**/*sync.ffs_db": true,
+		"**/*-Jessica-PC*/**": true
+	},
 }
