@@ -327,15 +327,15 @@ function PowerShellVersion {
 function PowerShellProfileFunctions {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
-	Write-Host "Custom Functions Defined in module '$moduleName':" -ForegroundColor Green
-	Get-Command -CommandType Function -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name)" -ForegroundColor Magenta }
+	Write-Host "Custom Functions Defined in module '$moduleName':" -ForegroundColor DarkBlue
+	Get-Command -CommandType Function -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name)" -ForegroundColor Green }
 }
 
 function PowerShellProfileAliases {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
-	Write-Host "`nCustom Aliases Defined in module '$moduleName':" -ForegroundColor Green
-	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor Blue }
+	Write-Host "`nCustom Aliases Defined in module '$moduleName':" -ForegroundColor Magenta
+	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor DarkBlue }
 }
 
 # ============================================================
