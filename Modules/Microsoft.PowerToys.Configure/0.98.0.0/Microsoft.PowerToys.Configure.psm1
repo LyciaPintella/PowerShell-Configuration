@@ -86,6 +86,9 @@ class AdvancedPaste {
     [DscProperty()] [Nullable[bool]]
     $EnableClipboardPreview = $null
 
+    [DscProperty()] [Nullable[bool]]
+    $AutoCopySelectionForCustomActionHotkey = $null
+
     [DscProperty()] [string]
     $AdvancedPasteUIShortcut = $null
 
@@ -117,6 +120,10 @@ class AdvancedPaste {
             $Changes.Value += "set AdvancedPaste.EnableClipboardPreview `"$($this.EnableClipboardPreview)`""
         }
 
+        if ($this.AutoCopySelectionForCustomActionHotkey -ne $null) {
+            $Changes.Value += "set AdvancedPaste.AutoCopySelectionForCustomActionHotkey `"$($this.AutoCopySelectionForCustomActionHotkey)`""
+        }
+
         if ($this.AdvancedPasteUIShortcut -notlike '') {
             $Changes.Value += "set AdvancedPaste.AdvancedPasteUIShortcut `"$($this.AdvancedPasteUIShortcut)`""
         }
@@ -146,6 +153,9 @@ class AlwaysOnTop {
 
     [DscProperty()] [string]
     $FrameEnabled = $null
+
+    [DscProperty()] [string]
+    $ShowInSystemMenu = $null
 
     [DscProperty()] [Nullable[int]]
     $FrameThickness = $null
@@ -180,6 +190,10 @@ class AlwaysOnTop {
 
         if ($this.FrameEnabled -notlike '') {
             $Changes.Value += "set AlwaysOnTop.FrameEnabled `"$($this.FrameEnabled)`""
+        }
+
+        if ($this.ShowInSystemMenu -notlike '') {
+            $Changes.Value += "set AlwaysOnTop.ShowInSystemMenu `"$($this.ShowInSystemMenu)`""
         }
 
         if ($this.FrameThickness -ne $null) {
@@ -372,6 +386,9 @@ class CursorWrap {
     [DscProperty()] [Nullable[int]]
     $WrapMode = $null
 
+    [DscProperty()] [Nullable[int]]
+    $ActivationMode = $null
+
     [DscProperty()] [string]
     $DisableCursorWrapOnSingleMonitor = $null
 
@@ -392,6 +409,10 @@ class CursorWrap {
 
         if ($this.WrapMode -ne $null) {
             $Changes.Value += "set CursorWrap.WrapMode `"$($this.WrapMode)`""
+        }
+
+        if ($this.ActivationMode -ne $null) {
+            $Changes.Value += "set CursorWrap.ActivationMode `"$($this.ActivationMode)`""
         }
 
         if ($this.DisableCursorWrapOnSingleMonitor -notlike '') {
@@ -956,9 +977,44 @@ class ImageResizer {
     }
 }
 class KeyboardManager {
+    [DscProperty()] [string]
+    $DefaultToggleShortcut = $null
+
+    [DscProperty()] [string]
+    $DefaultEditorShortcut = $null
+
+    [DscProperty()] [string]
+    $ToggleShortcut = $null
+
+    [DscProperty()] [string]
+    $EditorShortcut = $null
+
+    [DscProperty()] [Nullable[bool]]
+    $UseNewEditor = $null
+
     [DscProperty(Key)] [Nullable[bool]]
     $Enabled = $null
     ApplyChanges([ref]$Changes) {
+        if ($this.DefaultToggleShortcut -notlike '') {
+            $Changes.Value += "set KeyboardManager.DefaultToggleShortcut `"$($this.DefaultToggleShortcut)`""
+        }
+
+        if ($this.DefaultEditorShortcut -notlike '') {
+            $Changes.Value += "set KeyboardManager.DefaultEditorShortcut `"$($this.DefaultEditorShortcut)`""
+        }
+
+        if ($this.ToggleShortcut -notlike '') {
+            $Changes.Value += "set KeyboardManager.ToggleShortcut `"$($this.ToggleShortcut)`""
+        }
+
+        if ($this.EditorShortcut -notlike '') {
+            $Changes.Value += "set KeyboardManager.EditorShortcut `"$($this.EditorShortcut)`""
+        }
+
+        if ($this.UseNewEditor -ne $null) {
+            $Changes.Value += "set KeyboardManager.UseNewEditor `"$($this.UseNewEditor)`""
+        }
+
         if ($this.Enabled -ne $null) {
             $Changes.Value += "set General.Enabled.KeyboardManager `"$($this.Enabled)`""
         }
@@ -996,6 +1052,18 @@ class LightSwitch {
 
     [DscProperty()] [string]
     $ToggleThemeHotkey = $null
+
+    [DscProperty()] [string]
+    $EnableDarkModeProfile = $null
+
+    [DscProperty()] [string]
+    $EnableLightModeProfile = $null
+
+    [DscProperty()] [string]
+    $DarkModeProfile = $null
+
+    [DscProperty()] [string]
+    $LightModeProfile = $null
 
     [DscProperty(Key)] [Nullable[bool]]
     $Enabled = $null
@@ -1038,6 +1106,22 @@ class LightSwitch {
 
         if ($this.ToggleThemeHotkey -notlike '') {
             $Changes.Value += "set LightSwitch.ToggleThemeHotkey `"$($this.ToggleThemeHotkey)`""
+        }
+
+        if ($this.EnableDarkModeProfile -notlike '') {
+            $Changes.Value += "set LightSwitch.EnableDarkModeProfile `"$($this.EnableDarkModeProfile)`""
+        }
+
+        if ($this.EnableLightModeProfile -notlike '') {
+            $Changes.Value += "set LightSwitch.EnableLightModeProfile `"$($this.EnableLightModeProfile)`""
+        }
+
+        if ($this.DarkModeProfile -notlike '') {
+            $Changes.Value += "set LightSwitch.DarkModeProfile `"$($this.DarkModeProfile)`""
+        }
+
+        if ($this.LightModeProfile -notlike '') {
+            $Changes.Value += "set LightSwitch.LightModeProfile `"$($this.LightModeProfile)`""
         }
 
         if ($this.Enabled -ne $null) {
@@ -1591,6 +1675,9 @@ class NewPlus {
     [DscProperty()] [string]
     $ReplaceVariables = $null
 
+    [DscProperty()] [string]
+    $BuiltInNewHidePreference = $null
+
     [DscProperty(Key)] [Nullable[bool]]
     $Enabled = $null
     ApplyChanges([ref]$Changes) {
@@ -1608,6 +1695,10 @@ class NewPlus {
 
         if ($this.ReplaceVariables -notlike '') {
             $Changes.Value += "set NewPlus.ReplaceVariables `"$($this.ReplaceVariables)`""
+        }
+
+        if ($this.BuiltInNewHidePreference -notlike '') {
+            $Changes.Value += "set NewPlus.BuiltInNewHidePreference `"$($this.BuiltInNewHidePreference)`""
         }
 
         if ($this.Enabled -ne $null) {
@@ -1732,6 +1823,73 @@ class PowerAccent {
 
         if ($this.Enabled -ne $null) {
             $Changes.Value += "set General.Enabled.PowerAccent `"$($this.Enabled)`""
+        }
+
+
+    }
+}
+class PowerDisplay {
+    [DscProperty()] [string]
+    $ActivationShortcut = $null
+
+    [DscProperty()] [Nullable[int]]
+    $MonitorRefreshDelay = $null
+
+    [DscProperty()] [string]
+    $Monitors = $null
+
+    [DscProperty()] [Nullable[bool]]
+    $RestoreSettingsOnStartup = $null
+
+    [DscProperty()] [Nullable[bool]]
+    $ShowSystemTrayIcon = $null
+
+    [DscProperty()] [Nullable[bool]]
+    $ShowProfileSwitcher = $null
+
+    [DscProperty()] [Nullable[bool]]
+    $ShowIdentifyMonitorsButton = $null
+
+    [DscProperty()] [string]
+    $CustomVcpMappings = $null
+
+    [DscProperty(Key)] [Nullable[bool]]
+    $Enabled = $null
+    ApplyChanges([ref]$Changes) {
+        if ($this.ActivationShortcut -notlike '') {
+            $Changes.Value += "set PowerDisplay.ActivationShortcut `"$($this.ActivationShortcut)`""
+        }
+
+        if ($this.MonitorRefreshDelay -ne $null) {
+            $Changes.Value += "set PowerDisplay.MonitorRefreshDelay `"$($this.MonitorRefreshDelay)`""
+        }
+
+        if ($this.Monitors -notlike '') {
+            $Changes.Value += "set PowerDisplay.Monitors `"$($this.Monitors)`""
+        }
+
+        if ($this.RestoreSettingsOnStartup -ne $null) {
+            $Changes.Value += "set PowerDisplay.RestoreSettingsOnStartup `"$($this.RestoreSettingsOnStartup)`""
+        }
+
+        if ($this.ShowSystemTrayIcon -ne $null) {
+            $Changes.Value += "set PowerDisplay.ShowSystemTrayIcon `"$($this.ShowSystemTrayIcon)`""
+        }
+
+        if ($this.ShowProfileSwitcher -ne $null) {
+            $Changes.Value += "set PowerDisplay.ShowProfileSwitcher `"$($this.ShowProfileSwitcher)`""
+        }
+
+        if ($this.ShowIdentifyMonitorsButton -ne $null) {
+            $Changes.Value += "set PowerDisplay.ShowIdentifyMonitorsButton `"$($this.ShowIdentifyMonitorsButton)`""
+        }
+
+        if ($this.CustomVcpMappings -notlike '') {
+            $Changes.Value += "set PowerDisplay.CustomVcpMappings `"$($this.CustomVcpMappings)`""
+        }
+
+        if ($this.Enabled -ne $null) {
+            $Changes.Value += "set General.Enabled.PowerDisplay `"$($this.Enabled)`""
         }
 
 
@@ -2304,7 +2462,13 @@ class ZoomIt {
     $RecordFormat = $null
 
     [DscProperty()] [string]
+    $CaptureSystemAudio = $null
+
+    [DscProperty()] [string]
     $CaptureAudio = $null
+
+    [DscProperty()] [string]
+    $MicMonoMix = $null
 
     [DscProperty()] [string]
     $MicrophoneDeviceId = $null
@@ -2420,8 +2584,16 @@ class ZoomIt {
             $Changes.Value += "set ZoomIt.RecordFormat `"$($this.RecordFormat)`""
         }
 
+        if ($this.CaptureSystemAudio -notlike '') {
+            $Changes.Value += "set ZoomIt.CaptureSystemAudio `"$($this.CaptureSystemAudio)`""
+        }
+
         if ($this.CaptureAudio -notlike '') {
             $Changes.Value += "set ZoomIt.CaptureAudio `"$($this.CaptureAudio)`""
+        }
+
+        if ($this.MicMonoMix -notlike '') {
+            $Changes.Value += "set ZoomIt.MicMonoMix `"$($this.MicMonoMix)`""
         }
 
         if ($this.MicrophoneDeviceId -notlike '') {
@@ -2608,6 +2780,9 @@ class PowerToysConfigure {
     [PowerAccent]$PowerAccent = [PowerAccent]::new()
 
     [DscProperty()]
+    [PowerDisplay]$PowerDisplay = [PowerDisplay]::new()
+
+    [DscProperty()]
     [PowerLauncher]$PowerLauncher = [PowerLauncher]::new()
 
     [DscProperty()]
@@ -2636,11 +2811,11 @@ class PowerToysConfigure {
 
 
     [string] GetPowerToysSettingsPath() {
-        $installation = Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\* | ForEach-Object { Get-ItemProperty $_.PsPath } | Where-Object { $_.DisplayName -eq "PowerToys (Preview)" -and $_.DisplayVersion -eq "0.97.2" }
+        $installation = Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\* | ForEach-Object { Get-ItemProperty $_.PsPath } | Where-Object { $_.DisplayName -eq "PowerToys (Preview)" -and $_.DisplayVersion -eq "0.98.0" }
 
         if (-not $installation)
         {
-            $installation = Get-ChildItem HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\* | ForEach-Object { Get-ItemProperty $_.PsPath } | Where-Object { $_.DisplayName -eq "PowerToys (Preview)" -and $_.DisplayVersion -eq "0.97.2" }
+            $installation = Get-ChildItem HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\* | ForEach-Object { Get-ItemProperty $_.PsPath } | Where-Object { $_.DisplayName -eq "PowerToys (Preview)" -and $_.DisplayVersion -eq "0.98.0" }
         }
 
         if ($installation) {
@@ -2739,6 +2914,7 @@ class PowerToysConfigure {
         $this.NewPlus.ApplyChanges([ref]$ChangesToApply)
         $this.Peek.ApplyChanges([ref]$ChangesToApply)
         $this.PowerAccent.ApplyChanges([ref]$ChangesToApply)
+        $this.PowerDisplay.ApplyChanges([ref]$ChangesToApply)
         $this.PowerLauncher.ApplyChanges([ref]$ChangesToApply)
         $this.PowerOcr.ApplyChanges([ref]$ChangesToApply)
         $this.PowerPreview.ApplyChanges([ref]$ChangesToApply)
@@ -2774,10 +2950,10 @@ class PowerToysConfigure {
 }
 #endregion DscResources
 # SIG # Begin signature block
-# MIIoKgYJKoZIhvcNAQcCoIIoGzCCKBcCAQExDzANBglghkgBZQMEAgEFADB5Bgor
+# MIIoLQYJKoZIhvcNAQcCoIIoHjCCKBoCAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAoV85aumheRQCg
-# FDDpHHoElDyEYxykiU+rxy5lR+yjx6CCDXYwggX0MIID3KADAgECAhMzAAAEhV6Z
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCCOHC9JapJ+QcRG
+# Tpau5AJIl0gVnIhahWEpi02heDMZWKCCDXYwggX0MIID3KADAgECAhMzAAAEhV6Z
 # 7A5ZL83XAAAAAASFMA0GCSqGSIb3DQEBCwUAMH4xCzAJBgNVBAYTAlVTMRMwEQYD
 # VQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNy
 # b3NvZnQgQ29ycG9yYXRpb24xKDAmBgNVBAMTH01pY3Jvc29mdCBDb2RlIFNpZ25p
@@ -2849,67 +3025,67 @@ class PowerToysConfigure {
 # XJbYANahRr1Z85elCUtIEJmAH9AAKcWxm6U/RXceNcbSoqKfenoi+kiVH6v7RyOA
 # 9Z74v2u3S5fi63V4GuzqN5l5GEv/1rMjaHXmr/r8i+sLgOppO6/8MO0ETI7f33Vt
 # Y5E90Z1WTk+/gFcioXgRMiF670EKsT/7qMykXcGhiJtXcVZOSEXAQsmbdlsKgEhr
-# /Xmfwb1tbWrJUnMTDXpQzTGCGgowghoGAgEBMIGVMH4xCzAJBgNVBAYTAlVTMRMw
+# /Xmfwb1tbWrJUnMTDXpQzTGCGg0wghoJAgEBMIGVMH4xCzAJBgNVBAYTAlVTMRMw
 # EQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVN
 # aWNyb3NvZnQgQ29ycG9yYXRpb24xKDAmBgNVBAMTH01pY3Jvc29mdCBDb2RlIFNp
 # Z25pbmcgUENBIDIwMTECEzMAAASFXpnsDlkvzdcAAAAABIUwDQYJYIZIAWUDBAIB
 # BQCgga4wGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEO
-# MAwGCisGAQQBgjcCARUwLwYJKoZIhvcNAQkEMSIEILxlikj1FzNNxgqNVD+mwS3I
-# /cgBfxcmzoAvxcfuoqQWMEIGCisGAQQBgjcCAQwxNDAyoBSAEgBNAGkAYwByAG8A
+# MAwGCisGAQQBgjcCARUwLwYJKoZIhvcNAQkEMSIEIL58V+EK1DzRLqmjzjoOhXPX
+# M2pXzC+ztwIF7UisuUnIMEIGCisGAQQBgjcCAQwxNDAyoBSAEgBNAGkAYwByAG8A
 # cwBvAGYAdKEagBhodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20wDQYJKoZIhvcNAQEB
-# BQAEggEAveR+Z59LwqnV9IXd1FMxdyersEet7NeEygIQPU98tXvT0aV0DX+RZlxS
-# dEtJRQDUSoysje9R1OwCRgpvnG6mApzHVzMkw8toZ4glLk2tyRncPJ5Xehp+lf0a
-# awRw9gU/eTaDVIw6FAZC4BaKyY+zHweGxGdQViM1/ZJjNpUY+4AUSzkUmmCPh4ob
-# kxjDFaWQoZsTGx1oG4EU5DV9Wi53k4qFbMSnaF1Z34VbgL2Rt2Ll6EI2dJG3ZvnE
-# kGp6Q3Ncmbqe0RliURVTPBNFuS66vXQSKbjfQ3ZrSNACXXFO3O/J9MTkG+JKlV6k
-# UDFZxvdecmTeCW8aYjNbQQOR/onGzaGCF5QwgheQBgorBgEEAYI3AwMBMYIXgDCC
-# F3wGCSqGSIb3DQEHAqCCF20wghdpAgEDMQ8wDQYJYIZIAWUDBAIBBQAwggFSBgsq
+# BQAEggEABDM4YWzwwipK9mzOnNCMppVRJFp8Ht80PrQKp+iOacOrwxQ6jRsAsu5T
+# 1Yx1q40jzfMpWiuTwmP9dhL4Wg8d6rKJYG00KYcjN2xQFgWN9a3i7Qa9If7dyZui
+# s5rUw7ER0TDjRhAWuYoN7uRZMj0gj4owp1kPl0IGCkBWQGTDWMkzpnAO+U+pNnBY
+# TK/PND2s2+wfi2j/W0sg7NgF/BDc3BVsPHLs0qbknd55nIN9Y4FXrHi0lTN3+xiA
+# 8oPsnCP3a95t+FtQ2SRqjhH56TCU8MSMFd9f8z0YMbSbHfpr6xaJHuMOfT3VvPiG
+# P3+0uLpagvDX3aF9gg48H50uz57lEqGCF5cwgheTBgorBgEEAYI3AwMBMYIXgzCC
+# F38GCSqGSIb3DQEHAqCCF3AwghdsAgEDMQ8wDQYJYIZIAWUDBAIBBQAwggFSBgsq
 # hkiG9w0BCRABBKCCAUEEggE9MIIBOQIBAQYKKwYBBAGEWQoDATAxMA0GCWCGSAFl
-# AwQCAQUABCDgmAKFMN5W1mPb97u0JtNSP1qcFKYm+PNYnHmNKUSVJwIGaWjpZjG7
-# GBMyMDI2MDIwNjEwNDQ0MC41MTlaMASAAgH0oIHRpIHOMIHLMQswCQYDVQQGEwJV
+# AwQCAQUABCDVmjcgl1c+pfZ4Gxj5Yedy+3/bvR56ox6n90w/UogM6QIGabhhlh4w
+# GBMyMDI2MDMxNzAyMzgzNi41NTJaMASAAgH0oIHRpIHOMIHLMQswCQYDVQQGEwJV
 # UzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UE
 # ChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSUwIwYDVQQLExxNaWNyb3NvZnQgQW1l
-# cmljYSBPcGVyYXRpb25zMScwJQYDVQQLEx5uU2hpZWxkIFRTUyBFU046QTkzNS0w
-# M0UwLUQ5NDcxJTAjBgNVBAMTHE1pY3Jvc29mdCBUaW1lLVN0YW1wIFNlcnZpY2Wg
-# ghHqMIIHIDCCBQigAwIBAgITMwAAAgy5ZOM1nOz0rgABAAACDDANBgkqhkiG9w0B
+# cmljYSBPcGVyYXRpb25zMScwJQYDVQQLEx5uU2hpZWxkIFRTUyBFU046REMwMC0w
+# NUUwLUQ5NDcxJTAjBgNVBAMTHE1pY3Jvc29mdCBUaW1lLVN0YW1wIFNlcnZpY2Wg
+# ghHtMIIHIDCCBQigAwIBAgITMwAAAiQ7hCGwLKxkIgABAAACJDANBgkqhkiG9w0B
 # AQsFADB8MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UE
 # BxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSYwJAYD
-# VQQDEx1NaWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMDAeFw0yNTAxMzAxOTQz
-# MDBaFw0yNjA0MjIxOTQzMDBaMIHLMQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2Fz
+# VQQDEx1NaWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMDAeFw0yNjAyMTkxOTM5
+# NTlaFw0yNzA1MTcxOTM5NTlaMIHLMQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2Fz
 # aGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENv
 # cnBvcmF0aW9uMSUwIwYDVQQLExxNaWNyb3NvZnQgQW1lcmljYSBPcGVyYXRpb25z
-# MScwJQYDVQQLEx5uU2hpZWxkIFRTUyBFU046QTkzNS0wM0UwLUQ5NDcxJTAjBgNV
+# MScwJQYDVQQLEx5uU2hpZWxkIFRTUyBFU046REMwMC0wNUUwLUQ5NDcxJTAjBgNV
 # BAMTHE1pY3Jvc29mdCBUaW1lLVN0YW1wIFNlcnZpY2UwggIiMA0GCSqGSIb3DQEB
-# AQUAA4ICDwAwggIKAoICAQDKAVYmPeRtga/U6jzqyqLD0MAool23gcBN58+Z/Xsk
-# YwNJsZ+O+wVyQYl8dPTK1/BC2xAic1m+JvckqjVaQ32KmURsEZotirQY4PKVW+eX
-# wRt3r6szgLuic6qoHlbXox/l0HJtgURkzDXWMkKmGSL7z8/crqcvmYqv8t/slAF4
-# J+mpzb9tMFVmjwKXONVdRwg9Q3WaPZBC7Wvoi7PRIN2jgjSBnHYyAZSlstKNrpYb
-# 6+Gu6oSFkQzGpR65+QNDdkP4ufOf4PbOg3fb4uGPjI8EPKlpwMwai1kQyX+fgcgC
-# oV9J+o8MYYCZUet3kzhhwRzqh6LMeDjaXLP701SXXiXc2ZHzuDHbS/sZtJ3627cV
-# pClXEIUvg2xpr0rPlItHwtjo1PwMCpXYqnYKvX8aJ8nawT9W8FUuuyZPG1852+q4
-# jkVleKL7x+7el8ETehbdkwdhAXyXimaEzWetNNSmG/KfHAp9czwsL1vKr4Rgn+pI
-# IkZHuomdf5e481K+xIWhLCPdpuV87EqGOK/jbhOnZEqwdvA0AlMaLfsmCemZmupe
-# jaYuEk05/6cCUxgF4zCnkJeYdMAP+9Z4kVh7tzRFsw/lZSl2D7EhIA6Knj6RffH2
-# k7YtSGSv86CShzfiXaz9y6sTu8SGqF6ObL/eu/DkivyVoCfUXWLjiSJsrS63D0EH
-# HQIDAQABo4IBSTCCAUUwHQYDVR0OBBYEFHUORSH/sB/rQ/beD0l5VxQ706GIMB8G
+# AQUAA4ICDwAwggIKAoICAQCj6W3UaQ2Zr4hNvSy7j7UMPFVys7aExGB+JFwykzzX
+# g3jayYm9gOLXJ7tNhU2emhrLQCOZcgLvz6FkqmghzQxzmkgKtLYiKaEzhogO/ce0
+# lThdLNdVtMwQOYgo+XtXAZcViBX4LcHk38RusZiF7wxSa5t/Lxic04+Z/hly1gJQ
+# pIeFDqp4a9PuLt8rsfH05vW9pU9uriGdDxfJXn/lc49CxbXqA3EX17L24bc6t+mF
+# uPDAJKKpai3XXqF2nJlpTPfdrA29sWTSNKig9CtBC5tzQj0flbsa/4wqO9u+Rkuw
+# pZb3b7qnW5FdFrDR1vQmXfjlyUP9ZO38839NwSuiHtvsFCNkTNIX8OL5XVq1nsKy
+# u//GeIZ9YuxsfLBedqG024PDERyrAs0pvfUWOLapVQajHPoCnuNSKvbEh7s5IQ0Y
+# gupGji+H7rIDx2/mIEI+6Q8WwBtk3Yxyhjj0GXw909i0EkTkVyy+1yADjwSC8bw2
+# qM4+Mc4hyytlZzSc0IPUBq1YGnYwCjIwa5/lMW0pFn/HpJdB6XeMuTtYTOpaPoo6
+# 4FjQryLXWjd4ovpw5lOw7X+v3E9kwN9VBC+wJESBECC1gZMCS5TaVwfE1w4pnXXb
+# 1qT9bjgRsPg4dklruUTdon/3SNt0a0Q5Nc2Ul+rMlQxXoP9isXwMNnKO5JJkqRDR
+# VQIDAQABo4IBSTCCAUUwHQYDVR0OBBYEFHMfkX1u/zJLCMe0gqYitx1tAHeoMB8G
 # A1UdIwQYMBaAFJ+nFV0AXmJdg/Tl0mWnG1M1GelyMF8GA1UdHwRYMFYwVKBSoFCG
 # Tmh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbS9wa2lvcHMvY3JsL01pY3Jvc29mdCUy
 # MFRpbWUtU3RhbXAlMjBQQ0ElMjAyMDEwKDEpLmNybDBsBggrBgEFBQcBAQRgMF4w
 # XAYIKwYBBQUHMAKGUGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbS9wa2lvcHMvY2Vy
 # dHMvTWljcm9zb2Z0JTIwVGltZS1TdGFtcCUyMFBDQSUyMDIwMTAoMSkuY3J0MAwG
 # A1UdEwEB/wQCMAAwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwgwDgYDVR0PAQH/BAQD
-# AgeAMA0GCSqGSIb3DQEBCwUAA4ICAQDZMPr4gVmwwf4GMB5ZfHSr34uhug6yzu4H
-# UT+JWMZqz9uhLZBoX5CPjdKJzwAVvYoNuLmS0+9lA5S74rvKqd/u9vp88VGk6U7g
-# MceatdqpKlbVRdn2ZfrMcpI4zOc6BtuYrzJV4cEs1YmX95uiAxaED34w02BnfuPZ
-# XA0edsDBbd4ixFU8X/1J0DfIUk1YFYPOrmwmI2k16u6TcKO0YpRlwTdCq9vO0eEI
-# ER1SLmQNBzX9h2ccCvtgekOaBoIQ3ZRai8Ds1f+wcKCPzD4qDX3xNgvLFiKoA6ZS
-# G9S/yOrGaiSGIeDy5N9VQuqTNjryuAzjvf5W8AQp31hV1GbUDOkbUdd+zkJWKX4F
-# mzeeN52EEbykoWcJ5V9M4DPGN5xpFqXy9aO0+dR0UUYWuqeLhDyRnVeZcTEu0xgm
-# o+pQHauFVASsVORMp8TF8dpesd+tqkkQ8VNvI20oOfnTfL+7ZgUMf7qNV0ll0Wo5
-# nlr1CJva1bfk2Hc5BY1M9sd3blBkezyvJPn4j0bfOOrCYTwYsNsjiRl/WW18NOpi
-# wqciwFlUNqtWCRMzC9r84YaUMQ82Bywk48d4uBon5ZA8pXXS7jwJTjJj5USeRl9v
-# jT98PDZyCFO2eFSOFdDdf6WBo/WZUA2hGZ0q+J7j140fbXCfOUIm0j23HaAV0ckD
-# S/nmC/oF1jCCB3EwggVZoAMCAQICEzMAAAAVxedrngKbSZkAAAAAABUwDQYJKoZI
+# AgeAMA0GCSqGSIb3DQEBCwUAA4ICAQA+wHSbmhIpM8CRVZ4tk624hQ+LdZXE4qoe
+# Qui77CeNa3jq1FOzi7MRKkko6diEDHXPNWvAagxastCewPzm5TCNh1s4qCHh4R2G
+# /r48wU/Mpc68/WDmJy5CIQn/Fwps1sbNUEu7Bzg004qULIVJ963jo/am4xwKgwh+
+# vSVL7/dhsfT7dvhpRddbYLQTHZgwuNB6QhcEEsgogLVwNRj37VEWZDiwoMdxyC7Y
+# YrQu6MCVtizHnOtkSX7FqIoi6jlcfqfo619uDH9r8k2qAOHCeEAqKXKymIXDMcGG
+# lEdDFbYiDZgPCBM0IHgAeilUSon07wjHu0e0ssBmtBafPb4Gd+5FuRnWG3XGe91N
+# CpLKqmFa/4GkVz9OMzZUg8oczxC/4JT3Hf45JEtszToXwNskV3JNCcu2IItr6SJH
+# mi3EDVADDRSNhdzFRpYmplGElPl5GRoPtJiDEvRIbv5MFKIw2x9gnehf5IvBjC4Z
+# kBg+4GTpqGE3mmnzF3nIekOkX4ug0/0mN2CSarhuSi9NmHIOpUN2eQHUtgTb/+Gm
+# q7gktCMwIq/JOCYIiTYqpv1objAGKdWMPCrlSyNAs0jZYzkha535158NMx+wBGvs
+# fFoVsCMG5Ocp6vW6CXyuWRbUVqMU1OrQbHfdyzJpbhJC1PbAZIyJCbN+VBgDTAzT
+# KY8w4ISSwTCCB3EwggVZoAMCAQICEzMAAAAVxedrngKbSZkAAAAAABUwDQYJKoZI
 # hvcNAQELBQAwgYgxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAw
 # DgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24x
 # MjAwBgNVBAMTKU1pY3Jvc29mdCBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAy
@@ -2948,45 +3124,45 @@ class PowerToysConfigure {
 # GSgkujhLmm77IVRrakURR6nxt67I6IleT53S0Ex2tVdUCbFpAUR+fKFhbHP+Crvs
 # QWY9af3LwUFJfn6Tvsv4O+S3Fb+0zj6lMVGEvL8CwYKiexcdFYmNcP7ntdAoGokL
 # jzbaukz5m/8K6TT4JDVnK+ANuOaMmdbhIurwJ0I9JZTmdHRbatGePu1+oDEzfbzL
-# 6Xu/OHBE0ZDxyKs6ijoIYn/ZcGNTTY3ugm2lBRDBcQZqELQdVTNYs6FwZvKhggNN
-# MIICNQIBATCB+aGB0aSBzjCByzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hp
+# 6Xu/OHBE0ZDxyKs6ijoIYn/ZcGNTTY3ugm2lBRDBcQZqELQdVTNYs6FwZvKhggNQ
+# MIICOAIBATCB+aGB0aSBzjCByzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hp
 # bmd0b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1pY3Jvc29mdCBDb3Jw
 # b3JhdGlvbjElMCMGA1UECxMcTWljcm9zb2Z0IEFtZXJpY2EgT3BlcmF0aW9uczEn
-# MCUGA1UECxMeblNoaWVsZCBUU1MgRVNOOkE5MzUtMDNFMC1EOTQ3MSUwIwYDVQQD
-# ExxNaWNyb3NvZnQgVGltZS1TdGFtcCBTZXJ2aWNloiMKAQEwBwYFKw4DAhoDFQDv
-# u8hkhEMt5Z8Ldefls7z1LVU8pqCBgzCBgKR+MHwxCzAJBgNVBAYTAlVTMRMwEQYD
+# MCUGA1UECxMeblNoaWVsZCBUU1MgRVNOOkRDMDAtMDVFMC1EOTQ3MSUwIwYDVQQD
+# ExxNaWNyb3NvZnQgVGltZS1TdGFtcCBTZXJ2aWNloiMKAQEwBwYFKw4DAhoDFQCm
+# CPHbmseASfe//bGtX9eQG+0+46CBgzCBgKR+MHwxCzAJBgNVBAYTAlVTMRMwEQYD
 # VQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNy
 # b3NvZnQgQ29ycG9yYXRpb24xJjAkBgNVBAMTHU1pY3Jvc29mdCBUaW1lLVN0YW1w
-# IFBDQSAyMDEwMA0GCSqGSIb3DQEBCwUAAgUA7S+8IzAiGA8yMDI2MDIwNjAxMDIy
-# N1oYDzIwMjYwMjA3MDEwMjI3WjB0MDoGCisGAQQBhFkKBAExLDAqMAoCBQDtL7wj
-# AgEAMAcCAQACAifeMAcCAQACAhKGMAoCBQDtMQ2jAgEAMDYGCisGAQQBhFkKBAIx
-# KDAmMAwGCisGAQQBhFkKAwKgCjAIAgEAAgMHoSChCjAIAgEAAgMBhqAwDQYJKoZI
-# hvcNAQELBQADggEBABQXR4VY07sL0nExU4vcQJw5JwF9sXEXUEAcI0BACMML933e
-# omvJeL7/YT8rFON56PtpKKTnKgmht/ExYC+FYdO1+2oenbk4frmX1I1SfcvmHyP1
-# yzUpEp5nOFLPhv2lzdNmUQtiAQ3rSlkEImA/YCz6i9l3oRbNk3LGoB43q/5lRC6o
-# YEojskF942sh/z6wO5NpzObI5ccKoj2XrSgLVsnA7WedbyGJ5C0C6jl3axI0pHxK
-# GO1kQ1ApW9R2FfANGhE+UuoYOOad2YU6sb0z4UWYU8aaYOIJMO6Zvtf3rP0GZkI2
-# 3DjNl0F5PwdtxQWfcqsCqXhQOm7r+EvG/BZ8/9ExggQNMIIECQIBATCBkzB8MQsw
-# CQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9u
-# ZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSYwJAYDVQQDEx1NaWNy
-# b3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMAITMwAAAgy5ZOM1nOz0rgABAAACDDAN
-# BglghkgBZQMEAgEFAKCCAUowGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJEAEEMC8G
-# CSqGSIb3DQEJBDEiBCDYf5cKhZFVVPeKvm+uBDanrbqG5x/eXdnOeqfVwW4ZWzCB
-# +gYLKoZIhvcNAQkQAi8xgeowgecwgeQwgb0EINUo17cFMZN46MI5NfIAg9Ux5cO5
-# xM9inre5riuOZ8ItMIGYMIGApH4wfDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldh
-# c2hpbmd0b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1pY3Jvc29mdCBD
-# b3Jwb3JhdGlvbjEmMCQGA1UEAxMdTWljcm9zb2Z0IFRpbWUtU3RhbXAgUENBIDIw
-# MTACEzMAAAIMuWTjNZzs9K4AAQAAAgwwIgQgh2+yukFuIkXiWHHSHyMNtmvUtgJS
-# RO+lXusNvPsILvkwDQYJKoZIhvcNAQELBQAEggIAXIJfXDqjm5KeiayWtJOljlNN
-# 5vkBINOzb5ZssoScg/QZy6HMtTidKT7rK2hnqvccHEbn5hIsMICr57kSbkxpueGW
-# CtW19mehgpumymOIFSsgoLtOZVvrY38oOJzLhmp5nIUbnaPGJ+4+iXIn/bZODgq1
-# vSE2jI+KIkUfbC4cl2PEWA453x8RV9wD5tzRUIVda1C/yLVGQG/6LJkr68q13rL3
-# T//IFmifuU0laj3+/4Y4TjjnWF0JlRdDp2V2bRNkDZsSohFPQKAt36RvZX6loVy1
-# cdNeRMPlccOajv6RmBGUoNAzzhRz4PrB9MQnn6Oo4j/64IZBo58Flwr4YBp/9cUR
-# xXotQK2NKFEJF7Sma+snSULy6fixfWrMTq1i8OuLoOhi80mdRoodv+G3FM7SHT/U
-# dJWAw2gPIo7CvS5imDvIVYaXSuMdvvCx6NPMI/5s3H4vo1gLnQxNo7ZqDR1OCEnH
-# HsugQO4NFgbzopbEFefREvU2YpqInNiW5e22IXhNk7vmsPPwPsjwlYp6iM203v+O
-# 0AXpZ8ggLLs7uzmbQqNJRt+Gn2crnlVrfUJuIDgh3T0Fhk3+zRYsNxOtZq+xEMJ+
-# f70s86Q9YVSouuNDQeWK0PH9ItvMJPSrhNaZBdb3Hfm1DZCort1z1Hhv3NwXj96R
-# h6PN1x4ugks8ufzsDSA=
+# IFBDQSAyMDEwMA0GCSqGSIb3DQEBCwUAAgUA7WLgDzAiGA8yMDI2MDMxNjIwMDEx
+# OVoYDzIwMjYwMzE3MjAwMTE5WjB3MD0GCisGAQQBhFkKBAExLzAtMAoCBQDtYuAP
+# AgEAMAoCAQACAgCyAgH/MAcCAQACAhIHMAoCBQDtZDGPAgEAMDYGCisGAQQBhFkK
+# BAIxKDAmMAwGCisGAQQBhFkKAwKgCjAIAgEAAgMHoSChCjAIAgEAAgMBhqAwDQYJ
+# KoZIhvcNAQELBQADggEBAJFztWU6FZCnkCoOTDM3LMNwbbVSYFFJgwFVuA7+kK72
+# 9fIzd6it5jkPSxDIhcugl4scJ+uvyrGjnOvvipib/Clh3f+m0y+XDLCbgEpJwA02
+# WjoSgufhL+0uCyDdPjerI+NVycGK42Gqm2Uq1BmjForaBKNF7v3q34WRkYgCqOK+
+# 4KLU4nN2TjtfumlzEN8TgC3HMIVAbgNB8bg4bLI7HgR1akPpszY64RiyHhy7cT2K
+# iG/ImLfL98TR/RaJHn1+3qlroe+M1zGZp8uAkgalqBiZkWtC4n391aVSST2aJo8y
+# vMBUzGTtj49Eryh9h43DmippIZKwSVdnwn1Z90mQp7cxggQNMIIECQIBATCBkzB8
+# MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVk
+# bW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSYwJAYDVQQDEx1N
+# aWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMAITMwAAAiQ7hCGwLKxkIgABAAAC
+# JDANBglghkgBZQMEAgEFAKCCAUowGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJEAEE
+# MC8GCSqGSIb3DQEJBDEiBCDbGV23sJKxyNfu72bNCWigYUjIOdI97cbdVgfDCrRV
+# XTCB+gYLKoZIhvcNAQkQAi8xgeowgecwgeQwgb0EIEghPTdqm/dRyZ0BczXcdloV
+# EqICdcmpVNbH9CEVzWSOMIGYMIGApH4wfDELMAkGA1UEBhMCVVMxEzARBgNVBAgT
+# Cldhc2hpbmd0b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1pY3Jvc29m
+# dCBDb3Jwb3JhdGlvbjEmMCQGA1UEAxMdTWljcm9zb2Z0IFRpbWUtU3RhbXAgUENB
+# IDIwMTACEzMAAAIkO4QhsCysZCIAAQAAAiQwIgQggBx/2G1ATcOkuh7V8j/F0QMe
+# 4Pa3KtJaTytA4wmW0FgwDQYJKoZIhvcNAQELBQAEggIAUIqM2UJxwIpV6BMmIZKv
+# z7N0WQPDFaa/+TTzw5LZRWsAYG5PHVkBqQXeeBOmELw2HCgx0RUCP1oOIMqWTk1A
+# kepqnH4oB1I891yBo8F5L5B25dHhQ798n9IXR0KIFoArNJfI4rdSj/tcOWVlLJbe
+# CkH+SntvGq2bkRFOR61/4ztVXekHGNKqp3wi3ZpzkHtcVCcZb4MAmQ/rZ7Bqktrl
+# WbEst3vrxnbiKevZ1Xq30xCwm2Kg6HMVlgs6/U8oZKpiufwqNvaCtim8lpHSZT7E
+# I5Pi7dqYGhS1a2/wfhgBTzi0yeMoXnG7dSMcFrOSksrQup99IqacNWZbXQaDDZfr
+# 7zDffOwopDfqxC8C1jDCzUm7tOABWR2X+z0l+aty0RVs74+vi4/y6qEfbcdIxRkU
+# w/p6BuIGY77vSzOCgQv4+NZgC3yA0Jk/HV0dSE7wc17iQ5S742cpV2YLf3viWAyi
+# zvYIPBu3KqDBxVPJn4H5T9ZReh6UAFgL7DflQw3ZXtw50f7Pnmyme0oargikBEvd
+# 2LL6zJzB/THUcYE5Qx01D+ev2X9n0WnyXcNrU9AI9mplc0g8wBq2ggufuoXjoo7K
+# jTF+MazU9tI89C1+Y8bTY7D212uMApQd8sbya8YJCFegsmcsvVyZU340My7nCCPm
+# 8zhdOR2gWPzMmR3IX3lZ8zU=
 # SIG # End signature block

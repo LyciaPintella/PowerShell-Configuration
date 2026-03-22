@@ -146,7 +146,7 @@ function OneDriveSecurityPermissionDeniedFix {
 function OneDriveSize {
 	[CmdletBinding()]
 	param(
-		[string]$OneDrivePath = "e:\od"
+		[string]$OneDrivePath = "E:\OD"
 	)
 
 	if (-not (Test-Path $OneDrivePath)) {
