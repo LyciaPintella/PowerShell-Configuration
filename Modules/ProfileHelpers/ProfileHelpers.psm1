@@ -338,6 +338,37 @@ function PowerShellProfileAliases {
 	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor DarkBlue }
 }
 
+# Remove all attributes from a file or folder
+function RemoveAllAttributes {
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$Path
+	)
+
+	try {
+		if (-not (Test-Path -LiteralPath $Path)) {
+			throw "The specified path does not exist: $Path"
+		}
+
+		# Get the file or folder object
+		$item = Get-ChildItem -LiteralPath $Path -Recurse -Force
+
+		# Clear all attributes (set to 'Normal')
+		foreach ($attr in $item.Attributes) {
+			if ($attr -ne [System.IO.FileAttributes]::Normal) {
+				$item.Attributes = $item.Attributes -bor $attr
+			}
+		}
+
+		Write-Host "All attributes removed from: $Path" -ForegroundColor Blue
+	}
+	catch {
+		Write-Host "Error: $_" -ForegroundColor Red
+	}
+}
+
+
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
 Set-Alias -Name Aliases -Value PowerShellProfileAliases
@@ -347,8 +378,9 @@ Set-Alias -Name Junctions -Value SymbolicLinks
 Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
+Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion'
-$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes'
+$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset'
 Export-ModuleMember -Function $functions -Alias $aliases
