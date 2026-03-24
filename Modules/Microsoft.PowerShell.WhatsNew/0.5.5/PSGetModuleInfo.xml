@@ -1,0 +1,113 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">Microsoft.PowerShell.WhatsNew</S>
+      <S N="Version">0.5.5</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.ResourceType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>Module</ToString>
+        <I32>1</I32>
+      </Obj>
+      <S N="Description">The Get-WhatsNew cmdlet allows you to see What's New information from the release notes for_x000D__x000A_PowerShell. By default it shows the release notes for the current version of PowerShell you are_x000D__x000A_running. You can also provide a specific version or a range of versions to be displayed._x000D__x000A__x000D__x000A_The cmdlet can display release notes for the following versions of PowerShell_x000D__x000A_- Windows PowerShell 5.1_x000D__x000A_- PowerShell 6.0_x000D__x000A_- PowerShell 6.1_x000D__x000A_- PowerShell 6.2_x000D__x000A_- PowerShell 7.0_x000D__x000A_- PowerShell 7.1_x000D__x000A_- PowerShell 7.2_x000D__x000A_- PowerShell 7.3_x000D__x000A_- PowerShell 7.4_x000D__x000A_- PowerShell 7.5 (preview)_x000D__x000A__x000D__x000A_By default, the cmdlet shows all of the release notes for a version. You can also limit it to_x000D__x000A_display a single random section of the release notes. This can be used as a "Message of the Day".</S>
+      <S N="Author">sewhee@microsoft.com</S>
+      <S N="CompanyName">Microsoft</S>
+      <S N="Copyright">(c) Microsoft Corporation. All rights reserved.</S>
+      <DT N="PublishedDate">2024-07-01T17:26:19.407</DT>
+      <DT N="InstalledDate">2026-03-23T21:45:32.9312548-04:00</DT>
+      <B N="IsPrerelease">false</B>
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://github.com/PowerShell/whatsnew/blob/main/LICENSE</URI>
+      <URI N="ProjectUri">https://github.com/PowerShell/whatsnew</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="2">
+        <TN RefId="2">
+          <T>System.String[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>WhatsNew</S>
+          <S>ReleaseNotes</S>
+          <S>MOTD</S>
+          <S>MessageOfTheDay</S>
+          <S>PSModule</S>
+          <S>PSFunction_Get-WhatsNew</S>
+          <S>PSCommand_Get-WhatsNew</S>
+          <S>PSIncludes_Function</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="3">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="2" />
+              <LST>
+                <S>Get-WhatsNew</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="6">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+        </DCT>
+      </Obj>
+      <S N="PowerShellGetFormatVersion"></S>
+      <S N="ReleaseNotes"></S>
+      <Obj N="Dependencies" RefId="7">
+        <TN RefId="4">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <Obj N="AdditionalMetadata" RefId="8">
+        <TNRef RefId="0" />
+        <MS>
+          <S N="NormalizedVersion">0.5.5</S>
+          <S N="IsPrerelease">False</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">E:\OD\Jessica\OneDrive\Documents\PowerShell\Modules</S>
+    </MS>
+  </Obj>
+</Objs>

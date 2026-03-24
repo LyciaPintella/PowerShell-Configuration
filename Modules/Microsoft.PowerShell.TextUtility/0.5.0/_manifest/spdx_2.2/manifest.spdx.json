@@ -1,0 +1,306 @@
+{
+  "files": [
+    {
+      "fileName": "./Microsoft.PowerShell.TextUtility.psd1",
+      "SPDXID": "SPDXRef-File--Microsoft.PowerShell.TextUtility.psd1-92E2A4C6AB729EB5E81AE87ADB302A6E2AC7C75E",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9ca49e8bf4ca546471248837065e6010fe09b9f42957f0cdb90e3bdf0862503e"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "92e2a4c6ab729eb5e81ae87adb302a6e2ac7c75e"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./Microsoft.PowerShell.TextUtility.deps.json",
+      "SPDXID": "SPDXRef-File--Microsoft.PowerShell.TextUtility.deps.json-BC117089CA0368A8731E42F4E1CA31E864614CC3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6e109e913bb358e37510553bea6fe4c812a082d2f49188629d1355f3cd9c3f80"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "bc117089ca0368a8731e42f4e1ca31e864614cc3"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./Microsoft.PowerShell.TextUtility.dll",
+      "SPDXID": "SPDXRef-File--Microsoft.PowerShell.TextUtility.dll-B4424695F890E666BD34CA30E72ED887C7AF3D98",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8659c47c099b475efd0c85e617db1808ed0eecc62882bc51e6acdc817673ae8a"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "b4424695f890e666bd34ca30e72ed887c7af3d98"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./Microsoft.PowerShell.TextUtility.pdb",
+      "SPDXID": "SPDXRef-File--Microsoft.PowerShell.TextUtility.pdb-2BECC116A0E8DC6A2B6F940421648D6B325BBF4D",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e84d5c49757de50a153982d8f70ca4bcffff6fa9723247fed411e4bce2b65fb9"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "2becc116a0e8dc6a2b6f940421648d6b325bbf4d"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./dictionary.txt",
+      "SPDXID": "SPDXRef-File--dictionary.txt-792DAF244D13BB38FE2C6353BAB642C646A03106",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "27c1c2d581906042fd550761b07715a74f80be3ed3930e16ddaf9242bbb8c567"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "792daf244d13bb38fe2c6353bab642c646a03106"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./Microsoft.PowerShell.TextUtility.format.ps1xml",
+      "SPDXID": "SPDXRef-File--Microsoft.PowerShell.TextUtility.format.ps1xml-D3A0A9A6BEFA93F61BBBFBE3D8679F36F3E39B11",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4e2ef146a9f17f92730319bc716a966e51b87b8761291321f378914800ec1e90"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "d3a0a9a6befa93f61bbbfbe3d8679f36f3e39b11"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "packages": [
+    {
+      "name": "PowerShellStandard.Library",
+      "SPDXID": "SPDXRef-Package-B512828296F96786715767A9D629FA4E02BEACAC0CC0BE4A7A1CFF55AF155FB6",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "5.1.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/PowerShellStandard.Library@5.1.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "System.Text.Json",
+      "SPDXID": "SPDXRef-Package-CCBA594959DB1CAE433AA129D26FD974CE86BD3C2DADC71BA9779B1806781811",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "6.0.6",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/System.Text.Json@6.0.6"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "System.Runtime.CompilerServices.Unsafe",
+      "SPDXID": "SPDXRef-Package-1B140F7FA3F784DD56CC7A8B4145E9AD58D8CDD4C249A0F27F2262E47C9B41AF",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "6.0.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "System.Text.Encodings.Web",
+      "SPDXID": "SPDXRef-Package-AC07F1EF24A7A4C8FDC4F792CC2A1DD9C6B82F0968E587304EB02252F0D02FEB",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "6.0.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/System.Text.Encodings.Web@6.0.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "Microsoft.Bcl.AsyncInterfaces",
+      "SPDXID": "SPDXRef-Package-9CCDDA29E1AAE7064BB9F91DD91416D937DD0C26778E833AB10B41641D773B38",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "6.0.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/Microsoft.Bcl.AsyncInterfaces@6.0.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "System.Memory",
+      "SPDXID": "SPDXRef-Package-BA5D8D1B5043A468B09DDBF48DCFC7DDD44949EE05A23A14F02AE8AA5183745C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.5.4",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/System.Memory@4.5.4"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "Microsoft.PowerShell.TextUtility",
+      "SPDXID": "SPDXRef-RootPackage",
+      "downloadLocation": "NOASSERTION",
+      "packageVerificationCode": {
+        "packageVerificationCodeValue": "d7466ed1cce2fa144ecc41a795e65780ee3bbef5"
+      },
+      "filesAnalyzed": true,
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoFromFiles": [
+        "NOASSERTION"
+      ],
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.5.0",
+      "supplier": "Organization: Microsoft",
+      "hasFiles": [
+        "SPDXRef-File--Microsoft.PowerShell.TextUtility.format.ps1xml-D3A0A9A6BEFA93F61BBBFBE3D8679F36F3E39B11",
+        "SPDXRef-File--Microsoft.PowerShell.TextUtility.psd1-92E2A4C6AB729EB5E81AE87ADB302A6E2AC7C75E",
+        "SPDXRef-File--Microsoft.PowerShell.TextUtility.deps.json-BC117089CA0368A8731E42F4E1CA31E864614CC3",
+        "SPDXRef-File--dictionary.txt-792DAF244D13BB38FE2C6353BAB642C646A03106",
+        "SPDXRef-File--Microsoft.PowerShell.TextUtility.pdb-2BECC116A0E8DC6A2B6F940421648D6B325BBF4D",
+        "SPDXRef-File--Microsoft.PowerShell.TextUtility.dll-B4424695F890E666BD34CA30E72ED887C7AF3D98"
+      ]
+    }
+  ],
+  "externalDocumentRefs": [],
+  "relationships": [
+    {
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-RootPackage",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-9CCDDA29E1AAE7064BB9F91DD91416D937DD0C26778E833AB10B41641D773B38",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-AC07F1EF24A7A4C8FDC4F792CC2A1DD9C6B82F0968E587304EB02252F0D02FEB",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-1B140F7FA3F784DD56CC7A8B4145E9AD58D8CDD4C249A0F27F2262E47C9B41AF",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-CCBA594959DB1CAE433AA129D26FD974CE86BD3C2DADC71BA9779B1806781811",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-BA5D8D1B5043A468B09DDBF48DCFC7DDD44949EE05A23A14F02AE8AA5183745C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-B512828296F96786715767A9D629FA4E02BEACAC0CC0BE4A7A1CFF55AF155FB6",
+      "spdxElementId": "SPDXRef-RootPackage"
+    }
+  ],
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "Microsoft.PowerShell.TextUtility 0.5.0",
+  "documentNamespace": "https://sbom.microsoft/1:CY3irOXOD0W8K-To7Zcoyw:4dlceyirFkyrJ577uuP4PA/118:14341/Microsoft.PowerShell.TextUtility:0.5.0:4wpCPbTDhkudrhNhx3cpKw",
+  "creationInfo": {
+    "created": "2023-06-28T22:05:25Z",
+    "creators": [
+      "Organization: Microsoft",
+      "Tool: Microsoft.SBOMTool-1.1.6"
+    ]
+  },
+  "documentDescribes": [
+    "SPDXRef-RootPackage"
+  ]
+}

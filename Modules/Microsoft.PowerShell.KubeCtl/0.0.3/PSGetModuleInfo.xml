@@ -1,0 +1,128 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">Microsoft.PowerShell.KubeCtl</S>
+      <S N="Version">0.0.3</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.ResourceType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>Module</ToString>
+        <I32>1</I32>
+      </Obj>
+      <S N="Description">This is a simple wrapper for the kubectl executable to retrieve Kubernetes API-Resources</S>
+      <S N="Author">PowerShellTeam</S>
+      <S N="CompanyName">Microsoft</S>
+      <S N="Copyright">(c) Microsoft. All rights reserved.</S>
+      <DT N="PublishedDate">2020-06-22T23:04:26.133</DT>
+      <DT N="InstalledDate">2026-03-23T21:45:41.8391631-04:00</DT>
+      <B N="IsPrerelease">false</B>
+      <Nil N="UpdatedDate" />
+      <Nil N="LicenseUri" />
+      <URI N="ProjectUri">https://github.com/PowerShell/Microsoft.PowerShell.KubeCtl</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="2">
+        <TN RefId="2">
+          <T>System.String[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>PSModule</S>
+          <S>PSEdition_Core</S>
+          <S>PSFunction_Get-KubeResource</S>
+          <S>PSCommand_Get-KubeResource</S>
+          <S>PSFunction_Initialize-ProxyFunction</S>
+          <S>PSCommand_Initialize-ProxyFunction</S>
+          <S>PSFunction_Get-DefaultPSSession</S>
+          <S>PSCommand_Get-DefaultPSSession</S>
+          <S>PSFunction_Set-DefaultPSSession</S>
+          <S>PSCommand_Set-DefaultPSSession</S>
+          <S>PSFunction_Get-KubeRequireSudo</S>
+          <S>PSCommand_Get-KubeRequireSudo</S>
+          <S>PSFunction_Set-KubeRequireSudo</S>
+          <S>PSCommand_Set-KubeRequireSudo</S>
+          <S>PSFunction_Invoke-KubeCtl</S>
+          <S>PSCommand_Invoke-KubeCtl</S>
+          <S>PSIncludes_Function</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="3">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="2" />
+              <LST>
+                <S>Get-KubeResource</S>
+                <S>Initialize-ProxyFunction</S>
+                <S>Get-DefaultPSSession</S>
+                <S>Set-DefaultPSSession</S>
+                <S>Get-KubeRequireSudo</S>
+                <S>Set-KubeRequireSudo</S>
+                <S>Invoke-KubeCtl</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Nil N="Value" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="6">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+        </DCT>
+      </Obj>
+      <S N="PowerShellGetFormatVersion"></S>
+      <S N="ReleaseNotes"></S>
+      <Obj N="Dependencies" RefId="7">
+        <TN RefId="4">
+          <T>Microsoft.PowerShell.PSResourceGet.UtilClasses.Dependency[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <Obj N="AdditionalMetadata" RefId="8">
+        <TNRef RefId="0" />
+        <MS>
+          <S N="NormalizedVersion">0.0.3</S>
+          <S N="IsPrerelease">False</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">E:\OD\Jessica\OneDrive\Documents\PowerShell\Modules</S>
+    </MS>
+  </Obj>
+</Objs>
