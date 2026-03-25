@@ -368,6 +368,12 @@ function RemoveAllAttributes {
 	}
 }
 
+function InstallDrivers
+{
+	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./Windows-Driver-Installation.ps1
+}
+
 
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
@@ -375,12 +381,13 @@ Set-Alias -Name Aliases -Value PowerShellProfileAliases
 Set-Alias -Name Functions -Value PowerShellProfileFunctions
 Set-Alias -Name GDriveSize -Value GoogleDriveSize
 Set-Alias -Name Junctions -Value SymbolicLinks
+Set-Alias -Name SymLinks -Value SymbolicLinks
 Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes'
-$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers'
+$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset', 'SymLinks'
 Export-ModuleMember -Function $functions -Alias $aliases

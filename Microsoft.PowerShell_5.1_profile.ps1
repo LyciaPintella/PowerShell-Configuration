@@ -383,6 +383,7 @@ Set-Alias -Name Aliases -Value PowerShellProfileAliases
 Set-Alias -Name Functions -Value PowerShellProfileFunctions
 Set-Alias -Name GDriveSize -Value GoogleDriveSize
 Set-Alias -Name Junctions -Value SymbolicLinks
+Set-Alias -Name SymLinks -Value SymbolicLinks
 Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
