@@ -374,6 +374,12 @@ function InstallDrivers
 	./Windows-Driver-Installation.ps1
 }
 
+function Set-Efficiency-Mode-Systemwide
+{
+	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./"Set-Efficiency-Mode-Systemwide.ps1"
+}
+
 
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
@@ -388,6 +394,6 @@ Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'Set-Efficiency-Mode-Systemwide'
 $aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset', 'SymLinks'
 Export-ModuleMember -Function $functions -Alias $aliases
