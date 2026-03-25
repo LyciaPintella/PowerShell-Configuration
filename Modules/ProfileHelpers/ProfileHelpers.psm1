@@ -374,12 +374,18 @@ function InstallDrivers
 	./Windows-Driver-Installation.ps1
 }
 
-function Set-Efficiency-Mode-Systemwide
+function SetEfficiencyModeSystemwide
 {
 	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
-	./"Set-Efficiency-Mode-Systemwide.ps1"
+	./"Set-Efficiency-Mode-Systemwide.ps1" *> "Set-Efficiency-Mode-Systemwide-log.txt"
+	notepad "Set-Efficiency-Mode-Systemwide-log.txt"
 }
 
+function ReloadProfile
+{
+cls
+. $profile
+}
 
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
@@ -392,8 +398,9 @@ Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
+Set-Alias -Name Reload -Value ReloadProfile
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'Set-Efficiency-Mode-Systemwide'
-$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset', 'SymLinks'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile'
+$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset', 'SymLinks', 'Reload'
 Export-ModuleMember -Function $functions -Alias $aliases

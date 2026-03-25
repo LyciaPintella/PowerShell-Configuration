@@ -375,6 +375,36 @@ function RemoveAllAttributes {
 	}
 }
 
+function InstallDrivers
+{
+	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./Windows-Driver-Installation.ps1
+}
+
+function SetEfficiencyModeSystemwide
+{
+	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./"Set-Efficiency-Mode-Systemwide.ps1"
+}
+
+function ReloadProfile
+{
+cls
+. $profile
+}
+
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+ 	Import-Module "$ChocolateyProfile"
+}
+
+
 
 # ============================================================
 # Profile Loaded Successfully
@@ -388,6 +418,7 @@ Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
+Set-Alias -Name Reload -Value ReloadProfile
 
 ListPSProfileFunctions
 ListPSProfileAliases
