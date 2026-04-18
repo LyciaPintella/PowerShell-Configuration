@@ -393,7 +393,13 @@ function SetEfficiencyModeSystemwide {
 
 function Windows.Old {
 	$Path = "C:\Windows.old"
-
+	
+	# ! Start by creating an empty directory and using robocopy to mirror it to C:\Windows.old, which will effectively remove all files while preserving the folder structure and avoiding issues with locked files. Then we can remove the empty Windows.old folder.
+	mkdir C:\Empty
+	robocopy C:\Empty C:\Windows.old /MIR /R:1 /W:1
+	Remove-Item C:\Windows.old
+	
+	# ! If the above method fails due to locked files, we can attempt to take ownership and grant full control to Administrators, then remove read-only, system, and hidden attributes before deleting the folder.
 	if (Test-Path $Path) {
 		Write-Host "Taking ownership of $Path ..." -ForegroundColor Cyan
 		takeown /F $Path /A /R /D Y | Out-Null
@@ -416,6 +422,10 @@ function Windows.Old {
 			Write-Host "Windows.old successfully deleted." -ForegroundColor Green
 		}
 		else {
+			# ! Repeat the Robocopy process to preserve our progress.
+			mkdir C:\Empty
+			robocopy C:\Empty C:\Windows.old /MIR /R:1 /W:1
+			Remove-Item C:\Windows.old
 			Write-Host "Some files could not be deleted. A reboot may be required." -ForegroundColor Red
 		}
 	
