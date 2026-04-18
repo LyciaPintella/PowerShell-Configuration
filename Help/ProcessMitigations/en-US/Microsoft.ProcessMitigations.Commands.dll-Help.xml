@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>ConvertTo-ProcessMitigationPolicy</command:name>
+      <maml:description>
+        <maml:para>Converts an mitigation policy file formats.</maml:para>
+      </maml:description>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>ProcessMitigationPolicy</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>Converts an EMET policy file or pinning rule file to a new Windows 10 format.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-ProcessMitigationPolicy</maml:name>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>EMETFilePath</maml:name>
+          <maml:description>
+            <maml:para>Specifies the full path of the Enhanced Mitigation Experience Tool (EMET) file to convert.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+          <maml:name>OutputFilePath</maml:name>
+          <maml:description>
+            <maml:para>Specifies the full path of the converted format file.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>EMETFilePath</maml:name>
+        <maml:description>
+          <maml:para>Specifies the full path of the Enhanced Mitigation Experience Tool (EMET) file to convert.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>OutputFilePath</maml:name>
+        <maml:description>
+          <maml:para>Specifies the full path of the converted format file.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <dev:name>System.String</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Object</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; ConvertTo-ProcessMitigationPolicy -EMETFilePath policy.xml -OutputFilePath result.xml
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Converts EMET file policy.xml to result.xml, may also generate a CI file CI-result.xml if necessary.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/processmitigations/convertto-processmitigationpolicy?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-ProcessMitigation</command:name>
+      <maml:description>
+        <maml:para>Gets the current process mitigation settings, either from the registry, from a running process, or saves all to a XML.</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>ProcessMitigation</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>Gets all process mitigation settings either by process name (either running or from -Registry), or by process ID. Can also save all settings to an XML file.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>FullPolicy</maml:name>
+          <maml:description>
+            <maml:para>Returns every processes' current mitigation settings in the registry</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessMitigation</maml:name>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>{Current process name to get current running (Or from registry) process mitigation settings from one (Can be more than one instance)</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>RunningProcesses</maml:name>
+          <maml:description>
+            <maml:para>Pull the current process mitigation settings from a running instance instead of the registry.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessMitigation</maml:name>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>Process Id to retrieve current running process mitigation settings from</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">Int32[]</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>RegistryConfigFilePath</maml:name>
+          <maml:description>
+            <maml:para>File to save the current registry process mitigation configuration to</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>System</maml:name>
+          <maml:description>
+            <maml:para>Pulls the current system defaults for process mitigations.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>FullPolicy</maml:name>
+        <maml:description>
+          <maml:para>Returns every processes' current mitigation settings in the registry</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>Process Id to retrieve current running process mitigation settings from</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">Int32[]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>{Current process name to get current running (Or from registry) process mitigation settings from one (Can be more than one instance)</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>RegistryConfigFilePath</maml:name>
+        <maml:description>
+          <maml:para>File to save the current registry process mitigation configuration to</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>RunningProcesses</maml:name>
+        <maml:description>
+          <maml:para>Pull the current process mitigation settings from a running instance instead of the registry.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>System</maml:name>
+        <maml:description>
+          <maml:para>Pulls the current system defaults for process mitigations.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <dev:name>System.Int32</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Object</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -Name notepad.exe -RunningProcess
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current settings on all running instances of notepad.exe</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 2 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -Name notepad.exe
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current settings in the registry for notepad.exe</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 3 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -Id 1304
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current settings for the running process with pid 1304</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 4 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -RegistryConfigFilePath settings.xml
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the all process mitigation settings from the registry and saves them to the xml file settings.xml</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 5 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -FullPolicy
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets all policies for all processes set in the registry.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 6 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-ProcessMitigation -System
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current system process mitigation defaults stored in the registry.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 7 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-Process notepad | Get-ProcessMitigation
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current process mitigation settings for all running instances of notepad.exe</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/processmitigations/get-processmitigation?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-ProcessMitigation</command:name>
+      <maml:description>
+        <maml:para>Commands to enable and disable process mitigations or set them in bulk from an XML file.</maml:para>
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>ProcessMitigation</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>Used to turn on and off various process mitigation settings. Can also apply an XML file to apply settings for many processes at once.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Disable</maml:name>
+          <maml:description>
+            <maml:para>Comma separated list of mitigations to disable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>EAFModules</maml:name>
+          <maml:description>
+            <maml:para>Modules to be added to the EAF+ mitigation.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Enable</maml:name>
+          <maml:description>
+            <maml:para>Comma separated list of mitigations to enable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overrides a system setting either on or off depending on the level this is set at. Will force "on"/"off" all mitigations provided in the -Enable list</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Name of the process to apply mitigation settings to.
+Can be in the format "notepad" or "notepad.exe"</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Remove</maml:name>
+          <maml:description>
+            <maml:para>Removes a mitigation entry from the registry.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Reset</maml:name>
+          <maml:description>
+            <maml:para>Resets a specific mitigation entry to defer.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Set-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>IsValid</maml:name>
+          <maml:description>
+            <maml:para>Set to check the given XML file for validity. Requires local .xsd</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>PolicyFilePath</maml:name>
+          <maml:description>
+            <maml:para>Path to XML file containing mitigation settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Set-ProcessMitigation</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Disable</maml:name>
+          <maml:description>
+            <maml:para>Comma separated list of mitigations to disable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>EAFModules</maml:name>
+          <maml:description>
+            <maml:para>Modules to be added to the EAF+ mitigation.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Enable</maml:name>
+          <maml:description>
+            <maml:para>Comma separated list of mitigations to enable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overrides a system setting either on or off depending on the level this is set at. Will force "on"/"off" all mitigations provided in the -Enable list</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Remove</maml:name>
+          <maml:description>
+            <maml:para>Removes a mitigation entry from the registry.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Reset</maml:name>
+          <maml:description>
+            <maml:para>Resets a specific mitigation entry to defer.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>System</maml:name>
+          <maml:description>
+            <maml:para>Used to configure system defaults rather than individual apps.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Disable</maml:name>
+        <maml:description>
+          <maml:para>Comma separated list of mitigations to disable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>EAFModules</maml:name>
+        <maml:description>
+          <maml:para>Modules to be added to the EAF+ mitigation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Enable</maml:name>
+        <maml:description>
+          <maml:para>Comma separated list of mitigations to enable.
+Disable list takes priority over enable list.
+If specified in both, it will be disabled.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String[]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:description>
+          <maml:para>Overrides a system setting either on or off depending on the level this is set at. Will force "on"/"off" all mitigations provided in the -Enable list</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>IsValid</maml:name>
+        <maml:description>
+          <maml:para>Set to check the given XML file for validity. Requires local .xsd</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Name of the process to apply mitigation settings to.
+Can be in the format "notepad" or "notepad.exe"</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>PolicyFilePath</maml:name>
+        <maml:description>
+          <maml:para>Path to XML file containing mitigation settings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Remove</maml:name>
+        <maml:description>
+          <maml:para>Removes a mitigation entry from the registry.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Reset</maml:name>
+        <maml:description>
+          <maml:para>Resets a specific mitigation entry to defer.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>System</maml:name>
+        <maml:description>
+          <maml:para>Used to configure system defaults rather than individual apps.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <dev:name>System.String</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Object</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt;  Set-ProcessMitigation -Name Notepad.exe -Enable SEHOP -Disable ForceRelocateImages
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Gets the current process mitigation for "notepad.exe" from the registry and then enables SEHOP, and disables ForceRelocateImages.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 2 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -PolicyFilePath settings.xml
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Applies all settings inside settings.xml</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 3 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -System -Enable DEP
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Applies DEP at the system level. To disable mitigations, you can replace `-Enable` with `-Disable`. However, for app-level mitigations, this will force the mitigation to be disabled only for that app.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Exmaple 4 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -System -Remove -Disable DEP
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>If you need to restore the mitigation back to the system default, you need to include the `-Remove` cmdlet as well, as in the above  example:</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 5 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -System -Enable SEHOP
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Enable SEHOP Component at the system level.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 6 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -System -Disable SEHOP
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Disable SEHOP Component at the system level.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 7 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-ProcessMitigation -System -Reset
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>Reset Mitigation at the system level.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/processmitigations/set-processmitigation?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

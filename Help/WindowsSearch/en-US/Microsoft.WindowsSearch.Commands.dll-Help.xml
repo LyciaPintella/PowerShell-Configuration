@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Get-WindowsSearchSetting</command:name>
+      <maml:description>
+        <maml:para>Gets the values of settings for Windows Search.</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>WindowsSearchSetting</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>The **Get-WindowsSearchSetting** cmdlet gets the values of settings for Windows Search. You can view settings for whether Windows Search displays web results or suggestions and whether to display web results and suggestions while using a metered network. You can view settings for whether Windows Search personalizes results, including whether Windows Search employs the specific location of the user. You can also see SafeSearch settings.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-WindowsSearchSetting</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>WindowsSearchSetting</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Returns the values of properties that control Windows Search:
+
+- EnableMeteredWebResultsSetting.
+Whether Windows Search displays web results and suggestions while using a metered network.
+- EnableWebResultsSetting.
+Whether Windows Search displays web results and suggestions.
+- SearchExperienceSetting.
+The experience setting.
+- WindowsSafeSearchSetting.
+The value of SafeSearch that Windows Search uses for queries.</maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>SearchExperienceSetting</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Has the following possible values:
+
+- PersonalizedAndLocation.
+Personalize Windows Search and other Microsoft experiences by using search history, some Microsoft account information, and specific location of the user.
+- Personalized.
+Personalize Windows Search and other Microsoft experiences by using search history and some Microsoft account information, but do not use specific location of the user.
+- NotPersonalized.
+Do not personalize Windows Search and other Microsoft experiences or use specific location of the user.</maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>WindowsSafeSearchSetting</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Has the following possible values:
+
+- Off.
+Windows Search does not remove adult content from results.
+- Moderate.
+Windows Search excludes adult images and videos, but not text, from results.
+- Strict.
+Windows Search excludes adult images, videos, and text from results.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1: Get Windows Search settings ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Get-WindowsSearchSetting
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>This command gets Windows Search settings.
+The console displays the values for the settings.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/windowssearch/get-windowssearchsetting?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Set-WindowsSearchSetting</maml:linkText>
+        <command:uri>./Set-WindowsSearchSetting.md</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-WindowsSearchSetting</command:name>
+      <maml:description>
+        <maml:para>Modifies values that control Windows Search.</maml:para>
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>WindowsSearchSetting</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>The **Set-WindowsSearchSetting** cmdlet modifies values that control Windows Search. You can specify whether Windows Search displays web results or suggestions, and you can specify whether to display web results and suggestions while using a metered network. You can specify whether Windows Search personalizes results, including whether Windows Search employs the specific location of the user. You can also specify SafeSearch settings.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-WindowsSearchSetting</maml:name>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>EnableMeteredWebResultsSetting</maml:name>
+          <maml:description>
+            <maml:para>Indicates whether Windows Search displays web results and suggestions while using metered connections.
+Specify a value of $True to display web results and suggestions over metered connections or a value of $False to exclude web results and suggestions.</maml:para>
+            <maml:para>Do not specify a value for this parameter if the value of the *EnableWebResultsSetting* parameter is $False.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">Boolean</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>EnableWebResultsSetting</maml:name>
+          <maml:description>
+            <maml:para>Indicates whether Windows Search displays web results and suggestions.
+Specify a value of $True to display web results and suggestions or a value of $False to exclude web results and suggestions.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">Boolean</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>SafeSearchSetting</maml:name>
+          <maml:description>
+            <maml:para>Specifies a SafeSearch setting for Window Search.</maml:para>
+            <maml:para>The acceptable values for this parameter are:</maml:para>
+            <maml:para>- Off.
+Windows Search does not remove adult content from the results.
+- Moderate.
+Windows Search excludes adult images and videos, but not text, from the results.
+- Strict.
+Windows Search excludes adult images, videos, and text from the results.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>SearchExperienceSetting</maml:name>
+          <maml:description>
+            <maml:para>Specifies a Windows Search experience setting.</maml:para>
+            <maml:para>The acceptable values for this parameter are:</maml:para>
+            <maml:para>- PersonalizedAndLocation.
+Personalize Windows Search and other Microsoft experiences by using search history, some Microsoft account information, and specific location of the user.
+- Personalized.
+Personalize Windows Search and other Microsoft experiences by using search history and some Microsoft account information, but do not use specific location of the user.
+- NotPersonalized.
+Do not personalize Windows Search and other Microsoft experiences or use specific location of the user.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>EnableMeteredWebResultsSetting</maml:name>
+        <maml:description>
+          <maml:para>Indicates whether Windows Search displays web results and suggestions while using metered connections.
+Specify a value of $True to display web results and suggestions over metered connections or a value of $False to exclude web results and suggestions.</maml:para>
+          <maml:para>Do not specify a value for this parameter if the value of the *EnableWebResultsSetting* parameter is $False.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">Boolean</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>EnableWebResultsSetting</maml:name>
+        <maml:description>
+          <maml:para>Indicates whether Windows Search displays web results and suggestions.
+Specify a value of $True to display web results and suggestions or a value of $False to exclude web results and suggestions.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">Boolean</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>SafeSearchSetting</maml:name>
+        <maml:description>
+          <maml:para>Specifies a SafeSearch setting for Window Search.</maml:para>
+          <maml:para>The acceptable values for this parameter are:</maml:para>
+          <maml:para>- Off.
+Windows Search does not remove adult content from the results.
+- Moderate.
+Windows Search excludes adult images and videos, but not text, from the results.
+- Strict.
+Windows Search excludes adult images, videos, and text from the results.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>SearchExperienceSetting</maml:name>
+        <maml:description>
+          <maml:para>Specifies a Windows Search experience setting.</maml:para>
+          <maml:para>The acceptable values for this parameter are:</maml:para>
+          <maml:para>- PersonalizedAndLocation.
+Personalize Windows Search and other Microsoft experiences by using search history, some Microsoft account information, and specific location of the user.
+- Personalized.
+Personalize Windows Search and other Microsoft experiences by using search history and some Microsoft account information, but do not use specific location of the user.
+- NotPersonalized.
+Do not personalize Windows Search and other Microsoft experiences or use specific location of the user.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1: Personalize Windows Search ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-WindowsSearchSetting -SearchExperienceSetting "Personalized"
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>This command allows Windows Search to use search history, but not the specific location of the user, to personalize results.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 2: Modify Windows Search settings ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-WindowsSearchSetting -EnableWebResultsSetting $True -SafeSearchSetting "Strict" -SearchExperienceSetting "PersonalizedAndLocation"
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>This command modifies Windows Search settings.
+The command enables the use of search history and the specific location of the user by specifying a value of PersonalizedAndLocation for the *SearchExperienceSetting* parameter.
+The command enables web results and sets SafeSearch to a value of Strict.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+      <command:example>
+        <maml:title>--------- Example 3: Enable metered web search ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt; Set-WindowsSearchSetting -EnableMeteredWebResultsSetting $True
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>This command enables Windows Search to display web results and suggestions while using metered connections.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/windowssearch/set-windowssearchsetting?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-WindowsSearchSetting</maml:linkText>
+        <command:uri>./Get-WindowsSearchSetting.md</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

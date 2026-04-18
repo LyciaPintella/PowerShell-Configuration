@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Restore-NetworkSwitchConfiguration</command:name>
+      <maml:description>
+        <maml:para>Restores configuration for a network switch.</maml:para>
+      </maml:description>
+      <command:verb>Restore</command:verb>
+      <command:noun>NetworkSwitchConfiguration</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>The **Restore-NetworkSwitchConfiguration** cmdlet restores configuration for a network switch to the last saved startup configuration.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Restore-NetworkSwitchConfiguration</maml:name>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>CimSession</maml:name>
+          <maml:description>
+            <maml:para>Specifies the **CimSession** that this cmdlet uses to connect to the network switch.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">CimSession</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>CimSession</maml:name>
+        <maml:description>
+          <maml:para>Specifies the **CimSession** that this cmdlet uses to connect to the network switch.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">CimSession</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <dev:name>None</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Object</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1: Restore the configuration for a network switch ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt;$Session = New-CimSession -ComputerName "NetworkSwitch08"
+PS C:\&gt; Restore-NetworkSwitchConfiguration -CimSession $Session
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>The first command creates a **CimSession** for a network switch, and then stores it in the **$Session** variable.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>The second command restores the configuration from the last saved configuration for NetworkSwitch08 by using the **$Session** object.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/networkswitchmanager/restore-networkswitchconfiguration?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Save-NetworkSwitchConfiguration</maml:linkText>
+        <command:uri>./Save-NetworkSwitchConfiguration.md</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Save-NetworkSwitchConfiguration</command:name>
+      <maml:description>
+        <maml:para>Saves configuration for starting a network switch.</maml:para>
+      </maml:description>
+      <command:verb>Save</command:verb>
+      <command:noun>NetworkSwitchConfiguration</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>The **Save-NetworkSwitchConfiguration** cmdlet saves the current configuration for starting a network switch.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Save-NetworkSwitchConfiguration</maml:name>
+        <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+          <maml:name>CimSession</maml:name>
+          <maml:description>
+            <maml:para>Specifies the **CimSession** that this cmdlet uses to connect to the network switch.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="true">CimSession</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="0" aliases="none">
+        <maml:name>CimSession</maml:name>
+        <maml:description>
+          <maml:para>Specifies the **CimSession** that this cmdlet uses to connect to the network switch.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">CimSession</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <dev:name>None</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Object</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1: Save the configuration for a network switch ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```
+PS C:\&gt;$Session = New-CimSession -ComputerName "NetworkSwitch08"
+PS C:\&gt; Save-NetworkSwitchConfiguration -CimSession $Session
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>The first command creates a **CimSession** for a network switch, and then stores it in the **$Session** variable.
+For more information about **CimSession** objects, type `Get-Help New-CimSession`.</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>The second command saves the configuration for NetworkSwitch08 by using the **$Session** object.</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/networkswitchmanager/save-networkswitchconfiguration?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Restore-NetworkSwitchConfiguration</maml:linkText>
+        <command:uri>./Restore-NetworkSwitchConfiguration.md</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

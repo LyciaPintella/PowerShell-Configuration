@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Get-DeliveryOptimizationPerfSnap</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DeliveryOptimizationPerfSnap</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOPerfSnap</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-deliveryoptimizationperfsnap?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DeliveryOptimizationPerfSnapThisMonth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DeliveryOptimizationPerfSnapThisMonth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOMonthlyPerfSnap</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-deliveryoptimizationperfsnapthismonth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DeliveryOptimizationStatus</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DeliveryOptimizationStatus</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>AsObject</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill AsObject Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>PeerInfo</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill PeerInfo Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>SelectPeerCount</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill SelectPeerCount Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Int32</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOSwarmStats</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOFilePeerInfo</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.String</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOPeerInfo</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-deliveryoptimizationstatus?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DOConfig</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DOConfig</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOConfig</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DOExtendedConfig</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-doconfig?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DODownloadMode</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DODownloadMode</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>DownloadMode</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-dodownloadmode?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DOPercentageMaxBackgroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DOPercentageMaxBackgroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Byte</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-dopercentagemaxbackgroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-DOPercentageMaxForegroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>DOPercentageMaxForegroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <dev:name>System.Byte</dev:name>
+        </dev:type>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/get-dopercentagemaxforegroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

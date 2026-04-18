@@ -55,9 +55,9 @@ function EmptyRecycleBin {
 }
 
 # ============================================================
-# FUNCTION: OneDriveSecurityPermissionDeniedFix
+# FUNCTION: OneDriveSecurity
 # ============================================================
-function OneDriveSecurityPermissionDeniedFix {
+function OneDriveSecurity {
 	<#
     .SYNOPSIS
     Removes "Deny - Delete subfolders and files" ACL entries for Everyone
@@ -71,16 +71,16 @@ function OneDriveSecurityPermissionDeniedFix {
 	[CmdletBinding()]
 	param(
 		[string[]]$Folders = @(
-			"E:\OD\Cejesti",
-			"E:\OD\Cejesti\OneDrive",
-			"E:\OD\Erelyn",
-			"E:\OD\Erelyn\OneDrive",
-			"E:\OD\Jessica",
-			"E:\OD\Jessica\OneDrive",
-			"E:\OD\Lycia",
-			"E:\OD\Lycia\OneDrive",
-			"E:\OD\Rose",
-			"E:\OD\Rose\OneDrive"
+			"C:\OD\Cejesti",
+			"C:\OD\Cejesti\OneDrive",
+			"C:\OD\Erelyn",
+			"C:\OD\Erelyn\OneDrive",
+			"C:\OD\Jessica",
+			"C:\OD\Jessica\OneDrive",
+			"C:\OD\Lycia",
+			"C:\OD\Lycia\OneDrive",
+			"C:\OD\Rose",
+			"C:\OD\Rose\OneDrive"
 		)
 	)
 
@@ -146,7 +146,8 @@ function OneDriveSecurityPermissionDeniedFix {
 function OneDriveSize {
 	[CmdletBinding()]
 	param(
-		[string]$OneDrivePath = "E:\OD"
+		[string]$OneDrivePath = "C:\OD",
+		[string]$OneDriveTempPath = "C:\OneDriveTemp"
 	)
 
 	if (-not (Test-Path $OneDrivePath)) {
@@ -168,16 +169,35 @@ function OneDriveSize {
 	}
 
 	# Convert to human-readable units
-	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
-	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
+	$OneDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$OneDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
+	
+	# Sum all file lengths under the cache directory
+	$totalBytes = Get-ChildItem -Path $OneDrivePath -Recurse -Force |
+	Where-Object { -not $_.PSIsContainer } |
+	Measure-Object -Property Length -Sum |
+	Select-Object -ExpandProperty Sum
+
+	if ($null -eq $totalBytes) {
+		Write-Output "No files found under '$OneDrivePath'."
+		return
+	}
+	
+	# ! Begin OneDrive Temporary File Size Check.
+	# Convert to human-readable units
+	$OneDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$OneDriveTempSizeMB = [math]::Round($totalBytes / 1MB, 2)
 
 	[PSCustomObject]@{
-		OneDrivePath = $OneDrivePath
-		Bytes        = $totalBytes
-		MB           = "$sizeMB MB"
-		GB           = "$sizeGB GB"
+		OneDrivePath       = $OneDrivePath
+		OneDriveSizeMB     = "$OneDriveSizeMB MB"
+		OneDriveSizeGB     = "$OneDriveSizeGB GB"
+		OneDriveTempPath   = $OneDriveTempPath
+		OneDriveTempSizeMB = "$OneDriveTempSizeMB MB"
+		OneDriveTempSizeGB = "$OneDriveTempSizeGB GB"
 	}
 }
+
 
 # ============================================================
 # FUNCTION: GoogleDriveSize
@@ -186,9 +206,9 @@ function OneDriveSize {
 function GoogleDriveSize {
 	[CmdletBinding()]
 	param(
-		[string]$GoogleDrivePath = "F:\Google Drive",
-		[string]$GDriveTempFolderPath = "D:\Temp\GoogleDriveFS",
-		[string]$GoogleDriveStreamingCachePath = "D:\Google Drive Streaming Cache\DriveFS"
+		[string]$GoogleDrivePath = "E:\Google Drive",
+		[string]$GDriveTempFolderPath = "C:\Users\Jessica Murphy\AppData\Local\Google\DriveFS",
+		[string]$GoogleDriveStreamingPath = "E:\Google Drive\Streaming"
 	)
 	
 	# ! Begin Google Drive File Size Check.
@@ -206,25 +226,19 @@ function GoogleDriveSize {
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$GoogleDrivePath'."
 		return
-	}
+	} 
 
 	# Convert to human-readable units
-	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
-	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
-
-	[PSCustomObject]@{
-		GoogleDrivePath = $GoogleDrivePath
-		Bytes           = $totalBytes
-		MB              = "$sizeMB MB"
-		GB              = "$sizeGB GB"
-	}
-
+	$GoogleDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$GoogleDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
+	
+	# ! Begin Google Drive Temporary File Size Check.
+	
 	if (-not (Test-Path $GDriveTempFolderPath)) {
 		Write-Error "Cache path '$GDriveTempFolderPath' does not exist."
 		return
 	}
 	
-	# ! Begin Google Drive Temporary File Size Check.
 	# Sum all file lengths under the GoogleDriveTemporaryFilesPath directory
 	$totalBytes = Get-ChildItem -Path $GDriveTempFolderPath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
@@ -237,43 +251,41 @@ function GoogleDriveSize {
 	}
 
 	# Convert to human-readable units
-	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
-	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
-
-	[PSCustomObject]@{
-		GoogleDriveTempFolderPath = $GDriveTempFolderPath
-		Bytes                     = $totalBytes
-		MB                        = "$sizeMB MB"
-		GB                        = "$sizeGB GB"
-	}
+	$GoogleDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$GoogleDriveTempSizeMB = [math]::Round($totalBytes / 1MB, 2)
 	
 	# ! Begin Google Drive Streaming Cache File Size Check.
 	
-	if (-not (Test-Path $GoogleDriveStreamingCachePath)) {
-		Write-Error "Cache path '$GoogleDriveStreamingCachePath' does not exist."
+	if (-not (Test-Path $GoogleDriveStreamingPath)) {
+		Write-Error "Cache path '$GoogleDriveStreamingPath' does not exist."
 		return
 	}
 
 	# Sum all file lengths under the cache directory
-	$totalBytes = Get-ChildItem -Path $GoogleDriveStreamingCachePath -Recurse -Force |
+	$totalBytes = Get-ChildItem -Path $GoogleDriveStreamingPath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
 	Measure-Object -Property Length -Sum |
 	Select-Object -ExpandProperty Sum
 
 	if ($null -eq $totalBytes) {
-		Write-Output "No files found under '$GoogleDriveStreamingCachePath'."
+		Write-Output "No files found under '$GoogleDriveStreamingPath'."
 		return
 	}
 
 	# Convert to human-readable units
-	$sizeGB = [math]::Round($totalBytes / 1GB, 2)
-	$sizeMB = [math]::Round($totalBytes / 1MB, 2)
+	$GoogleDriveStreamingSizeGB = [math]::Round($totalBytes / 1GB, 2)
+	$GoogleDriveStreamingSizeMB = [math]::Round($totalBytes / 1MB, 2)
 
 	[PSCustomObject]@{
-		GoogleDriveCachePath = $GoogleDriveStreamingCachePath
-		Bytes                = $totalBytes
-		MB                   = "$sizeMB MB"
-		GB                   = "$sizeGB GB"
+		GoogleDrivePath          = $GoogleDrivePath
+		GoogleDriveMB            = "$GoogleDriveSizeMB MB"
+		GoogleDriveGB            = "$GoogleDriveSizeGB GB"
+		GoogleDriveTempPath      = $GDriveTempFolderPath
+		GoogleDriveTempMB        = "$GoogleDriveTempSizeMB MB"
+		GoogleDriveTempGB        = "$GoogleDriveTempSizeGB GB"
+		GoogleDriveStreamingPath = $GoogleDriveStreamingPath
+		GoogleDriveStreamingMB   = "$GoogleDriveStreamingSizeMB MB"
+		GoogleDriveStreamingGB   = "$GoogleDriveStreamingSizeGB GB"
 	}
 }
 
@@ -321,21 +333,21 @@ function SymbolicLinks {
 # Returns the current PowerShell version.
 function PowerShellVersion {
 	$version = $PSVersionTable.PSVersion
-	Write-Host "PowerShell Version: $($version.Major).$($version.Minor).$($version.Build)" -ForegroundColor Blue
+	Write-Host "PowerShell Version: $($version.Major).$($version.Minor).$($version.Build)" -ForegroundColor Magenta
 }
 
-function PowerShellProfileFunctions {
+function Functions {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
-	Write-Host "Custom Functions Defined in module '$moduleName':" -ForegroundColor DarkBlue
+	Write-Host "Custom Functions Defined in module '$moduleName':" -ForegroundColor Magenta
 	Get-Command -CommandType Function -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name)" -ForegroundColor Green }
 }
 
-function PowerShellProfileAliases {
+function Aliases {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
 	Write-Host "`nCustom Aliases Defined in module '$moduleName':" -ForegroundColor Magenta
-	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor DarkBlue }
+	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor Green }
 }
 
 # Remove all attributes from a file or folder
@@ -368,39 +380,67 @@ function RemoveAllAttributes {
 	}
 }
 
-function InstallDrivers
-{
-	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+function InstallDrivers {
+	Set-Location "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
 	./Windows-Driver-Installation.ps1
 }
 
-function SetEfficiencyModeSystemwide
-{
-	Set-Location "E:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+function SetEfficiencyModeSystemwide {
+	Set-Location "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
 	./"Set-Efficiency-Mode-Systemwide.ps1" *> "Set-Efficiency-Mode-Systemwide-log.txt"
 	notepad "Set-Efficiency-Mode-Systemwide-log.txt"
 }
 
-function ReloadProfile
-{
-cls
-. $profile
+function Windows.Old {
+	$Path = "C:\Windows.old"
+
+	if (Test-Path $Path) {
+	
+		Write-Host "Taking ownership of $Path ..." -ForegroundColor Cyan
+		takeown /F $Path /A /R /D Y | Out-Null
+	
+		Write-Host "Granting Administrators full control ..." -ForegroundColor Cyan
+		icacls $Path /grant Administrators:F /T /C | Out-Null
+	
+		Write-Host "Removing attributes (read-only, system, hidden) ..." -ForegroundColor Cyan
+		Get-ChildItem -Path $Path -Recurse -Force | ForEach-Object {
+			try {
+				attrib -R -S -H $_.FullName
+			}
+			catch {}
+		}
+	
+		Write-Host "Deleting folder..." -ForegroundColor Yellow
+		Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
+	
+		if (-not (Test-Path $Path)) {
+			Write-Host "Windows.old successfully deleted." -ForegroundColor Green
+		}
+		else {
+			Write-Host "Some files could not be deleted. A reboot may be required." -ForegroundColor Red
+		}
+	
+	}
+ else {
+		Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
+	}	
+}
+
+function ReloadProfile {
+	Clear-Host
+	. $profile
 }
 
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
-Set-Alias -Name Aliases -Value PowerShellProfileAliases
-Set-Alias -Name Functions -Value PowerShellProfileFunctions
-Set-Alias -Name GDriveSize -Value GoogleDriveSize
 Set-Alias -Name Junctions -Value SymbolicLinks
 Set-Alias -Name SymLinks -Value SymbolicLinks
-Set-Alias -Name OneDriveSecurity -Value OneDriveSecurityPermissionDeniedFix
 Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurityPermissionDeniedFix', 'SymbolicLinks', 'PowerShellProfileFunctions', 'PowerShellProfileAliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile'
-$aliases = 'OneDriveSecurity', 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'GDriveSize', 'Version', 'About', 'Aliases', 'Functions', 'SecurityReset', 'SymLinks', 'Reload'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old'
+$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 'SymLinks', 'Reload'
 Export-ModuleMember -Function $functions -Alias $aliases

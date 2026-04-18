@@ -28,5 +28,5 @@ if (Test-Path($ChocolateyProfile)) {
 # ============================================================
 # Profile Loaded Successfully
 # ============================================================
-PowerShellProfileFunctions
-PowerShellProfileAliases
+Functions
+Aliases

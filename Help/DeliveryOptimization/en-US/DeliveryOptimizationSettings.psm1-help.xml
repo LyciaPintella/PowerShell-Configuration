@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Delete-DeliveryOptimizationCache</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Delete</command:verb>
+      <command:noun>DeliveryOptimizationCache</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>FileId</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill FileId Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Force Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>IncludePinnedFiles</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill IncludePinnedFiles Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/delete-deliveryoptimizationcache?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DeliveryOptimizationStatus</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DeliveryOptimizationStatus</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3" aliases="none">
+        <maml:name>ExpireOn</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill ExpireOn Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.DateTime</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>FileId</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill FileId Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="none">
+        <maml:name>Pin</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Pin Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Nullable`1[System.Boolean]</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-deliveryoptimizationstatus?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DODownloadMode</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DODownloadMode</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>downloadMode</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill downloadMode Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="true">SettableDownloadMode</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-dodownloadmode?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DOMaxBackgroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DOMaxBackgroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>MaxBackgroundBandwidth</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill MaxBackgroundBandwidth Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Nullable`1[System.UInt32]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Reset</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Reset Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-domaxbackgroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DOMaxForegroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DOMaxForegroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>MaxForegroundBandwidth</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill MaxForegroundBandwidth Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Nullable`1[System.UInt32]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Reset</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Reset Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-domaxforegroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DOPercentageMaxBackgroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DOPercentageMaxBackgroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>MaxBackgroundBandwidthPercentage</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill MaxBackgroundBandwidthPercentage Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Nullable`1[System.UInt32]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Reset</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Reset Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-dopercentagemaxbackgroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Set-DOPercentageMaxForegroundBandwidth</command:name>
+      <maml:description>
+        <maml:para />
+      </maml:description>
+      <command:verb>Set</command:verb>
+      <command:noun>DOPercentageMaxForegroundBandwidth</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax />
+    <command:parameters>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1" aliases="none">
+        <maml:name>MaxForegroundBandwidthPercentage</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill MaxForegroundBandwidthPercentage Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Nullable`1[System.UInt32]</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="Named" aliases="none">
+        <maml:name>Reset</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Reset Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="true">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para />
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>--------- Example 1 ---------</maml:title>
+        <maml:introduction>
+          <maml:para>```powershell
+PS C:\&gt; {{ Add example code here }}
+```</maml:para>
+          <maml:para>&#x80;</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </maml:introduction>
+        <dev:code />
+        <dev:remarks />
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <command:uri>https://learn.microsoft.com/powershell/module/deliveryoptimization/set-dopercentagemaxforegroundbandwidth?view=windowsserver2025-ps&amp;wt.mc_id=ps-gethelp</command:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://aka.ms/do-cmdlets</maml:linkText>
+        <command:uri>https://aka.ms/do-cmdlets</command:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>
