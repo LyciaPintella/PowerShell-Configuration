@@ -395,13 +395,12 @@ function Windows.Old {
 	$Path = "C:\Windows.old"
 
 	if (Test-Path $Path) {
-	
 		Write-Host "Taking ownership of $Path ..." -ForegroundColor Cyan
 		takeown /F $Path /A /R /D Y | Out-Null
-	
+
 		Write-Host "Granting Administrators full control ..." -ForegroundColor Cyan
 		icacls $Path /grant Administrators:F /T /C | Out-Null
-	
+
 		Write-Host "Removing attributes (read-only, system, hidden) ..." -ForegroundColor Cyan
 		Get-ChildItem -Path $Path -Recurse -Force | ForEach-Object {
 			try {
@@ -409,7 +408,7 @@ function Windows.Old {
 			}
 			catch {}
 		}
-	
+		
 		Write-Host "Deleting folder..." -ForegroundColor Yellow
 		Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
 	
@@ -421,9 +420,9 @@ function Windows.Old {
 		}
 	
 	}
- else {
-		Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
-	}	
+	else {
+			Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
+		}	
 }
 
 function RepairRecycleBin {
