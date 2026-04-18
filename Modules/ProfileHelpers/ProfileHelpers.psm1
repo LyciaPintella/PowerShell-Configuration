@@ -426,6 +426,31 @@ function Windows.Old {
 	}	
 }
 
+function RepairRecycleBin {
+	# Repair Recycle Bin on all drives
+	# Run in an elevated PowerShell window
+	
+	$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
+	
+	foreach ($drive in $drives) {
+		$path = Join-Path $drive.Root '$Recycle.Bin'
+	
+		if (Test-Path $path) {
+			Write-Host "Repairing Recycle Bin on $($drive.Root) ..." -ForegroundColor Cyan
+			try {
+				Remove-Item -Path $path -Recurse -Force -ErrorAction Stop
+				Write-Host "✔ Recycle Bin repaired on $($drive.Root)" -ForegroundColor Green
+			}
+			catch {
+				Write-Host "✖ Failed on $($drive.Root): $($_.Exception.Message)" -ForegroundColor Red
+			}
+		}
+		else {
+			Write-Host "No Recycle Bin found on $($drive.Root), skipping." -ForegroundColor Yellow
+		}
+	}
+}
+
 function ReloadProfile {
 	Clear-Host
 	. $profile
@@ -441,6 +466,6 @@ Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin'
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 'SymLinks', 'Reload'
 Export-ModuleMember -Function $functions -Alias $aliases
