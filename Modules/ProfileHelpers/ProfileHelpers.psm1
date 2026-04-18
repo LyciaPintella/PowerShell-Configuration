@@ -428,7 +428,6 @@ function Windows.Old {
 			Remove-Item C:\Windows.old
 			Write-Host "Some files could not be deleted. A reboot may be required." -ForegroundColor Red
 		}
-	
 	}
 	else {
 			Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
