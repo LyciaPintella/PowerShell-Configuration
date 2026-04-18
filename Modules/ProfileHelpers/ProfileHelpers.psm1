@@ -392,23 +392,21 @@ function SetEfficiencyModeSystemwide {
 }
 
 function Windows.Old {
-	$Path = "C:\Windows.old"
-	
-	# ! Start by creating an empty directory and using robocopy to mirror it to C:\Windows.old, which will effectively remove all files while preserving the folder structure and avoiding issues with locked files. Then we can remove the empty Windows.old folder.
-	mkdir C:\Empty
-	robocopy C:\Empty C:\Windows.old /MIR /R:1 /W:1
-	Remove-Item C:\Windows.old
+	$Path1 = "C:\Windows.old\Windows"
+	$Path2 = "C:\Windows.old\Users"
+	$Path3 = "C:\Windows.old"
 	
 	# ! If the above method fails due to locked files, we can attempt to take ownership and grant full control to Administrators, then remove read-only, system, and hidden attributes before deleting the folder.
-	if (Test-Path $Path) {
-		Write-Host "Taking ownership of $Path ..." -ForegroundColor Cyan
-		takeown /F $Path /A /R /D Y | Out-Null
+	
+	if (Test-Path $Path1) {
+		Write-Host "Taking ownership of $Path1 ..." -ForegroundColor Cyan
+		takeown /F $Path1 /A /R /D Y | Out-Null
 
 		Write-Host "Granting Administrators full control ..." -ForegroundColor Cyan
-		icacls $Path /grant Administrators:F /T /C | Out-Null
+		icacls $Path1 /grant Administrators:F /T /C | Out-Null
 
 		Write-Host "Removing attributes (read-only, system, hidden) ..." -ForegroundColor Cyan
-		Get-ChildItem -Path $Path -Recurse -Force | ForEach-Object {
+		Get-ChildItem -Path $Path1 -Recurse -Force | ForEach-Object {
 			try {
 				attrib -R -S -H $_.FullName
 			}
@@ -416,64 +414,119 @@ function Windows.Old {
 		}
 		
 		Write-Host "Deleting folder..." -ForegroundColor Yellow
-		Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
+		Remove-Item $Path1 -Recurse -Force -ErrorAction SilentlyContinue
 	
-		if (-not (Test-Path $Path)) {
+		if (-not (Test-Path $Path1)) {
 			Write-Host "Windows.old successfully deleted." -ForegroundColor Green
 		}
 		else {
-			# ! Repeat the Robocopy process to preserve our progress.
-			mkdir C:\Empty
-			robocopy C:\Empty C:\Windows.old /MIR /R:1 /W:1
-			Remove-Item C:\Windows.old
-			Write-Host "Some files could not be deleted. A reboot may be required." -ForegroundColor Red
+			Remove-Item $Path1 -Recurse -Force -ErrorAction SilentlyContinue
+			Write-Host "Some files in $Path1 could not be deleted. A reboot may be required." -ForegroundColor Red
 		}
 	}
 	else {
-			Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
-		}	
-}
+		Write-Host "$Path1 does not exist." -ForegroundColor DarkYellow
+	}
+	
+	if (Test-Path $Path2) {
+		Write-Host "Taking ownership of $Path2 ..." -ForegroundColor Cyan
+		takeown /F $Path2 /A /R /D Y | Out-Null
 
-function RepairRecycleBin {
-	# Repair Recycle Bin on all drives
-	# Run in an elevated PowerShell window
-	
-	$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
-	
-	foreach ($drive in $drives) {
-		$path = Join-Path $drive.Root '$Recycle.Bin'
-	
-		if (Test-Path $path) {
-			Write-Host "Repairing Recycle Bin on $($drive.Root) ..." -ForegroundColor Cyan
+		Write-Host "Granting Administrators full control ..." -ForegroundColor Cyan
+		icacls $Path2 /grant Administrators:F /T /C | Out-Null
+
+		Write-Host "Removing attributes (read-only, system, hidden) ..." -ForegroundColor Cyan
+		Get-ChildItem -Path $Path2 -Recurse -Force | ForEach-Object {
 			try {
-				Remove-Item -Path $path -Recurse -Force -ErrorAction Stop
-				Write-Host "✔ Recycle Bin repaired on $($drive.Root)" -ForegroundColor Green
+				attrib -R -S -H $_.FullName
 			}
-			catch {
-				Write-Host "✖ Failed on $($drive.Root): $($_.Exception.Message)" -ForegroundColor Red
+			catch {}
+		}
+		
+		Write-Host "Deleting folder..." -ForegroundColor Yellow
+		Remove-Item $Path2 -Recurse -Force -ErrorAction SilentlyContinue
+	
+		if (Test-Path $Path3) {
+			Write-Host "Taking ownership of $Path3 ..." -ForegroundColor Cyan
+			takeown /F $Path3 /A /R /D Y | Out-Null
+	
+			Write-Host "Granting Administrators full control ..." -ForegroundColor Cyan
+			icacls $Path3 /grant Administrators:F /T /C | Out-Null
+	
+			Write-Host "Removing attributes (read-only, system, hidden) ..." -ForegroundColor Cyan
+			Get-ChildItem -Path $Path2 -Recurse -Force | ForEach-Object {
+				try {
+					attrib -R -S -H $_.FullName
+				}
+				catch {}
 			}
+			
+			if (-not (Test-Path $Path2)) {
+				Write-Host "$Path2 successfully deleted." -ForegroundColor Green
+			}
+			else {
+				Remove-Item $Path2 -Recurse -Force -ErrorAction SilentlyContinue
+				Write-Host "Some files in $Path2 could not be deleted. A reboot may be required." -ForegroundColor Red
+			}
+			if (-not (Test-Path $Path3)) {
+				Write-Host "$Path3 successfully deleted." -ForegroundColor Green
+			}
+			else {
+				Remove-Item $Path3 -Recurse -Force -ErrorAction SilentlyContinue
+				Write-Host "Some files in $Path3 could not be deleted. A reboot may be required." -ForegroundColor Red
+			}
+		
+			Remove-Item $Path3 -Recurse -Force -ErrorAction SilentlyContinue
+			# ! Use Robocopy to mirror an empty directory over Windows.old, which can help remove stubborn files on next reboot if the above method fails.
+			mkdir C:\Empty
+			robocopy C:\Empty C:\Windows.old /MIR /R:1 /W:1
 		}
 		else {
-			Write-Host "No Recycle Bin found on $($drive.Root), skipping." -ForegroundColor Yellow
+			Write-Host "C:\Windows.old does not exist." -ForegroundColor DarkYellow
 		}
 	}
 }
 
-function ReloadProfile {
-	Clear-Host
-	. $profile
-}
+	function RepairRecycleBin {
+		# Repair Recycle Bin on all drives
+		# Run in an elevated PowerShell window
+	
+		$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
+	
+		foreach ($drive in $drives) {
+			$path = Join-Path $drive.Root '$Recycle.Bin'
+	
+			if (Test-Path $path) {
+				Write-Host "Repairing Recycle Bin on $($drive.Root) ..." -ForegroundColor Cyan
+				try {
+					Remove-Item -Path $path -Recurse -Force -ErrorAction Stop
+					Write-Host "✔ Recycle Bin repaired on $($drive.Root)" -ForegroundColor Green
+				}
+				catch {
+					Write-Host "✖ Failed on $($drive.Root): $($_.Exception.Message)" -ForegroundColor Red
+				}
+			}
+			else {
+				Write-Host "No Recycle Bin found on $($drive.Root), skipping." -ForegroundColor Yellow
+			}
+		}
+	}
 
-# ============================================================
-# Aliases (exported so that Get-Alias shows this module as the source)
-Set-Alias -Name Junctions -Value SymbolicLinks
-Set-Alias -Name SymLinks -Value SymbolicLinks
-Set-Alias -Name Version -Value PowerShellVersion
-Set-Alias -Name About -Value PowerShellVersion
-Set-Alias -Name SecurityReset -Value RemoveAllAttributes
-Set-Alias -Name Reload -Value ReloadProfile
+	function ReloadProfile {
+		Clear-Host
+		. $profile
+	}
 
-# Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin'
-$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 'SymLinks', 'Reload'
-Export-ModuleMember -Function $functions -Alias $aliases
+	# ============================================================
+	# Aliases (exported so that Get-Alias shows this module as the source)
+	Set-Alias -Name Junctions -Value SymbolicLinks
+	Set-Alias -Name SymLinks -Value SymbolicLinks
+	Set-Alias -Name Version -Value PowerShellVersion
+	Set-Alias -Name About -Value PowerShellVersion
+	Set-Alias -Name SecurityReset -Value RemoveAllAttributes
+	Set-Alias -Name Reload -Value ReloadProfile
+
+	# Export members (functions + aliases)
+	$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin'
+	$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 'SymLinks', 'Reload'
+	Export-ModuleMember -Function $functions -Alias $aliases
