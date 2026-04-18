@@ -446,5 +446,5 @@ Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 
-Functions
+# ? Functions (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
 # ? Aliases (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
