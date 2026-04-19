@@ -456,6 +456,293 @@ function ReloadProfile {
 	. $profile
 }
 
+function WingetInstallBatch {
+<# WINGET INSTALLATION #>
+$progressPreference = 'silentlyContinue'
+<# ! Trust the PSGallery repositoryu #>
+<# ! Get-Module lists modules installed from PSGallery! #>
+Write-Host "Installing WinGet PowerShell module from PSGallery..."
+Set-PSRepository PSGallery -InstallationPolicy Trusted
+Install-PackageProvider -Name NuGet -Force | Out-Null
+Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery | Out-Null
+Write-Host "Using Repair-WinGetPackageManager cmdlet to bootstrap WinGet..."
+Repair-WinGetPackageManager -AllUsers
+Write-Host "Done."
+<# WINGET INSTALLATION #>
+
+<# ! Main Application Install Batch ! #>
+winget install Logitech.GHUB --accept-source-agreements --accept-package-agreements # --force # Logitech G HUB
+winget update Microsoft.Onedrive --accept-source-agreements --accept-package-agreements # --force # Logitech G HUB # OneDrive
+
+# ^ Not needed unless troubleshooting, as OneDrive is already included with Windows and should update through Windows Update.
+# ^ winget install Microsoft.Onedrive --accept-source-agreements --accept-package-agreements # --force # OneDrive
+
+winget install Microsoft.Edge.Beta --accept-source-agreements --accept-package-agreements # --force # Microsoft Edge Beta
+winget install Discord.Discord --accept-source-agreements --accept-package-agreements # --force # Discord
+winget install Microsoft.WindowsTerminal.Preview --accept-source-agreements --accept-package-agreements --force # Windows Terminal (Preview)
+winget install Microsoft.WindowsTerminal --accept-source-agreements --accept-package-agreements --force # Windows Terminal
+winget install Microsoft.PowerShell.Preview --source winget --accept-source-agreements --accept-package-agreements --force # PowerShell 7.6 (Preview)
+winget install Microsoft.PowerShell --source winget --accept-source-agreements --accept-package-agreements --force # PowerShell 7.6
+winget install CodeSector.TeraCopy --accept-source-agreements --accept-package-agreements # --force # TeraCopy
+winget install MartiCliment.UniGetUI --accept-source-agreements --accept-package-agreements # --force # UniGetUI - A GUI for winget
+winget install M2Team.NanaZip --accept-source-agreements --accept-package-agreements # --force # NanaZip
+winget install 7zip.7zip --accept-source-agreements --accept-package-agreements # --force # 7-Zip
+# ^ winget install M2Team.NanaZip.Preview --accept-source-agreements --accept-package-agreements # --force # NanaZip Preview
+
+<# & AI Apps #>
+winget install Ollama.Ollama --accept-source-agreements --accept-package-agreements # --force # Ollama
+winget install Anthropic.Claude --accept-source-agreements --accept-package-agreements # --force # Claude
+winget install XP8JNQFBQH6PVF --accept-source-agreements --accept-package-agreements # --force # Perplexity AI
+winget install ElementLabs.LMStudio --accept-package-agreements --accept-source-agreements # --force # LM Studio
+
+Set-Location "E:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\! AI LLM CLIENTS"
+./"Desktop Commander x64.msi"
+
+<# & AI Apps #>
+
+
+winget install Chocolatey.Chocolatey --accept-source-agreements --accept-package-agreements # --force # Chocolatey
+winget.exe install --id "Chocolatey.ChocolateyGUI" --exact --source winget --accept-source-agreements --disable-interactivity --silent --accept-package-agreements # --force
+
+Set-Location "C:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\WinGet and UniGetUI"
+./"Winget-Auto-Update.msi"
+./"Winget-Auto-Upgrade.msi"
+# ! MaWinget-Auto-Upgrade.msi
+# ! winget install KnifMelti.WAU-Settings-GUI --accept-source-agreements --accept-package-agreements # --force # WAU Settings GUI (A GUI for Romanitho's Winget AutoUpdate)
+<# & AI Apps #>
+
+winget install --id "peterandree.winget-chocolatey-manager" --exact --source winget --accept-source-agreements --disable-interactivity --silent --accept-package-agreements # --force  <# identified all your installed apps, that are not managed by winget or chocolatey and registers them for chocolatey if possible, allowing automated updates #>
+<# 
+Winget AutoUpgrade is a tool that automatically updates all your installed applications using winget. It checks for updates regularly and installs them without requiring user intervention.
+winget source add -n salamek-win -t "Microsoft.Rest" -a https://repository.salamek.cz/win/api/
+winget install salamek.winget-auto-upgrade --silent --accept-package-agreements --accept-source-agreements
+./"E:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\WinGet and UniGetUI\Winget-Auto-Upgrade.msi"
+#>
+choco install amd-ryzen-master -y # --force
+choco install Firefox -y # --force
+choco install applet-runner-pro -y # --force # Desktop Commander
+choco install cupscale -y # --force # Cupscale
+choco install nvidia-display-driver -y # --force # NVIDIA Display Driver
+choco install amd-cleanup-utility -y # --force # AMD Cleanup Utility
+choco install xmedia-recode -y # --force # XMedia Recode
+choco install hydralauncher -y # --force # HydraLauncher
+choco install realtek-hd-audio-driver -y # --force # Realtek HD Audio Driver
+
+<# Activate Chocolatey Manager to register all non-winget apps with chocolatey, allowing for automated updates. #>
+winget-choco-manager
+
+<# ^ PowerShell Modules #>
+Install-Module -Name PSWindowsUpdate
+Install-Module -Name PackageManagement
+Install-Module -Name RunAsUser
+Install-Module -Name PowerShellGet -AllowPrerelease -Force
+
+# * Updates PowerShell help files for all installed modules.
+Update-Help -Force
+<# ^ PowerShell Modules #>
+
+<# ^ IrfanView and plugins +GIMP #>
+winget install IrfanSkiljan.IrfanView --accept-source-agreements --accept-package-agreements # --force # IrfanView
+winget install IrfanSkiljan.IrfanView.PlugIns --accept-source-agreements --accept-package-agreements # --force # IrfanView PlugIns
+winget install GIMP.GIMP.3 --accept-source-agreements --accept-package-agreements # --force # GIMP 3.0
+winget install Foxit.FoxitReader --accept-source-agreements --accept-package-agreements # --force # Foxit PDF Reader
+winget install FoxIt.FoxitPDFEditor --accept-source-agreements --accept-package-agreements # --force # Foxit PDF Editor
+winget install TheDocumentFoundation.LibreOffice --accept-source-agreements --accept-package-agreements # --force # LibreOffice
+# winget install Mozilla.Thunderbird --accept-source-agreements --accept-package-agreements # --force # Mozilla Thunderbird
+winget install Microsoft.EdgeWebView2Runtime --accept-source-agreements --accept-package-agreements # --force # Microsoft Edge WebView2 Runtime
+winget install Valve.Steam --accept-source-agreements --accept-package-agreements # --force # Steam
+# ! The winget package isn't working for some reason, so I'm installing it manually for now. # Steam Library Manager
+# ! winget install RevoLand.Steam-Library-Manager --accept-source-agreements --accept-package-agreements # --force # Steam Library Manager
+winget install GNE.DualMonitorTools --accept-source-agreements --accept-package-agreements # --force # Dual Monitor Tools
+winget install winaero.tweaker --accept-source-agreements --accept-package-agreements # --force
+winget install Glarysoft.GlaryUtilities --accept-source-agreements --accept-package-agreements # --force
+winget install Google.GoogleDrive --accept-source-agreements --accept-package-agreements # --force #Google Drive
+winget install Microsoft.PowerToys --accept-source-agreements --accept-package-agreements # --force # PowerToys
+winget install Dropbox.Dropbox --accept-source-agreements --accept-package-agreements # --force # Dropbox
+winget install VideoLAN.VLC --accept-source-agreements --accept-package-agreements # --force # VLC Media Player
+winget install Microsoft.PowerShell.Archive --accept-source-agreements --accept-package-agreements # --force # PowerShell Archive
+winget install Microsoft.PowerShell.PSResourceGet --accept-source-agreements --accept-package-agreements # --force # PowerShell PSResourceGet
+winget install Microsoft.PowerShell.ConsoleGuiTools --accept-source-agreements --accept-package-agreements # --force # PowerShell ConsoleGuiTools
+winget install Microsoft.PowerShell.Crescendo --accept-source-agreements --accept-package-agreements # --force # PowerShell Crescendo
+winget install Microsoft.PowerShell.WhatsNew --accept-source-agreements --accept-package-agreements # --force # PowerShell WhatsNew
+winget install Microsoft.PowerShell.TextUtility --accept-source-agreements --accept-package-agreements # --force # PowerShell TextUtility
+winget install Microsoft.PowerShell.PSAdapter --accept-source-agreements --accept-package-agreements # --force # PowerShell PSAdapter
+winget install WinDirStat.WinDirStat.Beta --accept-source-agreements --accept-package-agreements # --force # WinDirStat Beta
+winget install Skillbrains.Lightshot 
+winget install FastStone.Viewer --accept-source-agreements --accept-package-agreements # --force
+winget install HandBrake.HandBrake --accept-source-agreements --accept-package-agreements # --force # HandBrake
+winget install HandBrake.HandBrake.CLI --accept-source-agreements --accept-package-agreements # --force # HandBrake CLI
+winget install Mozilla.Firefox --accept-source-agreements --accept-package-agreements # --force
+winget install CPUID.CPU-Z --accept-source-agreements --accept-package-agreements # --force
+winget install CPUID.HWMonitor --accept-source-agreements --accept-package-agreements # --force
+winget install REALiX.HWiNFO --accept-source-agreements --accept-package-agreements # --force
+winget install CrystalDewWorld.CrystalDiskInfo --accept-source-agreements --accept-package-agreements # --force
+winget install CrystalDewWorld.CrystalDiskMark --accept-source-agreements --accept-package-agreements # --force
+winget install VoodooSoft.DefenderUI --accept-source-agreements --accept-package-agreements # --force # DefenderUI
+winget install GOG.Galaxy --accept-source-agreements --accept-package-agreements # --force # GOG Galaxy
+winget install EpicGames.EpicGamesLauncher --accept-source-agreements --accept-package-agreements # --force # Epic Games Launcher
+winget install ElectronicArts.EADesktop --accept-source-agreements --accept-package-agreements # --force # EA Desktop
+
+# winget install Cygwin.Cygwin --accept-source-agreements --accept-package-agreements # --force # Cygwin
+# winget install qBittorrent.qBittorrent --accept-source-agreements --accept-package-agreements # --force # qBittorrent
+winget install LiteratureAndLatte.Scrivener --accept-source-agreements --accept-package-agreements # --force # Scrivener v3
+winget install Wagnardsoft.DisplayDriverUninstaller --accept-source-agreements --accept-package-agreements # --force # Display Driver Uninstaller (DDU)
+winget install JamesCJ60.Universalx86TuningUtility --accept-source-agreements --accept-package-agreements # --force
+
+<# ! Integrated Development Environments (IDEs) & Other Tools #>
+winget install Microsoft.VisualStudioCode --accept-source-agreements --accept-package-agreements # --force <# Visueal Studio Code#>
+winget install Microsoft.VisualStudioCode.Insiders --accept-source-agreements --accept-package-agreements # --force <# Visueal Studio Code#>
+winget install VSCodium.VSCodium --accept-source-agreements --accept-package-agreements --accept-source-agreements --accept-package-agreements # --force # VSCodium
+winget install Microsoft.VisualStudio.Community --accept-source-agreements --accept-package-agreements # --force <# Visual Studio Community Edition#>
+winget install LuaLS.lua-language-server --accept-source-agreements --accept-package-agreements # --force <# Lua Language Server#>
+winget install Koihik.vscode-lua-format --accept-source-agreements --accept-package-agreements # --force <# Lua Format#>
+winget install GitHub.Copilot --accept-source-agreements --accept-package-agreements # --force # Copilot CLI v.1.0.7
+winget install Anthropic.ClaudeCode --accept-source-agreements --accept-package-agreements # --force
+winget install vscode-powershell --accept-source-agreements --accept-package-agreements # --force <# PowerShell Extension for VSCode#>
+winget install Git.Git --accept-source-agreements --accept-package-agreements # --force <# Git Version Control#>
+winget install GitHub.GitHubDesktop --accept-source-agreements --accept-package-agreements # --force <# GitHub Desktop#>
+winget install Microsoft.CmdPalGitHubExtension --accept-source-agreements --accept-package-agreements # --force <# GitHub extension for Command Palette#>
+winget install 15722UsefulApp.WorkspaceLauncherForVSCode --accept-source-agreements --accept-package-agreements # --force <# Workspace Launcher for VSCode#>
+winget install Microsoft.VisualStudioCode.CLI --accept-source-agreements --accept-package-agreements # --force <# Microsoft Visual Studio Code CLI#>
+winget install AlexanderBrandt.AIConsumptionTracker --accept-source-agreements --accept-package-agreements # --force # AI Consumption Tracker v.2.2.23 Tag:github-copilot
+winget install rjpcomputing.luaforwindows --accept-source-agreements --accept-package-agreements # --force <# Lua for Windows#>
+winget install JonahFintzDEV.CommandPalette-VSCode # --force
+winget install GitHub.cli --accept-source-agreements --accept-package-agreements # --force <# GitHub CLI#>
+winget install Python.PythonInstallManager --accept-source-agreements --accept-package-agreements # --force
+winget install Python.Python.3.14 --accept-source-agreements --accept-package-agreements # --force
+winget install Python.Python.3.14.Launcher --accept-source-agreements --accept-package-agreements # --force
+winget install CondaForge.Miniforge3 --accept-source-agreements --accept-package-agreements # --force
+winget install 9NPR957HTH9Q --accept-source-agreements --accept-package-agreements # --force # LuaBox
+<# ! Integrated Development Environments (IDEs) & Other Tools #>
+
+
+
+<# Integrated Development Environments (IDEs) & Other Tools (DISABLED)
+winget install Microsoft.WindowsDriverKit --accept-source-agreements --accept-package-agreements # --force # Windows Driver Kit (WDK)
+winget install Microsoft.VisualStudioCode.Insiders --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.VisualStudioCode.Insiders.CLI --accept-source-agreements --accept-package-agreements # --force
+winget install VSCodium.VSCodium.Insiders --accept-source-agreements --accept-package-agreements # --force # VSCodium Insiders
+winget install zokugun.MrCode --accept-source-agreements --accept-package-agreements --accept-source-agreements --accept-package-agreements # --force # MrCode
+winget install EclipseFoundation.TheiaIDE --accept-source-agreements --accept-package-agreements # --force
+winget install KDE.Kate --accept-source-agreements --accept-package-agreements # --force # Kate
+winget install Alex313031.Codium --accept-source-agreements --accept-package-agreements # --force # Codium https://itsfoss.com/vs-code-vs-codium/
+
+<# ^ Are these any good?
+winget install Docker.DockerDesktop --accept-source-agreements --accept-package-agreements # --force
+winget install Docker.DockerCompose --accept-source-agreements --accept-package-agreements # --force
+winget install Docker.DockerDesktopEdge --accept-source-agreements --accept-package-agreements # --force
+winget install Docker.DockerCLI --accept-source-agreements --accept-package-agreements # --force
+#>
+Integrated Development Environments (IDEs) & Other Tools (DISABLED) #>
+
+<# Microsft .Net Runtimes #>
+winget install Microsoft.DotNet.DesktopRuntime.3_1 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.DesktopRuntime.5 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.DesktopRuntime.7 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.DesktopRuntime.8 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.DesktopRuntime.9 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.DesktopRuntime.10 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.Runtime.5 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.Runtime.6 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.Runtime.7 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.Runtime.8 --accept-source-agreements --accept-package-agreements # --force
+winget install Microsoft.DotNet.Runtime.9 --accept-source-agreements --accept-package-agreements # --force
+<# Microsft .Net Runtimes #>
+
+<# *  LINUX DISTROS & Virtual Machines 	#>
+winget install Microsoft.WSL --accept-source-agreements --accept-package-agreements # --force <# Windows Subsystem for Linux#>
+winget install Canonical.Ubuntu --accept-source-agreements --accept-package-agreements # --force
+winget install Oracle.OracleLinux.9.5 --accept-source-agreements --accept-package-agreements # --force <# Oracle Linux 9.5#>
+winget install SUSE.openSUSE.Leap.15.6 --accept-source-agreements --accept-package-agreements # --force # openSUSE Leap 15.6
+winget install OffSec.KaliLinux --accept-source-agreements --accept-package-agreements # --force # Kali Linux
+winget install 9PLSJR4TG2GQ --accept-source-agreements --accept-package-agreements # --force <# Linux WSL Distribution Manager#>
+winget install Toxblh.WinToLinux # --forcex <# Creates a Linux VM based on your Windows configuration and allows you to install Linux distros on it. #>
+winget install 9P5RWLM70SN9 --accept-source-agreements --accept-package-agreements # --force # AlmaLinux OS 9
+winget install 9P41G2MV9CQ3 --accept-source-agreements --accept-package-agreements # --force # Pistachio Linux
+winget install whitewaterfoundry.fedora-remix-for-wsl --accept-source-agreements --accept-package-agreements # --force # Fedora Remix for WSL
+winget install Canonical.UbuntuProforWSL --accept-source-agreements --accept-package-agreements # --force
+winget install Whop42.LinuxConvert --accept-source-agreements --accept-package-agreements # --force <# Linux Convert - Converts a Linux ISO into a WSL distro#>
+winget install Mintty.WSLtty --accept-source-agreements --accept-package-agreements # --force <# WSLtty - A terminal for WSL#>
+
+winget install Fedora.FedoraMediaWriter --accept-source-agreements --accept-package-agreements # --force # Fedora Media Writer
+
+<# ^ Virtual Machines #>
+winget install Oracle.VirtualBox --accept-source-agreements --accept-package-agreements # --force <# ^Oracle VM VirtualBox #>
+Set-Location "E:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\Virtual Machines"
+.\"VMware Player.exe"
+<# ^  Virtual Machines #>
+
+<# * Weather Applications
+winget install 9WZDNCRFJ3Q2 --accept-source-agreements --accept-package-agreements # --force
+winget install 9PP0MFQFVSC5 --accept-source-agreements --accept-package-agreements # --force
+winget install 9N33PK9646X9 --accept-source-agreements --accept-package-agreements # --force
+winget install 9P1HHTX0G22F --accept-source-agreements --accept-package-agreements # --force
+winget install 9WZDNCRDNDDC --accept-source-agreements --accept-package-agreements # --force
+winget install 9WZDNCRDDD9P --accept-source-agreements --accept-package-agreements # --force
+winget install 9PFD136M8457 --accept-source-agreements --accept-package-agreements # --force
+winget install 9NBLGGH5M67C --accept-source-agreements --accept-package-agreements # --force
+winget install 9NKC37BC8SRX --accept-source-agreements --accept-package-agreements # --force
+winget install 9N0F79RT175S --accept-source-agreements --accept-package-agreements # --force
+winget install 9NK7991SSJF1 --accept-source-agreements --accept-package-agreements # --force
+winget install 9PN5DLPMHV1Z --accept-source-agreements --accept-package-agreements # --force
+winget install 9PN4P7PMP4JT --accept-source-agreements --accept-package-agreements # --force
+* Weather Applications #>
+
+<# ? 	GitHub 	# 
+winget install AmarBego.GitTop --accept-source-agreements --accept-package-agreements # --force # GitTop v.0.4.0 Tag:github
+winget install Bostrot.WSLManager --accept-source-agreements --accept-package-agreements # --force # WSL Manager v.1.10.0 Tag:github
+winget install CosimoMatteini.DRA --accept-source-agreements --accept-package-agreements # --force # DRA v.0.10.1 Tag:github
+winget install CosmoX.Lepton --accept-source-agreements --accept-package-agreements # --force # Lepton v.1.10.0 Tag:github
+winget install DuckStudio.GitHubLabelsManager --accept-source-agreements --accept-package-agreements # --force # GitHub v.1.13 Tag:github
+winget install DuckStudio.GitHubView --accept-source-agreements --accept-package-agreements # --force # GitHubView v.1.0.6 Tag:github
+winget install DuckStudio.GitHubView.Nightly --accept-source-agreements --accept-package-agreements # --force # GitHubView (Nightly) v.2025.12.14.20209192776 Tag:github
+winget install Git.GCM --accept-source-agreements --accept-package-agreements # --force # Git Credential Manager (User) v.2.7.0 Tag:github
+winget install GitHub.Copilot.Prerelease --accept-source-agreements --accept-package-agreements # --force # Copilot CLI (Preview) v.1.0.8-0 Tag:github
+winget install GitHub.GitHubDesktop.Beta --accept-source-agreements --accept-package-agreements # --force # GitHub Desktop Beta v.3.5.5-beta2 Tag:github
+winget install GitHub.GitLFS --accept-source-agreements --accept-package-agreements # --force # Git LFS v.3.7.1 Tag:github
+winget install GitHub.git-sizer --accept-source-agreements --accept-package-agreements # --force # git-sizer v.1.5.0 Tag:github
+winget install Gitify.Gitify --accept-source-agreements --accept-package-agreements # --force # Gitify v.6.17.0 Tag:github
+winget install GordonBeeming.CopilotHere --accept-source-agreements --accept-package-agreements # --force # copilot_here v.2026.03.08.441 Tag:github
+winget install PenguinLabs.Cacher --accept-source-agreements --accept-package-agreements # --force # Cacher v.2.43.2 Tag:github
+winget install Shinokada.Gitstart --accept-source-agreements --accept-package-agreements # --force # GITSTART v.1.1.0 Tag:github
+winget install StefHeyenrath.GitHubReleaseNotes --accept-source-agreements --accept-package-agreements # --force # GitHubReleaseNotes v.1.0.10.1 Tag:github
+winget install ZacharyYedidia.Eget --accept-source-agreements --accept-package-agreements # --force # Eget v.1.3.4 Tag:github
+winget install docmirror.dev-sidecar --accept-source-agreements --accept-package-agreements # --force # dev-sidecar v.2.0.0 Tag:github
+winget install dvcrn.markright --accept-source-agreements --accept-package-agreements # --force # MarkRight v.0.1.11 Tag:github
+winget install feraxhp.grp --accept-source-agreements --accept-package-agreements # --force # grp v.0.12.0 Tag:github
+winget install nektos.act --accept-source-agreements --accept-package-agreements # --force # act v.0.2.84 Tag:github
+winget install polrivero.GitHubDesktopPlus --accept-source-agreements --accept-package-agreements # --force # GitHub Desktop Plus v.3.5.7-r0 Tag:github
+winget install zhaopengme.gitnote --accept-source-agreements --accept-package-agreements # --force # GitNote v.3.1.0 Tag:github
+winget install CoolPlayLin.FastGithub --accept-source-agreements --accept-package-agreements # --force # FastGithub v.2.1.4 Tag:Github
+winget install EryouHao.Gridea --accept-source-agreements --accept-package-agreements # --force # Gridea v.0.9.3 Tag:github-pages
+winget install GitTools.GitVersion --accept-source-agreements --accept-package-agreements # --force # GitTools GitVersion v.6.6.2 Tag:githubflow
+winget install GorillaDevs.Ferium --accept-source-agreements --accept-package-agreements # --force # Ferium v.4.7.1 Tag:github-releases
+winget install rhysd.actionlint --accept-source-agreements --accept-package-agreements # --force # actionlint v.1.7.11 Tag:github-actions
+winget install zizmor.zizmor --accept-source-agreements --accept-package-agreements # --force # zizmor v.1.23.1 Tag:github-actions
+winget install zed.rainxch.githubstore --accept-source-agreements --accept-package-agreements # --force # GitHub Store v.1.6.2
+winget install tekumara.gh-doctor --accept-source-agreements --accept-package-agreements # --force # GitHub Doctor v.0.3.0
+winget install GitHub.Atom --accept-source-agreements --accept-package-agreements # --force # Atom v.1.60.0
+winget install GitHub.Atom.Beta --accept-source-agreements --accept-package-agreements # --force # Atom Beta v.1.61.0-beta0
+winget install GitHub.ClassroomAssistant --accept-source-agreements --accept-package-agreements # --force # classroom-assistant v.2.0.4
+winget install GitHub.Copilot.modernization.agent --accept-source-agreements --accept-package-agreements # --force # Copilot modernization agent v.0.0.246
+winget install GitHub.hub --accept-source-agreements --accept-package-agreements # --force # hub v.2.14.2
+winget install GitHub.smimesign --accept-source-agreements --accept-package-agreements # --force # smimesign v.0.2.0-rc1
+< ? 	GitHub 	#>
+
+<# Activate Chocolatey Manager to register all non-winget apps with chocolatey, allowing for automated updates. #>
+winget-choco-manager
+
+
+<# ^ Winget Repair and Upgrade All #>
+winget repair --all --accept-package-agreements --include-unknown
+winget upgrade --all --accept-package-agreements --include-unknown
+<# ^ Winget Repair and Upgrade All #>
+}
+
+function OllamaAIGetModels {
+
+}
+
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
 Set-Alias -Name Junctions -Value SymbolicLinks
