@@ -500,9 +500,8 @@ Set-Location "E:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\!
 
 <# & AI Apps #>
 
-
 winget install Chocolatey.Chocolatey --accept-source-agreements --accept-package-agreements # --force # Chocolatey
-winget.exe install --id "Chocolatey.ChocolateyGUI" --exact --source winget --accept-source-agreements --disable-interactivity --silent --accept-package-agreements # --force
+winget install --id "Chocolatey.ChocolateyGUI" --exact --source winget --accept-source-agreements --disable-interactivity --silent --accept-package-agreements # --force
 
 Set-Location "C:\OD\Jessica\OneDrive\Jess Files\Windows Application Installers\WinGet and UniGetUI"
 ./"Winget-Auto-Update.msi"
@@ -739,8 +738,27 @@ winget upgrade --all --accept-package-agreements --include-unknown
 <# ^ Winget Repair and Upgrade All #>
 }
 
-function OllamaAIGetModels {
-
+function GetOllamaAIModels {
+ollama pull deepseek-coder:6.7b
+ollama pull llama2-uncensored:7b
+ollama pull qwen3:8b # Qwen 3 8B (Reasoning model)
+ollama pull llama3.1:8b
+ollama pull mistral
+ollama pull gemma2
+ollama pull llava
+ollama pull codellama:7b
+ollama pull openthinker:7b
+ollama pull qwen2.5-coder:7b
+ollama pull codellama:7b
+ollama pull starcoder2:7b
+ollama pull dolphin3:8b
+ollama pull qwen2.5:7b
+ollama pull codegemma:7b
+ollama pull codellama:7b
+ollama pull mistral:7b
+ollama pull llama3.1:8b
+#Supports image input
+ollama pull llava:7b
 }
 
 # ============================================================
@@ -753,6 +771,10 @@ Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin'
-$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 'SymLinks', 'Reload'
+$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
+'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
+'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin', 'GetOllamaAIModels', 'WingetInstallBatch'
+
+$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 
+'About', 'SecurityReset', 'SymLinks', 'Reload'
 Export-ModuleMember -Function $functions -Alias $aliases
