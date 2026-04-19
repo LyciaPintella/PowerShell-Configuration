@@ -822,20 +822,22 @@ ollama pull llama3.1:8b
 ollama pull llava:7b
 }
 
-	# ============================================================
-	# Aliases (exported so that Get-Alias shows this module as the source)
-	Set-Alias -Name Junctions -Value SymbolicLinks
-	Set-Alias -Name SymLinks -Value SymbolicLinks
-	Set-Alias -Name Version -Value PowerShellVersion
-	Set-Alias -Name About -Value PowerShellVersion
-	Set-Alias -Name SecurityReset -Value RemoveAllAttributes
-	Set-Alias -Name Reload -Value ReloadProfile
+# ============================================================
+# Aliases (exported so that Get-Alias shows this module as the source)
+Set-Alias -Name Junctions -Value SymbolicLinks
+Set-Alias -Name SymLinks -Value SymbolicLinks
+Set-Alias -Name Version -Value PowerShellVersion
+Set-Alias -Name About -Value PowerShellVersion
+Set-Alias -Name SecurityReset -Value RemoveAllAttributes
+Set-Alias -Name Reload -Value ReloadProfile
 
-	# Export members (functions + aliases)
-	$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
+# Export members (functions + aliases)
+$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
-'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin', 'GetOllamaAIModels', 'WingetInstallBatch'
+'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Windows.Old', 'RepairRecycleBin', 'GetOllamaAIModels', 
+'WingetInstallBatch'
 
-	$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 
-'About', 'SecurityReset', 'SymLinks', 'Reload'
-	Export-ModuleMember -Function $functions -Alias $aliases
+$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
+'SymLinks', 'Reload'
+
+Export-ModuleMember -Function $functions -Alias $aliases
