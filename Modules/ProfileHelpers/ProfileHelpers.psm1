@@ -455,7 +455,176 @@ function Format-USB-OS-Installers-1 {
 }
 
 function Format-USB-OS-Installers-2 {
-	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
+	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
+	<# ! Samsung USB Drive #>
+	<# ! Samsung USB Drive #>
+	<# ! Samsung USB Drive #>
+	# MemTest86
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "M:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\memtest.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	echo $mountResult
+	$volumeInfo = $mountResult | Get-Volume
+	echo $volumeInfo
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	echo $isoPath
+	echo $volumeInfo
+	echo $volumeInfo.DeviceID
+	echo $volumeInfo.DevicePath
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+	# Debian Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "N:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+	# Ubuntu Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "O:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "P:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+}
+
+function Format-USB-OS-Installers-3 {
+	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Third.ps1"
+	<# ! Cruzer USB Drive #>
+	<# ! Cruzer USB Drive #>
+	<# ! Cruzer USB Drive #>
+	# Debian Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "Q:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+	# Ubuntu Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "R:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "S:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+
+	# Win 11 Insider Preview
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "T:"
+
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Win 11 Insider Preview" -Confirm:$false
+
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Insider Preview x64 v22621.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	$volumeInfo = $mountResult | Get-Volume
+
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
 
@@ -472,7 +641,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Bad.Accounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'Format-USB-OS-Installers-1', 'Format-USB-OS-Installers-2'
+'WingetInstallBatch', 'Format-USB-OS-Installers-1', 'Format-USB-OS-Installers-2', 'Format-USB-OS-Installers-3'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
