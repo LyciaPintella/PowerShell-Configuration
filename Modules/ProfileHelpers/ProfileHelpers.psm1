@@ -456,111 +456,6 @@ function FormatUSBOSInstallers1 {
 
 function FormatUSBOSInstallers2 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
-	<# ! Samsung USB Drive #>
-	<# ! Samsung USB Drive #>
-	<# ! Samsung USB Drive #>
-	$roboCopyLog = "D:\RoboCopy Samsung.log"
-	
-	# MemTest86
-	# Identify the target USB drive (ensure correct drive letter)
-	$usbDrive = "M:"
-	
-	# Format the USB drive
-	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
-	
-	# Mount the ISO file
-	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\memtest.iso"
-	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
-	# Get all volumes associated with the mounted image
-	$volumeInfo = $mountResult | Get-Volume
-	
-	# Pick the one that actually has a label
-	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
-	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
-	# Copy files to the USB
-	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
-	
-	# Clean up: Unmount the ISO
-	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	# Debian Linux
-	# Identify the target USB drive (ensure correct drive letter)
-	$usbDrive = "N:"
-	
-	# Format the USB drive
-	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
-	
-	# Mount the ISO file
-	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
-	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
-	# Get all volumes associated with the mounted image
-	$volumeInfo = $mountResult | Get-Volume
-	
-	# Pick the one that actually has a label
-	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
-	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
-	# Copy files to the USB
-	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
-	
-	# Clean up: Unmount the ISO
-	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	# Ubuntu Linux
-	# Identify the target USB drive (ensure correct drive letter)
-	$usbDrive = "O:"
-	
-	# Format the USB drive
-	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
-	# Mount the ISO file
-	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
-	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
-	# Get all volumes associated with the mounted image
-	$volumeInfo = $mountResult | Get-Volume
-	
-	# Pick the one that actually has a label
-	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
-	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
-	# Copy files to the USB
-	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
-	
-	# Clean up: Unmount the ISO
-	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	# Win 11 Retail
-	# Identify the target USB drive (ensure correct drive letter)
-	$usbDrive = "P:"
-	
-	# Format the USB drive
-	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
-	
-	# Mount the ISO file
-	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
-	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
-	# Get all volumes associated with the mounted image
-	$volumeInfo = $mountResult | Get-Volume
-	
-	# Pick the one that actually has a label
-	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
-	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
-	# Copy files to the USB
-	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
-	# Clean up: Unmount the ISO
-	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	notepad $roboCopyLog
-}
-
-function FormatUSBOSInstallers3 {
-	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Third.ps1"
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
@@ -584,7 +479,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -608,7 +503,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -633,7 +528,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -657,8 +552,113 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
 	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	notepad $roboCopyLog
+}
+
+function FormatUSBOSInstallers3 {
+	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Third.ps1"
+	<# ! Samsung USB Drive #>
+	<# ! Samsung USB Drive #>
+	<# ! Samsung USB Drive #>
+	$roboCopyLog = "D:\RoboCopy Samsung.log"
+	
+	# MemTest86
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "M:"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\memtest.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Debian Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "N:"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Ubuntu Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "O:"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "P:"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 	
