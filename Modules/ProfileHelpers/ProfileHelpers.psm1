@@ -455,7 +455,7 @@ function Format-USB-OS-Installers-1 {
 }
 
 function Format-USB-OS-Installers-2 {
-	./"C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
+	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
 }
 
 

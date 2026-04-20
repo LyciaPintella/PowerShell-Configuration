@@ -26,7 +26,7 @@
       <S N="Copyright">(c) Microsoft Corporation. All rights reserved.</S>
       <DT N="PublishedDate">2023-10-27T00:02:23-04:00</DT>
       <Obj N="InstalledDate" RefId="2">
-        <DT>2026-03-23T21:57:02.7686595-04:00</DT>
+        <DT>2026-04-19T00:16:07.8632046-04:00</DT>
         <MS>
           <Obj N="DisplayHint" RefId="3">
             <TN RefId="2">
@@ -63,19 +63,8 @@
         </TN>
         <DCT>
           <En>
-            <S N="Key">Workflow</S>
+            <S N="Key">Command</S>
             <Obj N="Value" RefId="6">
-              <TNRef RefId="1" />
-              <LST />
-            </Obj>
-          </En>
-          <En>
-            <S N="Key">DscResource</S>
-            <Ref N="Value" RefId="6" />
-          </En>
-          <En>
-            <S N="Key">Function</S>
-            <Obj N="Value" RefId="7">
               <TNRef RefId="1" />
               <LST>
                 <S>Find-Command</S>
@@ -103,7 +92,22 @@
             </Obj>
           </En>
           <En>
-            <S N="Key">Command</S>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="7">
+              <TNRef RefId="1" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Ref N="Value" RefId="7" />
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="7" />
+          </En>
+          <En>
+            <S N="Key">Function</S>
             <Obj N="Value" RefId="8">
               <TNRef RefId="1" />
               <LST>
@@ -133,11 +137,7 @@
           </En>
           <En>
             <S N="Key">RoleCapability</S>
-            <Ref N="Value" RefId="6" />
-          </En>
-          <En>
-            <S N="Key">Cmdlet</S>
-            <Ref N="Value" RefId="6" />
+            <Ref N="Value" RefId="7" />
           </En>
         </DCT>
       </Obj>
@@ -162,26 +162,27 @@
           <S N="releaseNotes">### 3.0.23-beta23_x000D__x000A_* Changes_x000D__x000A_- Add internal hook for PSResourceGet telemetry_x000D__x000A__x000D__x000A_### 3.0.22-beta22_x000D__x000A_* Changes_x000D__x000A_- This module was renamed from 'CompatPowerShellGet' to 'PowerShellGet'_x000D__x000A__x000D__x000A_## For full history of release notes see changelog:_x000D__x000A_https://github.com/PowerShell/PowerShellGet/blob/master/CHANGELOG.md</S>
           <S N="isLatestVersion">False</S>
           <S N="isAbsoluteLatestVersion">True</S>
-          <S N="versionDownloadCount">523857</S>
-          <S N="downloadCount">400819112</S>
+          <S N="versionDownloadCount">550954</S>
+          <S N="downloadCount">408013397</S>
           <S N="packageSize">28433</S>
           <S N="published">10/27/2023 12:02:23 AM -04:00</S>
           <S N="created">10/27/2023 12:02:23 AM -04:00</S>
-          <S N="lastUpdated">3/24/2026 1:40:00 AM -04:00</S>
-          <S N="tags">PackageManagement PSEdition_Desktop PSEdition_Core Linux Mac Windows PSModule PSFunction_Find-Command PSCommand_Find-Command PSFunction_Find-DscResource PSCommand_Find-DscResource PSFunction_Find-Module PSCommand_Find-Module PSFunction_Find-RoleCapability PSCommand_Find-RoleCapability PSFunction_Find-Script PSCommand_Find-Script PSFunction_Get-InstalledModule PSCommand_Get-InstalledModule PSFunction_Get-InstalledScript PSCommand_Get-InstalledScript PSFunction_Get-PSRepository PSCommand_Get-PSRepository PSFunction_Install-Module PSCommand_Install-Module PSFunction_Install-Script PSCommand_Install-Script PSFunction_Publish-Module PSCommand_Publish-Module PSFunction_Publish-Script PSCommand_Publish-Script PSFunction_Register-PSRepository PSCommand_Register-PSRepository PSFunction_Save-Module PSCommand_Save-Module PSFunction_Save-Script PSCommand_Save-Script PSFunction_Set-PSRepository PSCommand_Set-PSRepository PSFunction_Uninstall-Module PSCommand_Uninstall-Module PSFunction_Uninstall-Script PSCommand_Uninstall-Script PSFunction_Unregister-PSRepository PSCommand_Unregister-PSRepository PSFunction_Update-Module PSCommand_Update-Module PSFunction_Update-Script PSCommand_Update-Script PSIncludes_Function</S>
+          <S N="lastUpdated">4/19/2026 4:00:00 AM -04:00</S>
+          <S N="tags">PackageManagement PSEdition_Desktop PSEdition_Core Linux Mac Windows PSModule</S>
           <S N="developmentDependency">False</S>
-          <S N="updated">2026-03-24T01:40:00Z</S>
+          <S N="updated">2026-04-19T04:00:00Z</S>
           <S N="NormalizedVersion">3.0.23-beta23</S>
           <S N="Authors">Microsoft Corporation</S>
           <S N="IsPrerelease">true</S>
           <S N="ItemType">Module</S>
           <S N="FileList">PowerShellGet.nuspec|PowerShellGet.psd1|PowerShellGet.psm1</S>
+          <S N="Functions">Find-Command Find-DscResource Find-Module Find-RoleCapability Find-Script Get-InstalledModule Get-InstalledScript Get-PSRepository Install-Module Install-Script Publish-Module Publish-Script Register-PSRepository Save-Module Save-Script Set-PSRepository Uninstall-Module Uninstall-Script Unregister-PSRepository Update-Module Update-Script</S>
           <S N="GUID">68ec3ec1-55bf-42f8-9add-d224e5c76548</S>
           <S N="PowerShellVersion">3.0</S>
           <S N="CompanyName">Microsoft Corporation</S>
         </MS>
       </Obj>
-      <S N="InstalledLocation">E:\OD\Jessica\OneDrive\Documents\PowerShell\Modules\PowerShellGet\3.0.23</S>
+      <S N="InstalledLocation">C:\OD\Jessica\OneDrive\Documents\PowerShell\Modules\PowerShellGet\3.0.23</S>
     </MS>
   </Obj>
 </Objs>
