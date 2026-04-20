@@ -700,7 +700,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2'
+'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2', 'FormatUSBOSInstallers3'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
