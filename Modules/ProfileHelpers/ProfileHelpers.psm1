@@ -451,11 +451,11 @@ function GetOllamaAIModels {
 }
 
 function FormatUSBOSInstallers1 {
-	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_First.bat"
+	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.bat"
 }
 
 function FormatUSBOSInstallers2 {
-	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Make_a_Multiple_ISO_Bootable_USB_Drives.ps1"
+	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.ps1"
 	$roboCopyLog = "D:\RoboCopy.log"
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
@@ -470,16 +470,17 @@ function FormatUSBOSInstallers2 {
 	
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
-	# Pick the one that actually has a label
+	# Get the volume that has a label for the 
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -494,6 +495,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -503,7 +505,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -519,6 +521,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -528,7 +531,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -543,6 +546,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Insider Preview x64 v22621.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -552,7 +556,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -572,6 +576,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\memtest.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -581,7 +586,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -596,6 +601,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -605,7 +611,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -620,6 +626,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -629,11 +636,11 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+	<#
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "P:"
@@ -644,6 +651,7 @@ function FormatUSBOSInstallers2 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -653,14 +661,14 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+	#>
 	notepad.exe $roboCopyLog
 }
 
-function FormatUSBOSInstallers3 {
+function FormatUSBOSInstallerSamsung {
 	$roboCopyLog = "D:\RoboCopy Samsung.log"
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
@@ -672,6 +680,7 @@ function FormatUSBOSInstallers3 {
 	# Mount the ISO file
 	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
 	
@@ -681,8 +690,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
-	
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
@@ -699,7 +707,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2', 'FormatUSBOSInstallers3'
+'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2', 'FormatUSBOSInstallerSamsung'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
