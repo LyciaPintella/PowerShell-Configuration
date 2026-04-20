@@ -462,7 +462,6 @@ function FormatUSBOSInstallers2 {
 	# MemTest86
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "M:"
-	Write-Host "$usbDrive - MemTest86" -ForegroundColor Green
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
@@ -479,7 +478,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS 
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -503,8 +502,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
-	
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS /XO
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -528,7 +526,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS 
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -552,8 +550,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
-	
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS 
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
@@ -581,7 +578,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS /XO
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -605,7 +602,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS /XO
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -630,7 +627,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS /XO
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -654,10 +651,10 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	xcopy "$($isoDriveLetter):\*" "$usbDrive\" /S /E /H /D /-Y
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /NFL /NDL /NJH /NJS /NC /NS /XO
 	
 	# Clean up: Unmount the ISO
-	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID	
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
 
