@@ -661,7 +661,6 @@ function FormatUSBOSInstallers2 {
 }
 
 function FormatUSBOSInstallers3 {
-	
 	$roboCopyLog = "D:\RoboCopy Samsung.log"
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
@@ -686,7 +685,6 @@ function FormatUSBOSInstallers3 {
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-
 }
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
