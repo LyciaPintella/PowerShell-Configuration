@@ -1,6 +1,13 @@
-# ProfileHelpers module
-# This module contains the custom functions and aliases that were previously defined directly
-# in Microsoft.PowerShell_profile.ps1.
+# ============================================================
+# PowerShell Profile - Compatible with Windows PowerShell 5.1
+# ============================================================
+# This profile works in both PowerShell 5.1 and PowerShell 7+
+# Save to: $HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+
+# Ensure profile exists
+if (-not (Test-Path -Path $PROFILE)) {
+	New-Item -ItemType File -Path $PROFILE -Force | Out-Null
+}
 
 # ============================================================
 # FUNCTION: EmptyRecycleBin
@@ -14,26 +21,26 @@ function EmptyRecycleBin {
 	# Try the supported cmdlet first
 	if (Get-Command -Name Clear-RecycleBin -ErrorAction SilentlyContinue) {
 		if ($WhatIf) {
-			Write-Host "Preview: Clear-RecycleBin -Confirm:`$false -WhatIf" -ForegroundColor Cyan
+			Write-Output "Preview: Clear-RecycleBin -Confirm:`$false -WhatIf"
 			Clear-RecycleBin -Confirm:$false -WhatIf
 		}
 		else {
-			Write-Host "Running Clear-RecycleBin for current user..." -ForegroundColor Cyan
+			Write-Output "Running Clear-RecycleBin for current user..."
 			Clear-RecycleBin -Confirm:$false -Force
 		}
 	}
 	else {
-		Write-Host "Clear-RecycleBin not available in this session; skipping to force removal." -ForegroundColor Yellow
+		Write-Output "Clear-RecycleBin not available in this session; skipping to force removal."
 	}
 
 	# If user asked for force removal or if items remain, enumerate drives and remove $Recycle.Bin contents
-	Write-Host "Enumerating drives for `$Recycle.Bin folders..." -ForegroundColor Yellow
+	Write-Output "Enumerating drives for `$Recycle.Bin folders..."
 	$drives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty Root
 
 	foreach ($root in $drives) {
 		$rbPath = Join-Path -Path $root -ChildPath '$Recycle.Bin'
 		if (Test-Path $rbPath) {
-			Write-Host "Found: $rbPath" -ForegroundColor Green
+			Write-Output "Found: $rbPath"
 			if ($WhatIf) {
 				Get-ChildItem -Path $rbPath -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -WhatIf
 			}
@@ -51,7 +58,7 @@ function EmptyRecycleBin {
 		}
 	}
 
-	Write-Host "Done. If some items remain, try running PowerShell as Administrator and re-run this command." -ForegroundColor Cyan
+	Write-Output "Done. If some items remain, try running PowerShell as Administrator and re-run this command."
 }
 
 # ============================================================
@@ -85,7 +92,7 @@ function OneDriveSecurity {
 	)
 
 	foreach ($path in $Folders) {
-		Write-Host "Processing folder: $path"
+		Write-Output "Processing folder: $path"
 
 		if (-not (Test-Path $path)) {
 			Write-Warning "  -> Path not found. Skipping."
@@ -100,10 +107,10 @@ function OneDriveSecurity {
 		}
 
 		if ($denyRules.Count -eq 0) {
-			Write-Host "  -> No Deny-Delete rules found."
+			Write-Output "  -> No Deny-Delete rules found."
 		}
 		else {
-			Write-Host "  -> Found $($denyRules.Count) Deny-Delete rule(s). Attempting removal..."
+			Write-Output "  -> Found $($denyRules.Count) Deny-Delete rule(s). Attempting removal..."
 
 			foreach ($rule in $denyRules) {
 				$acl.RemoveAccessRule($rule)
@@ -124,7 +131,7 @@ function OneDriveSecurity {
 				}
 
 				if ($stillDenied.Count -eq 0) {
-					Write-Host "  -> Successfully removed all Deny-Delete rules." -ForegroundColor Green
+					Write-Output "  -> Successfully removed all Deny-Delete rules."
 				}
 				else {
 					Write-Warning "  -> Removal attempted, but $($stillDenied.Count) rule(s) still present."
@@ -135,7 +142,7 @@ function OneDriveSecurity {
 			}
 		}
 
-		Write-Host ""  # Blank line for readability
+		Write-Output ""  # Blank line for readability
 	}
 }
 
@@ -333,21 +340,21 @@ function SymbolicLinks {
 # Returns the current PowerShell version.
 function PowerShellVersion {
 	$version = $PSVersionTable.PSVersion
-	Write-Host "PowerShell Version: $($version.Major).$($version.Minor).$($version.Build)" -ForegroundColor Magenta
+	Write-Output "PowerShell Version: $($version.Major).$($version.Minor).$($version.Build)"
 }
 
 function Functions {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
-	Write-Host "Custom Functions Defined in module '$moduleName':" -ForegroundColor Magenta
-	Get-Command -CommandType Function -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name)" -ForegroundColor Green }
+	Write-Output "Custom Functions Defined in module '$moduleName':"
+	Get-Command -CommandType Function -Module $moduleName | ForEach-Object { Write-Output "  $($_.Name)" }
 }
 
 function Aliases {
 	$moduleName = $MyInvocation.MyCommand.Module.Name
 
-	Write-Host "`nCustom Aliases Defined in module '$moduleName':" -ForegroundColor Magenta
-	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Host "  $($_.Name) -> $($_.Definition)" -ForegroundColor Green }
+	Write-Output "`nCustom Aliases Defined in module '$moduleName':"
+	Get-Command -CommandType Alias -Module $moduleName | ForEach-Object { Write-Output "  $($_.Name) -> $($_.Definition)" }
 }
 
 # Remove all attributes from a file or folder
@@ -373,91 +380,62 @@ function RemoveAllAttributes {
 			}
 		}
 
-		Write-Host "All attributes removed from: $Path" -ForegroundColor Blue
+		Write-Output "All attributes removed from: $Path"
 	}
 	catch {
-		Write-Host "Error: $_" -ForegroundColor Red
+		Write-Output "Error: $_"
 	}
 }
 
 function InstallDrivers {
-	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\Windows-Driver-Installation.ps1"
+	Set-Location "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./Windows-Driver-Installation.ps1
 }
 
 function SetEfficiencyModeSystemwide {
-	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\Set-Efficiency-Mode-Systemwide.ps1" *> "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\Set-Efficiency-Mode-Systemwide-log.txt"
-	notepad "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\Set-Efficiency-Mode-Systemwide-log.txt"
+	Set-Location "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting"
+	./"Set-Efficiency-Mode-Systemwide.ps1" *> "Set-Efficiency-Mode-Systemwide-log.txt"
+	notepad "Set-Efficiency-Mode-Systemwide-log.txt"
 }
 
-function Bad.Accounts {
-	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\DeleteUserAccountFiles.ps1"
-}
+function Windows.Old {
+	$Path = "C:\Windows.old"
 
-function RepairRecycleBin {
-	# Repair Recycle Bin on all drives
-	# Run in an elevated PowerShell window
-	
-	$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
-	
-	foreach ($drive in $drives) {
-		$path = Join-Path $drive.Root '$Recycle.Bin'
-	
-		if (Test-Path $path) {
-			Write-Host "Repairing Recycle Bin on $($drive.Root) ..." -ForegroundColor Cyan
+	if (Test-Path $Path) {
+		Write-Output "Taking ownership of $Path ..."
+		takeown /F $Path /A /R /D Y | Out-Null
+
+		Write-Output "Granting Administrators full control ..."
+		icacls $Path /grant Administrators:F /T /C | Out-Null
+
+		Write-Output "Removing attributes (read-only, system, hidden) ..."
+		Get-ChildItem -Path $Path -Recurse -Force | ForEach-Object {
 			try {
-				Remove-Item -Path $path -Recurse -Force -ErrorAction Stop
-				Write-Host "✔ Recycle Bin repaired on $($drive.Root)" -ForegroundColor Green
+				attrib -R -S -H $_.FullName
 			}
-			catch {
-				Write-Host "✖ Failed on $($drive.Root): $($_.Exception.Message)" -ForegroundColor Red
-			}
+			catch {}
+		}
+	
+		Write-Output "Deleting folder..."
+		Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
+
+		if (-not (Test-Path $Path)) {
+			Write-Output "Windows.old successfully deleted."
 		}
 		else {
-			Write-Host "No Recycle Bin found on $($drive.Root), skipping." -ForegroundColor Yellow
+			Write-Output "Some files could not be deleted. A reboot may be required."
 		}
+
 	}
+	else {
+		Write-Output "C:\Windows.old does not exist."
+	}	
 }
 
 function ReloadProfile {
 	Clear-Host
 	. $profile
 }
-
-function WingetInstallBatch {
-	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Winget-Install-Batch.ps1"
-}
-
-function GetOllamaAIModels {
-	ollama pull deepseek-coder:6.7b
-	ollama pull llama2-uncensored:7b
-	ollama pull qwen3:8b # Qwen 3 8B (Reasoning model)
-	ollama pull llama3.1:8b
-	ollama pull mistral
-	ollama pull gemma2
-	ollama pull llava
-	ollama pull codellama:7b
-	ollama pull openthinker:7b
-	ollama pull qwen2.5-coder:7b
-	ollama pull codellama:7b
-	ollama pull starcoder2:7b
-	ollama pull dolphin3:8b
-	ollama pull qwen2.5:7b
-	ollama pull codegemma:7b
-	ollama pull codellama:7b
-	ollama pull mistral:7b
-	ollama pull llama3.1:8b
-	#Supports image input
-	ollama pull llava:7b
-}
-
-function Format-USB-OS-Installers-1 {
-	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_First.bat"
-}
-
-function Format-USB-OS-Installers-2 {
-	./"C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
-}
-
 
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
@@ -468,13 +446,5 @@ Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 
-# Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
-'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
-'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Bad.Accounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'Format-USB-OS-Installers-1', 'Format-USB-OS-Installers-2'
-
-$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
-'SymLinks', 'Reload'
-
-Export-ModuleMember -Function $functions -Alias $aliases
+# ? Functions (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
+# ? Aliases (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
