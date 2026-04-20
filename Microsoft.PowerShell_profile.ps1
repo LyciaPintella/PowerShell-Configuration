@@ -28,5 +28,3 @@ if (Test-Path($ChocolateyProfile)) {
 # ============================================================
 # Profile Loaded Successfully
 # ============================================================
-Functions
-Aliases
