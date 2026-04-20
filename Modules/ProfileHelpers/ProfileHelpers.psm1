@@ -389,7 +389,7 @@ function SetEfficiencyModeSystemwide {
 	notepad "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\Set-Efficiency-Mode-Systemwide-log.txt"
 }
 
-function Bad.Accounts {
+function BadAccounts {
 	."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Windows Troubleshooting\DeleteUserAccountFiles.ps1"
 }
 
@@ -673,7 +673,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 # Export members (functions + aliases)
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
-'SetEfficiencyModeSystemwide', 'ReloadProfile', 'Bad.Accounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
+'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
 'WingetInstallBatch', 'Format-USB-OS-Installers-1', 'Format-USB-OS-Installers-2', 'Format-USB-OS-Installers-3'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
