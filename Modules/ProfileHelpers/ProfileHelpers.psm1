@@ -480,7 +480,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -504,7 +504,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -528,7 +528,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -552,9 +552,11 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	notepad $roboCopyLog
 }
 
 function FormatUSBOSInstallers3 {
@@ -582,7 +584,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -606,7 +608,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -631,7 +633,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -655,10 +657,12 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	notepad $roboCopyLog
 }
 
 
