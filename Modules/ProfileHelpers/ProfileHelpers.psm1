@@ -456,10 +456,10 @@ function FormatUSBOSInstallers1 {
 
 function FormatUSBOSInstallers2 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Make_a_Multiple_ISO_Bootable_USB_Drives.ps1"
+	$roboCopyLog = "D:\RoboCopy.log"
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
-	$roboCopyLog = "D:\RoboCopy Sandisk.log"
 	
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
@@ -557,12 +557,10 @@ function FormatUSBOSInstallers2 {
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 	
-	notepad $roboCopyLog
 	
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
-	$roboCopyLog = "D:\RoboCopy Samsung.log"
 	
 	# MemTest86
 	# Identify the target USB drive (ensure correct drive letter)
@@ -659,10 +657,36 @@ function FormatUSBOSInstallers2 {
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 	
-	notepad $roboCopyLog
+	notepad.exe $roboCopyLog
 }
 
-
+function FormatUSBOSInstallers3 {
+	$roboCopyLog = "D:\RoboCopy Samsung.log"
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "P:"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	$isoDriveLetter = $volumeInfo.DriveLetter
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	notepad.exe $roboCopyLog
+}
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
 Set-Alias -Name Junctions -Value SymbolicLinks
