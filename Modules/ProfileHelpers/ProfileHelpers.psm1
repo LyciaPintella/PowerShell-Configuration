@@ -661,10 +661,11 @@ function FormatUSBOSInstallers2 {
 }
 
 function FormatUSBOSInstallers3 {
+	
 	$roboCopyLog = "D:\RoboCopy Samsung.log"
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
-	$usbDrive = "P:"
+	$usbDrive = "S:"
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
@@ -682,10 +683,10 @@ function FormatUSBOSInstallers3 {
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
 	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	notepad.exe $roboCopyLog
+
 }
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
