@@ -459,6 +459,8 @@ function FormatUSBOSInstallers2 {
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
+	$roboCopyLog = "D:\RoboCopy Samsung.log"
+	
 	# MemTest86
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "M:"
@@ -478,7 +480,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -502,7 +504,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -526,7 +528,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -550,7 +552,7 @@ function FormatUSBOSInstallers2 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
@@ -560,6 +562,8 @@ function FormatUSBOSInstallers3 {
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
+	$roboCopyLog = "D:\RoboCopy Sandisk.log"
+	
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "Q:"
@@ -578,7 +582,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS/XO
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -602,7 +606,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS/XO
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -627,7 +631,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS/XO
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
@@ -651,7 +655,7 @@ function FormatUSBOSInstallers3 {
 	
 	# Copy files to the USB
 	$isoDriveLetter = $volumeInfo.DriveLetter
-	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /XN /XO /NFL /NDL /NJH /NJS /NC /NS/XO
+	robocopy "$($osVolumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /ND /NJH /NJS /NC /NS /R:3 /W:5 /LOG:$roboCopyLog
 	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
