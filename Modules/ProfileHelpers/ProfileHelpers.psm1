@@ -450,11 +450,11 @@ function GetOllamaAIModels {
 	ollama pull llava:7b
 }
 
-function Format-USB-OS-Installers-1 {
+function FormatUSBOSInstallers1 {
 	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_First.bat"
 }
 
-function Format-USB-OS-Installers-2 {
+function FormatUSBOSInstallers2 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Second.ps1"
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
@@ -558,7 +558,7 @@ function Format-USB-OS-Installers-2 {
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
-function Format-USB-OS-Installers-3 {
+function FormatUSBOSInstallers3 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\App Installer Scripts\Make_a_Multiple_ISO_Bootable_USB_Drive_Run_Third.ps1"
 	<# ! Cruzer USB Drive #>
 	<# ! Cruzer USB Drive #>
@@ -674,7 +674,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'Format-USB-OS-Installers-1', 'Format-USB-OS-Installers-2', 'Format-USB-OS-Installers-3'
+'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2', 'FormatUSBOSInstallers3'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
