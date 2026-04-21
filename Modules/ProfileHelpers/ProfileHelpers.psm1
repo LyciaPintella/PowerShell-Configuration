@@ -450,11 +450,115 @@ function GetOllamaAIModels {
 	ollama pull llava:7b
 }
 
-function FormatUSBOSInstallers1 {
+function FormatBootableOSInstallers1 {
 	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.bat"
 }
 
-function FormatUSBOSInstallers2 {
+function FormatBootableOSInstallers2 {
+	# Debian Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "W:"
+	$roboCopyLog = "Z:\RoboCopyW.log"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
+	
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Get the volume that has a label for the 
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	notepad.exe $roboCopyLog
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Ubuntu Linux
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "X:"
+	$roboCopyLog = "Z:\RoboCopyX.log"
+	
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	notepad.exe $roboCopyLog
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "Y:"
+	$roboCopyLog = "Z:\RoboCopyY.log"
+		
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Win 11 Insider Preview" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Insider Preview x64 v22621.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	notepad.exe $roboCopyLog
+	
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+	
+	# Win 11 Retail
+	# Identify the target USB drive (ensure correct drive letter)
+	$usbDrive = "Z:"
+	$roboCopyLog = "Z:\RoboCopyZ.log"
+	notepad.exe $roboCopyLog
+	# Format the USB drive
+	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
+	
+	# Mount the ISO file
+	$isoPath = "C:\OD\Jessica\OneDrive\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
+	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
+	Start-Sleep -Seconds 2
+	# Get all volumes associated with the mounted image
+	$volumeInfo = $mountResult | Get-Volume
+	
+	# Pick the one that actually has a label
+	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
+	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
+	
+	# Copy files to the USB
+	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	notepad.exe $roboCopyLog
+	# Clean up: Unmount the ISO
+	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
+}
+
+function FormatBootableOSInstallers3 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.ps1"
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
@@ -570,7 +674,7 @@ function FormatUSBOSInstallers2 {
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
-function FormatUSBOSInstallerSamsung {
+function FormatBootableOSInstallerSamsung {
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "S:"
@@ -611,7 +715,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'FormatUSBOSInstallers1', 'FormatUSBOSInstallers2', 'FormatUSBOSInstallerSamsung'
+'WingetInstallBatch', 'FormatBootableOSInstallers1', 'FormatBootableOSInstallers2', 'FormatBootableOSInstallerSamsung'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
