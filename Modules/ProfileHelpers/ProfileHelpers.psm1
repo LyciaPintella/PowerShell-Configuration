@@ -450,11 +450,11 @@ function GetOllamaAIModels {
 	ollama pull llava:7b
 }
 
-function FormatBootableOSInstallers1 {
+function FormatBootableOSInstallersRepartition {
 	diskpart /s "C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.bat"
 }
 
-function FormatBootableOSInstallers2 {
+function FormatBootableOSInstallersNVME {
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "W:"
@@ -558,7 +558,7 @@ function FormatBootableOSInstallers2 {
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
-function FormatBootableOSInstallers3 {
+function FormatBootableOSInstallersUSB {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.ps1"
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
@@ -715,7 +715,7 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'FormatBootableOSInstallers1', 'FormatBootableOSInstallers2', 'FormatBootableOSInstallerSamsung'
+'WingetInstallBatch', 'FormatBootableOSInstallersRepartition', 'FormatBootableOSInstallersNVME', 'FormatBootableOSInstallersUSB'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
