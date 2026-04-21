@@ -456,14 +456,15 @@ function FormatUSBOSInstallers1 {
 
 function FormatUSBOSInstallers2 {
 	#."C:\OD\Jessica\OneDrive\Documents\PowerShell Scripts\File System Commands\USB OS Install Media Creation\Make_Multiple_Bootable_USB_Drives.ps1"
-	$roboCopyLog = "D:\RoboCopy.log"
-	<# ! Cruzer USB Drive #>
-	<# ! Cruzer USB Drive #>
-	<# ! Cruzer USB Drive #>
 	
+	<# ! Cruzer USB Drive #>
+	<# ! Cruzer USB Drive #>
+	<# ! Cruzer USB Drive #>
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "Q:"
+	$roboCopyLog = "D:\RoboCopyQ.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
@@ -488,6 +489,8 @@ function FormatUSBOSInstallers2 {
 	# Ubuntu Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "R:"
+	$roboCopyLog = "D:\RoboCopyR.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
@@ -514,6 +517,8 @@ function FormatUSBOSInstallers2 {
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "S:"
+	$roboCopyLog = "D:\RoboCopyS.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
@@ -539,6 +544,8 @@ function FormatUSBOSInstallers2 {
 	# Win 11 Insider Preview
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "T:"
+	$roboCopyLog = "D:\RoboCopyT.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Win 11 Insider Preview" -Confirm:$false
@@ -569,6 +576,8 @@ function FormatUSBOSInstallers2 {
 	# MemTest86
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "M:"
+	$roboCopyLog = "D:\RoboCopyM.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
@@ -594,6 +603,8 @@ function FormatUSBOSInstallers2 {
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "N:"
+	$roboCopyLog = "D:\RoboCopyN.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
@@ -619,6 +630,8 @@ function FormatUSBOSInstallers2 {
 	# Ubuntu Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "O:"
+	$roboCopyLog = "D:\RoboCopyO.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
@@ -644,6 +657,8 @@ function FormatUSBOSInstallers2 {
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "P:"
+	$roboCopyLog = "D:\RoboCopyP.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
@@ -669,10 +684,11 @@ function FormatUSBOSInstallers2 {
 }
 
 function FormatUSBOSInstallerSamsung {
-	$roboCopyLog = "D:\RoboCopy Samsung.log"
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "S:"
+	$roboCopyLog = "D:\RoboCopyS.log"
+	notepad.exe $roboCopyLog
 	
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
@@ -689,8 +705,8 @@ function FormatUSBOSInstallerSamsung {
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
 	
 	# Copy files to the USB
-	$isoDriveLetter = $volumeInfo.DriveLetter
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
+	
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
