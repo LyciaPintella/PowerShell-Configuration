@@ -895,3 +895,5 @@ Modules/PSWindowsUpdate/2.2.1.5/PSWindowsUpdate.psd1
 Modules/PSWindowsUpdate/2.2.1.5/PSWindowsUpdate.psm1
 Modules/PSWindowsUpdate/2.2.1.5/PSWindowsUpdate.xml
 Modules/RunAsUser/2.4.0
+Modules/RunAsUser/2.4.0/RunAsUser
+Modules/RunAsUser/2.4.0/RunAsUser.psd1
