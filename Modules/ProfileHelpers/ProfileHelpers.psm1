@@ -782,6 +782,13 @@ function FormatBootableOSInstallersUSB {
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
+function ScanWindowsHealth {
+	DISM.exe /Online /Cleanup-Image /ScanHealth
+	DISM.exe /Online /Cleanup-Image /CheckHealth
+	DISM.exe /Online /Cleanup-Image /RestoreHealth
+	sfc.exe /scannow	
+}
+
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
 Set-Alias -Name Junctions -Value SymbolicLinks
@@ -795,7 +802,8 @@ Set-Alias -Name Reload -Value ReloadProfile
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
-'WingetInstallBatch', 'FormatBootableOSInstallersRepartition', 'FormatBootableOSInstallersNVME', 'FormatBootableOSInstallersUSB'
+'WingetInstallBatch', 'FormatBootableOSInstallersRepartition', 'FormatBootableOSInstallersNVME', 'FormatBootableOSInstallersUSB',
+'ScanWindowsHealth'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
 'SymLinks', 'Reload'
