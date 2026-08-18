@@ -178,7 +178,7 @@ function OneDriveSize {
 	# Convert to human-readable units
 	$OneDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$OneDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# Sum all file lengths under the cache directory
 	$totalBytes = Get-ChildItem -Path $OneDrivePath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
@@ -189,7 +189,7 @@ function OneDriveSize {
 		Write-Output "No files found under '$OneDrivePath'."
 		return
 	}
-	
+
 	# ! Begin OneDrive Temporary File Size Check.
 	# Convert to human-readable units
 	$OneDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
@@ -217,7 +217,7 @@ function GoogleDriveSize {
 		[string]$GDriveTempFolderPath = "C:\Users\Jessica Murphy\AppData\Local\Google\DriveFS",
 		[string]$GoogleDriveStreamingPath = "E:\Google Drive\Streaming"
 	)
-	
+
 	# ! Begin Google Drive File Size Check.
 	if (-not (Test-Path $GoogleDrivePath)) {
 		Write-Error "Cache path '$GoogleDrivePath' does not exist."
@@ -233,19 +233,19 @@ function GoogleDriveSize {
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$GoogleDrivePath'."
 		return
-	} 
+	}
 
 	# Convert to human-readable units
 	$GoogleDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$GoogleDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# ! Begin Google Drive Temporary File Size Check.
-	
+
 	if (-not (Test-Path $GDriveTempFolderPath)) {
 		Write-Error "Cache path '$GDriveTempFolderPath' does not exist."
 		return
 	}
-	
+
 	# Sum all file lengths under the GoogleDriveTemporaryFilesPath directory
 	$totalBytes = Get-ChildItem -Path $GDriveTempFolderPath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
@@ -260,9 +260,9 @@ function GoogleDriveSize {
 	# Convert to human-readable units
 	$GoogleDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$GoogleDriveTempSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# ! Begin Google Drive Streaming Cache File Size Check.
-	
+
 	if (-not (Test-Path $GoogleDriveStreamingPath)) {
 		Write-Error "Cache path '$GoogleDriveStreamingPath' does not exist."
 		return
@@ -415,7 +415,7 @@ function Windows.Old {
 			}
 			catch {}
 		}
-	
+
 		Write-Output "Deleting folder..."
 		Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
 
@@ -429,12 +429,20 @@ function Windows.Old {
 	}
 	else {
 		Write-Output "C:\Windows.old does not exist."
-	}	
+	}
 }
 
 function ReloadProfile {
 	Clear-Host
 	. $profile
+}
+
+function Profile {
+	$ProfileFile = Split-Path $PROFILE.CurrentUserCurrentHost -Leaf
+	$ProfileFolder = Split-Path $PROFILE.CurrentUserCurrentHost
+
+	Write-Output "Profile filename : $ProfileFile"
+	Write-Output "Profile located in folder: $ProfileFolder"
 }
 
 # ============================================================

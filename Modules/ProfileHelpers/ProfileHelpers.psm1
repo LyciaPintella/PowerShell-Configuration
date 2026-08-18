@@ -54,6 +54,10 @@ function EmptyRecycleBin {
 	Write-Host "Done. If some items remain, try running PowerShell as Administrator and re-run this command." -ForegroundColor Cyan
 }
 
+function Profile {
+	Split-Path $PROFILE.CurrentUserCurrentHost
+}
+
 # ============================================================
 # FUNCTION: OneDriveSecurity
 # ============================================================
@@ -171,7 +175,7 @@ function OneDriveSize {
 	# Convert to human-readable units
 	$OneDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$OneDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# Sum all file lengths under the cache directory
 	$totalBytes = Get-ChildItem -Path $OneDrivePath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
@@ -182,7 +186,7 @@ function OneDriveSize {
 		Write-Output "No files found under '$OneDrivePath'."
 		return
 	}
-	
+
 	# ! Begin OneDrive Temporary File Size Check.
 	# Convert to human-readable units
 	$OneDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
@@ -210,7 +214,7 @@ function GoogleDriveSize {
 		[string]$GDriveTempFolderPath = "C:\Users\Jessica Murphy\AppData\Local\Google\DriveFS",
 		[string]$GoogleDriveStreamingPath = "E:\Google Drive\Streaming"
 	)
-	
+
 	# ! Begin Google Drive File Size Check.
 	if (-not (Test-Path $GoogleDrivePath)) {
 		Write-Error "Cache path '$GoogleDrivePath' does not exist."
@@ -226,19 +230,19 @@ function GoogleDriveSize {
 	if ($null -eq $totalBytes) {
 		Write-Output "No files found under '$GoogleDrivePath'."
 		return
-	} 
+	}
 
 	# Convert to human-readable units
 	$GoogleDriveSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$GoogleDriveSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# ! Begin Google Drive Temporary File Size Check.
-	
+
 	if (-not (Test-Path $GDriveTempFolderPath)) {
 		Write-Error "Cache path '$GDriveTempFolderPath' does not exist."
 		return
 	}
-	
+
 	# Sum all file lengths under the GoogleDriveTemporaryFilesPath directory
 	$totalBytes = Get-ChildItem -Path $GDriveTempFolderPath -Recurse -Force |
 	Where-Object { -not $_.PSIsContainer } |
@@ -253,9 +257,9 @@ function GoogleDriveSize {
 	# Convert to human-readable units
 	$GoogleDriveTempSizeGB = [math]::Round($totalBytes / 1GB, 2)
 	$GoogleDriveTempSizeMB = [math]::Round($totalBytes / 1MB, 2)
-	
+
 	# ! Begin Google Drive Streaming Cache File Size Check.
-	
+
 	if (-not (Test-Path $GoogleDriveStreamingPath)) {
 		Write-Error "Cache path '$GoogleDriveStreamingPath' does not exist."
 		return
@@ -396,12 +400,12 @@ function BadAccounts {
 function RepairRecycleBin {
 	# Repair Recycle Bin on all drives
 	# Run in an elevated PowerShell window
-	
+
 	$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
-	
+
 	foreach ($drive in $drives) {
 		$path = Join-Path $drive.Root '$Recycle.Bin'
-	
+
 		if (Test-Path $path) {
 			Write-Host "Repairing Recycle Bin on $($drive.Root) ..." -ForegroundColor Cyan
 			try {
@@ -462,105 +466,105 @@ function FormatBootableOSInstallersNVME {
 	$roboCopyLog = "F:\RoboCopyNVMEMacriumRescueImageFlashing.txt"
 	# Format the drive
 	# Format-Volume -DriveLetter $nvmeDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\MacriumRescue.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
-	
+
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $nvmeDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$nvmeDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	
+
+
 	# Debian Linux
 	# Identify the target drive (ensure correct drive letter)
 	$nvmeDrive = "X:"
 	$roboCopyLog = "F:\RoboCopyNVMEDebianImageFlashing.txt"
 	# Format the drive
 	# Format-Volume -DriveLetter $nvmeDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
-	
+
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $nvmeDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$nvmeDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	
+
+
 	# Ubuntu Linux
 	# Identify the target drive (ensure correct drive letter)
 	$nvmeDrive = "Y:"
 	$roboCopyLog = "F:\RoboCopyNVMEUbuntuImageFlashing.txt"
 	# Format the drive
 	# Format-Volume -DriveLetter $nvmeDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
-	
+
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $nvmeDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$nvmeDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
-	
+
+
 	# Win 11 Retail
 	# Identify the target drive (ensure correct drive letter)
 	$nvmeDrive = "Z:"
 	$roboCopyLog = "F:\RoboCopyNVMEWindowsImageFlashing.txt"
-	
+
 	# Format the drive
 	# Format-Volume -DriveLetter $nvmeDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
-	
+
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $nvmeDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$nvmeDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
@@ -570,111 +574,111 @@ function FormatBootableOSInstallersUSB {
 	<# ! Sandisk Cruzer USB Drive #>
 	<# ! Sandisk Cruzer USB Drive #>
 	<# ! Sandisk Cruzer USB Drive #>
-	
+
 	# MemTest86
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "M:"
 	$roboCopyLog = "F:\RoboCopyM.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT -NewFileSystemLabel "MemTest86" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\memtest.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	# Debian Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "N:"
 	$roboCopyLog = "F:\RoboCopyN.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	# Ubuntu Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "O:"
 	$roboCopyLog = "F:\RoboCopyO.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	Commented out for dual writing
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "P:"
 	$roboCopyLog = "F:\RoboCopyP.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
 	<# ! Samsung USB Drive #>
@@ -682,111 +686,119 @@ function FormatBootableOSInstallersUSB {
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "Q:"
 	$roboCopyLog = "F:\RoboCopyQ.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Debian" -Confirm:$false
-	
+
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Debian v13.4.0 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
-	# Get the volume that has a label for the 
+
+	# Get the volume that has a label for the
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	# Ubuntu Linux
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "R:"
 	$roboCopyLog = "F:\RoboCopyR.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem FAT32 -NewFileSystemLabel "Ubuntu" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Ubuntu 25.10 Questing Quokka x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	# Win 11 Retail
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "S:"
 	$roboCopyLog = "F:\RoboCopyS.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Windows 11 Retail 25H2" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Windows 11 Retail 25H2 x64.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
-	
+
 	# Win 11 Insider Preview
 	# Identify the target USB drive (ensure correct drive letter)
 	$usbDrive = "T:"
 	$roboCopyLog = "F:\RoboCopyT.log"
-	
+
 	# Format the USB drive
 	# Format-Volume -DriveLetter $usbDrive.Trim(":") -FileSystem NTFS -NewFileSystemLabel "Win 11 Insider Preview" -Confirm:$false
-	
+
 	# Mount the ISO file
 	$isoPath = "D:\OD\Cloud Only\Jess Files\USB OS Installers and Tools\Windows 11 Insider Preview x64 v22621.iso"
 	$mountResult = Mount-DiskImage -ImagePath $isoPath -PassThru
 	Start-Sleep -Seconds 2
 	# Get all volumes associated with the mounted image
 	$volumeInfo = $mountResult | Get-Volume
-	
+
 	# Pick the one that actually has a label
 	$osVolumeInfo = $mountResult | Get-Volume | Where-Object { $_.FileSystemLabel } | Select-Object -First 1
 	Write-Host "Writing Source: $($osVolumeInfo.DriveLetter): - $($osVolumeInfo.FileSystemLabel) to $usbDrive" -ForegroundColor Green
-	
+
 	# Copy files to the USB
 	robocopy "$($volumeInfo.DriveLetter):\" "$usbDrive\" /E /Z /FFT /NFL /NJH /NJS /NC /NS /R:3 /W:5 /LOG:"$roboCopyLog"
 	notepad.exe $roboCopyLog
-	
+
 	# Clean up: Unmount the ISO
 	Dismount-DiskImage -ImagePath $isoPath #-DevicePath $volumeInfo.DeviceID
 }
 
-function ScanWindowsHealth {
+function WindowsHealth {
 	DISM.exe /Online /Cleanup-Image /ScanHealth
 	DISM.exe /Online /Cleanup-Image /CheckHealth
 	DISM.exe /Online /Cleanup-Image /RestoreHealth
-	sfc.exe /scannow	
+	sfc.exe /scannow
+}
+
+function Profile {
+	$ProfileFile = Split-Path $PROFILE.CurrentUserCurrentHost -Leaf
+	$ProfileFolder = Split-Path $PROFILE.CurrentUserCurrentHost
+
+	Write-Host "Profile filename: $ProfileFile" -ForegroundColor Blue
+	Write-Host "Located in folder: $ProfileFolder" -ForegroundColor Cyan
 }
 
 # ============================================================
@@ -797,15 +809,16 @@ Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
+Set-Alias -Name Config -Value Profile
 
 # Export members (functions + aliases)
-$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases', 
-'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers', 
-'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels', 
+$functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases',
+'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers',
+'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels',
 'WingetInstallBatch', 'FormatBootableOSInstallersRepartition', 'FormatBootableOSInstallersNVME', 'FormatBootableOSInstallersUSB',
-'ScanWindowsHealth'
+'WindowsHealth', 'Profile'
 
-$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset', 
-'SymLinks', 'Reload'
+$aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset',
+'SymLinks', 'Reload', 'Config'
 
 Export-ModuleMember -Function $functions -Alias $aliases
