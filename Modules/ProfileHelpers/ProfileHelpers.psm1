@@ -792,13 +792,65 @@ function WindowsHealth {
 	DISM.exe /Online /Cleanup-Image /RestoreHealth
 	sfc.exe /scannow
 }
-
 function Profile {
 	$ProfileFile = Split-Path $PROFILE.CurrentUserCurrentHost -Leaf
 	$ProfileFolder = Split-Path $PROFILE.CurrentUserCurrentHost
 
 	Write-Host "Profile filename: $ProfileFile" -ForegroundColor Blue
 	Write-Host "Located in folder: $ProfileFolder" -ForegroundColor Cyan
+}
+
+function ExportIconsFromFile {
+	[CmdletBinding()]
+	param(
+		[Parameter(Mandatory = $true)][string]$SourceFile,
+		[Parameter(Mandatory = $true)][string]$OutDir
+	)
+
+	Add-Type -AssemblyName System.Drawing
+
+	function Save-IconBytes {
+		param($icon, $path)
+		$ms = New-Object System.IO.MemoryStream
+		$icon.Save($ms)
+		[System.IO.File]::WriteAllBytes($path, $ms.ToArray())
+		$ms.Dispose()
+	}
+
+	if (-not (Test-Path $SourceFile)) { throw "Source file not found: $SourceFile" }
+	if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Path $OutDir | Out-Null }
+
+	# Load the file as an IconExtractor using Win32 API via System.Drawing.Icon
+	# We'll enumerate icon indices by trying indices until failure.
+	$index = 0
+	while ($true) {
+		try {
+			$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($SourceFile)
+			# ExtractAssociatedIcon returns the first icon only; use a different approach below
+			break
+		}
+		catch {
+			break
+		}
+	}
+
+	# Better approach: use SHGetFileInfo to get icon handles for specific indices via "file, index" syntax
+	# We'll use the "shell32.dll, -N" syntax to reference icon index N. Build temporary file names.
+	# Typical icon indices in shell32/imageres range widely; try indices 0..200
+	for ($i = 0; $i -le 200; $i++) {
+		$spec = "$SourceFile,$i"
+		try {
+			$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($spec)
+			if ($null -ne $icon) {
+				$out = Join-Path $OutDir ("icon_{0:D3}.ico" -f $i)
+				Save-IconBytes -icon $icon -path $out
+				$icon.Dispose()
+			}
+		}
+		catch {
+			# ignore failures
+		}
+	}
 }
 
 # ============================================================
@@ -810,15 +862,16 @@ Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 Set-Alias -Name Config -Value Profile
+Set-Alias -Name GetIconsFromFile -Value ExportIconsFromFile
 
 # Export members (functions + aliases)
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases',
 'OneDriveSize', 'GoogleDriveSize', 'PowerShellVersion', 'RemoveAllAttributes', 'InstallDrivers',
 'SetEfficiencyModeSystemwide', 'ReloadProfile', 'BadAccounts', 'RepairRecycleBin', 'GetOllamaAIModels',
 'WingetInstallBatch', 'FormatBootableOSInstallersRepartition', 'FormatBootableOSInstallersNVME', 'FormatBootableOSInstallersUSB',
-'WindowsHealth', 'Profile'
+'WindowsHealth', 'Profile', 'ExportIconsFromFile'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset',
-'SymLinks', 'Reload', 'Config'
+'SymLinks', 'Reload', 'Config', 'GetIconsFromFile'
 
 Export-ModuleMember -Function $functions -Alias $aliases
