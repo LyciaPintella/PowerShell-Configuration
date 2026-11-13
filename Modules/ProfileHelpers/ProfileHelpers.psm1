@@ -529,9 +529,8 @@ function LockIcons {
 		foreach ($file in $iniFiles) {
 			Write-Host "Configuring: $($file.FullName)" -ForegroundColor DarkGray
 
-			# 1. Ensure file has Hidden and System attributes required by Windows Explorer
-			$fileObj = Get-Item -Path $file.FullName
-			$fileObj.Attributes = [System.IO.FileAttributes]::Hidden -bor [System.IO.FileAttributes]::System
+			# 1. Ensure file has Hidden and System attributes directly using the existing $file object
+			$file.Attributes = [System.IO.FileAttributes]::Hidden -bor [System.IO.FileAttributes]::System
 
 			# 2. Get the current Access Control List (ACL)
 			$acl = Get-Acl -Path $file.FullName
@@ -567,7 +566,6 @@ Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
 Set-Alias -Name Config -Value Profile
-Set-Alias -Name Icons -Value LockIcons
 
 # Export members (functions + aliases)
 $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions', 'Aliases',
@@ -577,6 +575,6 @@ $functions = 'EmptyRecycleBin', 'OneDriveSecurity', 'SymbolicLinks', 'Functions'
 'WindowsHealth', 'Profile', 'LockIcons'
 
 $aliases = 'OneDriveFixDeniedPermissions', 'SymbolicLinks', 'Junctions', 'Version', 'About', 'SecurityReset',
-'SymLinks', 'Reload', 'Config', 'Icons'
+'SymLinks', 'Reload', 'Config'
 
 Export-ModuleMember -Function $functions -Alias $aliases
