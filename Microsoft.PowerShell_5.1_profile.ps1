@@ -445,6 +445,30 @@ function Profile {
 	Write-Output "Profile located in folder: $ProfileFolder"
 }
 
+function LockIcons {
+	# Define your Google Drive directory path
+	$targetPath = "D:\Cloud Storage\Google Drive\Jessica's Google Drive"
+	$principal = $env:USERNAME # Automatically targets your active username (e.g., Jessica)
+
+	Write-Host "Scanning for desktop.ini files in: $targetPath" -ForegroundColor Cyan
+
+	# Find all existing desktop.ini files recursively
+	$iniFiles = Get-ChildItem -Path $targetPath -Filter "desktop.ini" -Recurse -File -Force
+
+	if ($iniFiles.Count -eq 0) {
+		Write-Host "No desktop.ini files found. Please ensure you have configured your custom folder icons first." -ForegroundColor Yellow
+	}
+	else {
+		foreach ($file in $iniFiles) {
+			# Apply explicit Deny for Write (W) to your user account using icacls
+			$command = "icacls `"$($file.FullName)`" /deny `"$principal`:(W)`" /C /Q"
+			Write-Host "Locking: $($file.FullName)"
+			Invoke-Expression $command
+		}
+		Write-Host "Successfully locked $($iniFiles.Count) desktop.ini file(s) against Google Drive modifications!" -ForegroundColor Green
+	}
+}
+
 # ============================================================
 # Aliases (exported so that Get-Alias shows this module as the source)
 Set-Alias -Name Junctions -Value SymbolicLinks
@@ -453,6 +477,7 @@ Set-Alias -Name Version -Value PowerShellVersion
 Set-Alias -Name About -Value PowerShellVersion
 Set-Alias -Name SecurityReset -Value RemoveAllAttributes
 Set-Alias -Name Reload -Value ReloadProfile
+Set-Alias -Name Icons -Value LockIcons
 
 # ? Functions (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
 # ? Aliases (Don't use this in old PowerShell versions that don't support Get-Alias -Module)
