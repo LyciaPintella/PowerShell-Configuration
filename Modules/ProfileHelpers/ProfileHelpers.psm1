@@ -515,7 +515,7 @@ function Profile {
 function LockIcons {
 	# Define your Google Drive directory path
 	$targetPath = "D:\Cloud Storage\Google Drive\Jessica's Google Drive"
-	$principal = $env:USERNAME # Automatically targets your active username (e.g., Jessica)
+	$principal = "$env:COMPUTERNAME\$env:USERNAME" # Explicitly targets 'ComputerName\Username'
 
 	Write-Host "Scanning for desktop.ini files in: $targetPath" -ForegroundColor Cyan
 
@@ -527,12 +527,34 @@ function LockIcons {
 	}
 	else {
 		foreach ($file in $iniFiles) {
-			# Apply explicit Deny for Write (W) to your user account using icacls
-			$command = "icacls `"$($file.FullName)`" /deny `"$principal`:(W)`" /C /Q"
-			Write-Host "Locking: $($file.FullName)"
-			Invoke-Expression $command
+			Write-Host "Configuring: $($file.FullName)" -ForegroundColor DarkGray
+
+			# 1. Ensure file has Hidden and System attributes required by Windows Explorer
+			$fileObj = Get-Item -Path $file.FullName
+			$fileObj.Attributes = [System.IO.FileAttributes]::Hidden -bor [System.IO.FileAttributes]::System
+
+			# 2. Get the current Access Control List (ACL)
+			$acl = Get-Acl -Path $file.FullName
+
+			# 3. Remove any preexisting Deny rules for your user to avoid duplicates/conflicts
+			$acl.Access | Where-Object {
+				$_.IdentityReference -eq $principal -and $_.AccessControlType -eq 'Deny'
+			} | ForEach-Object {
+				$acl.RemoveAccessRule($_) | Out-Null
+			}
+
+			# 4. Add the exact working Deny rule: Write only (no Synchronize)
+			$permission = New-Object System.Security.AccessControl.FileSystemAccessRule(
+				$principal,
+				[System.Security.AccessControl.FileSystemRights]::Write,
+				[System.Security.AccessControl.AccessControlType]::Deny
+			)
+			$acl.AddAccessRule($permission)
+
+			# 5. Apply the updated ACL back to the file
+			Set-Acl -Path $file.FullName -AclObject $acl
 		}
-		Write-Host "Successfully locked $($iniFiles.Count) desktop.ini file(s) against Google Drive modifications!" -ForegroundColor Green
+		Write-Host "Successfully locked $($iniFiles.Count) desktop.ini file(s) with precise write-deny permissions!" -ForegroundColor Green
 	}
 }
 
