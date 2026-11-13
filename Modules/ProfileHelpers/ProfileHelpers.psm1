@@ -555,6 +555,92 @@ function LockIcons {
 		}
 		Write-Host "Successfully locked $($iniFiles.Count) desktop.ini file(s) with precise write-deny permissions!" -ForegroundColor Green
 	}
+
+	# Define your Google Drive directory path
+	$targetPath = "D:\Cloud Storage\Google Drive\Jessica's Google Drive\Pictures\Women in Diapers and Bondage"
+	$principal = "$env:COMPUTERNAME\$env:USERNAME" # Explicitly targets 'ComputerName\Username'
+
+	Write-Host "Scanning for desktop.ini files in: $targetPath" -ForegroundColor Cyan
+
+	# Find all existing desktop.ini files recursively
+	$iniFiles = Get-ChildItem -Path $targetPath -Filter "desktop.ini" -Recurse -File -Force
+
+	if ($iniFiles.Count -eq 0) {
+		Write-Host "No desktop.ini files found. Please ensure you have configured your custom folder icons first." -ForegroundColor Yellow
+	}
+	else {
+		foreach ($file in $iniFiles) {
+			Write-Host "Configuring: $($file.FullName)" -ForegroundColor DarkGray
+
+			# 1. Ensure file does not have Hidden and System attributes directly using the existing $file object
+			$file.Attributes = [System.IO.FileAttributes]::Normal
+
+			# 2. Get the current Access Control List (ACL)
+			$acl = Get-Acl -Path $file.FullName
+
+			# 3. Remove any preexisting Deny rules for your user to avoid duplicates/conflicts
+			$acl.Access | Where-Object {
+				$_.IdentityReference -eq $principal -and $_.AccessControlType -eq 'Deny'
+			} | ForEach-Object {
+				$acl.RemoveAccessRule($_) | Out-Null
+			}
+
+			# 4. Remove the exact working Deny rule: Write only (no Synchronize)
+			$permission = New-Object System.Security.AccessControl.FileSystemAccessRule(
+				$principal,
+				[System.Security.AccessControl.FileSystemRights]::Write,
+				[System.Security.AccessControl.AccessControlType]::Deny
+			)
+			$acl.RemoveAccessRule($permission) | Out-Null
+
+			# 5. Apply the updated ACL back to the file
+			Set-Acl -Path $file.FullName -AclObject $acl
+		}
+		Write-Host "Successfully unlocked $($iniFiles.Count) desktop.ini file(s) by removing precise write-deny permissions!" -ForegroundColor Green
+	}
+
+	# Define your Google Drive directory path
+	$targetPath = "D:\Cloud Storage\Google Drive\Jessica's Google Drive\Videos\Women in Diapers and Bondage"
+	$principal = "$env:COMPUTERNAME\$env:USERNAME" # Explicitly targets 'ComputerName\Username'
+
+	Write-Host "Scanning for desktop.ini files in: $targetPath" -ForegroundColor Cyan
+
+	# Find all existing desktop.ini files recursively
+	$iniFiles = Get-ChildItem -Path $targetPath -Filter "desktop.ini" -Recurse -File -Force
+
+	if ($iniFiles.Count -eq 0) {
+		Write-Host "No desktop.ini files found. Please ensure you have configured your custom folder icons first." -ForegroundColor Yellow
+	}
+	else {
+		foreach ($file in $iniFiles) {
+			Write-Host "Configuring: $($file.FullName)" -ForegroundColor DarkGray
+
+			# 1. Ensure file does not have Hidden and System attributes directly using the existing $file object
+			$file.Attributes = [System.IO.FileAttributes]::Normal
+
+			# 2. Get the current Access Control List (ACL)
+			$acl = Get-Acl -Path $file.FullName
+
+			# 3. Remove any preexisting Deny rules for your user to avoid duplicates/conflicts
+			$acl.Access | Where-Object {
+				$_.IdentityReference -eq $principal -and $_.AccessControlType -eq 'Deny'
+			} | ForEach-Object {
+				$acl.RemoveAccessRule($_) | Out-Null
+			}
+
+			# 4. Remove the exact working Deny rule: Write only (no Synchronize)
+			$permission = New-Object System.Security.AccessControl.FileSystemAccessRule(
+				$principal,
+				[System.Security.AccessControl.FileSystemRights]::Write,
+				[System.Security.AccessControl.AccessControlType]::Deny
+			)
+			$acl.RemoveAccessRule($permission) | Out-Null
+
+			# 5. Apply the updated ACL back to the file
+			Set-Acl -Path $file.FullName -AclObject $acl
+		}
+		Write-Host "Successfully unlocked $($iniFiles.Count) desktop.ini file(s) by removing precise write-deny permissions!" -ForegroundColor Green
+	}
 }
 
 # ============================================================
